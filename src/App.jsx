@@ -31,7 +31,6 @@ export default function App() {
       </Canvas>
       {enteredRoom && (
         <Overlay
-          catReaction={catReaction}
           onBack={() => setSelectedSection(null)}
           selectedSection={selectedSection}
         />

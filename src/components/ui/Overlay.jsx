@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { sectionContent } from '../../data/projects'
 import ExperiencePanel from './ExperiencePanel'
 import ProjectsPanel from './ProjectsPanel'
@@ -20,19 +20,9 @@ function SectionPanel({ sectionId }) {
 export default function Overlay({
   selectedSection,
   onBack,
-  catReaction,
 }) {
-  const [showCatMessage, setShowCatMessage] = useState(false)
   const [controlsOpen, setControlsOpen] = useState(true)
   const hasSelection = Boolean(sectionContent[selectedSection])
-
-  useEffect(() => {
-    if (!catReaction) return undefined
-
-    setShowCatMessage(true)
-    const timeout = window.setTimeout(() => setShowCatMessage(false), 2000)
-    return () => window.clearTimeout(timeout)
-  }, [catReaction])
 
   return (
     <div className="overlay">
@@ -76,12 +66,6 @@ export default function Overlay({
           </button>
           <SectionPanel sectionId={selectedSection} />
         </section>
-      )}
-
-      {showCatMessage && (
-        <p className="cat-toast" role="status">
-          The curator is awake.
-        </p>
       )}
     </div>
   )

@@ -8,6 +8,7 @@ import Interactable from './Interactable'
 
 vi.mock('@react-three/drei', () => ({
   Html: ({ children }) => <div>{children}</div>,
+  useGLTF: Object.assign(() => ({ scene: {} }), { preload: () => {} }),
 }))
 
 // Inspect the composition boundary without creating a WebGL context; render

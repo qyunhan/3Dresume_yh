@@ -46,12 +46,11 @@ test('selects a section from the room and returns with Back', async () => {
   ).not.toBeInTheDocument()
 })
 
-test('cat clicks trigger the playful status without opening a section', async () => {
+test('cat clicks do not open a portfolio section', async () => {
   render(<App />)
 
   await userEvent.click(screen.getByRole('button', { name: 'Enter' }))
   await userEvent.click(screen.getByRole('button', { name: 'Pet cat' }))
 
-  expect(screen.getByRole('status')).toHaveTextContent('The curator is awake.')
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })

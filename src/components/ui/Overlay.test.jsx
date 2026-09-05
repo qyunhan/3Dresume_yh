@@ -44,13 +44,6 @@ test('an unknown selection renders no panel', () => {
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })
 
-test('a cat reaction announces its playful message', () => {
-  render(
-    <Overlay selectedSection={null} onBack={() => {}} catReaction={1} />,
-  )
-  expect(screen.getByRole('status')).toHaveTextContent('The curator is awake.')
-})
-
 test('leaves destination navigation to the in-room markers', () => {
   render(
     <Overlay
