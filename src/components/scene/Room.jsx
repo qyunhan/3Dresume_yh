@@ -1,123 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { roomDestinations } from '../../data/roomDestinations'
+import { roomLayout } from '../../data/roomLayout'
 import Interactable from './Interactable'
 import { getCatReactionPose } from './catAnimation'
-
-const palette = {
-  lavender: '#aaa0bb',
-  lavenderShadow: '#8e829f',
-  wood: '#9a6548',
-  woodDark: '#6f4535',
-  cream: '#eee6d5',
-  white: '#f7f3ed',
-  ink: '#28252d',
-  blush: '#d99aa1',
-  sage: '#788b78',
-  sky: '#afc9cf',
-  gold: '#c58d5f',
-}
-
-function Material({ color, hovered = false, ...props }) {
-  return (
-    <meshStandardMaterial
-      color={color}
-      emissive="#fff0cf"
-      emissiveIntensity={hovered ? 0.2 : 0}
-      roughness={0.78}
-      {...props}
-    />
-  )
-}
-
-function RoomShell() {
-  return (
-    <group>
-      <mesh receiveShadow position={[0, -0.24, 0]}>
-        <boxGeometry args={[12, 0.45, 10]} />
-        <Material color={palette.wood} />
-      </mesh>
-      {Array.from({ length: 10 }, (_, index) => (
-        <mesh key={index} position={[-5.4 + index * 1.2, 0.002, 0]}>
-          <boxGeometry args={[0.025, 0.01, 9.92]} />
-          <Material color={palette.woodDark} />
-        </mesh>
-      ))}
-      <mesh receiveShadow position={[0, 3.1, -5.1]}>
-        <boxGeometry args={[12.25, 6.65, 0.28]} />
-        <Material color={palette.lavender} />
-      </mesh>
-      <mesh receiveShadow position={[-6.1, 3.1, 0]}>
-        <boxGeometry args={[0.28, 6.65, 10.25]} />
-        <Material color={palette.lavenderShadow} />
-      </mesh>
-      <mesh position={[0, 0.18, -4.9]}>
-        <boxGeometry args={[12, 0.2, 0.18]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh position={[-5.9, 0.18, 0]}>
-        <boxGeometry args={[0.18, 0.2, 10]} />
-        <Material color={palette.white} />
-      </mesh>
-    </group>
-  )
-}
-
-function Desk() {
-  return (
-    <group position={[-3.25, 0, -3.85]}>
-      <mesh castShadow position={[0, 2.12, 0]}>
-        <boxGeometry args={[3.7, 0.2, 1.25]} />
-        <Material color={palette.white} />
-      </mesh>
-      {[
-        [-1.58, 1.05, -0.46],
-        [1.58, 1.05, -0.46],
-        [-1.58, 1.05, 0.46],
-        [1.58, 1.05, 0.46],
-      ].map((position) => (
-        <mesh castShadow key={position.join()} position={position}>
-          <boxGeometry args={[0.16, 2.1, 0.16]} />
-          <Material color={palette.white} />
-        </mesh>
-      ))}
-      <mesh position={[1.2, 1.35, 0]}>
-        <boxGeometry args={[0.85, 1.25, 0.9]} />
-        <Material color="#e8e1da" />
-      </mesh>
-      <mesh position={[1.2, 1.51, 0.47]}>
-        <boxGeometry args={[0.58, 0.07, 0.03]} />
-        <Material color={palette.gold} />
-      </mesh>
-    </group>
-  )
-}
-
-function Chair() {
-  return (
-    <group position={[-3.1, 0, -1.95]} rotation={[0, -0.08, 0]}>
-      <mesh castShadow position={[0, 1.22, 0]}>
-        <boxGeometry args={[1.3, 0.18, 1.2]} />
-        <Material color={palette.cream} />
-      </mesh>
-      <mesh castShadow position={[0, 2.08, 0.48]} rotation={[-0.08, 0, 0]}>
-        <boxGeometry args={[1.3, 1.55, 0.18]} />
-        <Material color={palette.cream} />
-      </mesh>
-      {[
-        [-0.5, 0.58, -0.42],
-        [0.5, 0.58, -0.42],
-        [-0.5, 0.58, 0.42],
-        [0.5, 0.58, 0.42],
-      ].map((position) => (
-        <mesh castShadow key={position.join()} position={position}>
-          <boxGeometry args={[0.12, 1.15, 0.12]} />
-          <Material color={palette.woodDark} />
-        </mesh>
-      ))}
-    </group>
-  )
-}
+import { Material, palette } from './room/materials'
+import RoomShell from './room/RoomShell'
+import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
 
 function Laptop({ hovered }) {
   return (
@@ -222,33 +111,6 @@ function Reports({ hovered }) {
   )
 }
 
-function Window() {
-  return (
-    <group position={[-5.91, 3.75, 0.55]} rotation={[0, Math.PI / 2, 0]}>
-      <mesh>
-        <boxGeometry args={[3.1, 2.5, 0.13]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh position={[0, 0, 0.08]}>
-        <boxGeometry args={[2.72, 2.12, 0.04]} />
-        <meshStandardMaterial color={palette.sky} roughness={0.35} />
-      </mesh>
-      <mesh position={[0, 0, 0.12]}>
-        <boxGeometry args={[0.1, 2.18, 0.07]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh position={[0, 0, 0.12]}>
-        <boxGeometry args={[2.78, 0.1, 0.07]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh position={[0, -1.34, 0.1]}>
-        <boxGeometry args={[3.35, 0.16, 0.35]} />
-        <Material color={palette.white} />
-      </mesh>
-    </group>
-  )
-}
-
 function FloatingShelves() {
   return (
     <group>
@@ -270,25 +132,6 @@ function Rug() {
       <boxGeometry args={[5.4, 0.07, 4.25]} />
       <Material color={palette.cream} />
     </mesh>
-  )
-}
-
-function MediaConsole() {
-  return (
-    <group position={[3.2, 0, -4.08]}>
-      <mesh castShadow position={[0, 1.25, 0]}>
-        <boxGeometry args={[3.75, 0.18, 1.05]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh castShadow position={[-1.55, 0.65, 0]}>
-        <boxGeometry args={[0.14, 1.2, 0.8]} />
-        <Material color={palette.white} />
-      </mesh>
-      <mesh castShadow position={[1.55, 0.65, 0]}>
-        <boxGeometry args={[0.14, 1.2, 0.8]} />
-        <Material color={palette.white} />
-      </mesh>
-    </group>
   )
 }
 
@@ -432,10 +275,9 @@ export default function Room({ onSelect, onCatClick, catReaction }) {
     <group>
       <RoomShell />
       <Rug />
-      <Desk />
-      <Chair />
-      <MediaConsole />
-      <Window />
+      <Desk {...roomLayout.desk} />
+      <OfficeChair {...roomLayout.chair} />
+      <MediaConsole {...roomLayout.mediaConsole} />
       <FloatingShelves />
       <Decor />
 
