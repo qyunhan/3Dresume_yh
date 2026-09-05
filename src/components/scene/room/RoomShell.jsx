@@ -12,7 +12,10 @@ function Box({ size, color, ...props }) {
 
 function Window() {
   return (
-    <group {...roomLayout.window}>
+    <group
+      position={roomLayout.window.position}
+      rotation={roomLayout.window.rotation}
+    >
       <Box size={[3.8, 2.9, 0.16]} color={palette.lavenderShadow} />
       <Box size={[3.6, 2.72, 0.15]} position={[0, 0, 0.08]} color={palette.white} />
       {[-0.81, 0.81].map((x) => (
@@ -52,7 +55,10 @@ function Window() {
 
 function Door() {
   return (
-    <group {...roomLayout.door}>
+    <group
+      position={roomLayout.door.position}
+      rotation={roomLayout.door.rotation}
+    >
       <Box size={[1.94, 5.3, 0.18]} color={palette.lavenderShadow} />
       <Box size={[1.68, 5.13, 0.16]} position={[0, -0.07, 0.09]} color="#d4c6be" />
       {[-0.92, 0.92].map((x) => (

@@ -5,7 +5,7 @@ import { roomDestinations } from './roomDestinations'
 export const roomLayout = {
   room: { width: 14, depth: 11, backWallZ: -5.5 },
 
-  window: { position: [-4.7, 3.9, -5.34] },
+  window: { position: [-6.84, 3.9, -3.6], rotation: [0, Math.PI / 2, 0] },
   desk: { position: [-3.65, 1.35, -4.35] },
   chair: { position: [-3.65, 1.05, -2.8] },
   laptop: {
@@ -32,5 +32,5 @@ export const roomLayout = {
   rug: { position: [-0.45, 0.04, -1.4] },
   cat: { position: [-2.1, 0.45, -0.65] },
   shelves: { position: [-0.8, 4.35, -5.2] },
-  door: { position: [5.7, 2.65, -5.2] },
+  door: { position: [6.84, 2.65, -4.4], rotation: [0, Math.PI / 2, 0] },
 }
