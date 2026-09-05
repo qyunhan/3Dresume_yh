@@ -32,5 +32,5 @@ export const roomLayout = {
   rug: { position: [-0.45, 0.04, -1.4] },
   cat: { position: [-2.1, 0.45, -0.65] },
   shelves: { position: [-0.8, 4.35, -5.2] },
-  door: { position: [6.84, 2.65, -4.4], rotation: [0, Math.PI / 2, 0] },
+  door: { position: [6.84, 2.65, -4.4], rotation: [0, -Math.PI / 2, 0] },
 }

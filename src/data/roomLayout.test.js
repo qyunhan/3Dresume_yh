@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest'
+import { Euler, Vector3 } from 'three'
 import { roomLayout } from './roomLayout'
 
 const anchorIds = [
@@ -36,7 +37,6 @@ describe('immersive room layout', () => {
 
   test('keeps the right-return door clear of the media console', () => {
     expect(roomLayout.door.position).toEqual([6.84, 2.65, -4.4])
-    expect(roomLayout.door.rotation).toEqual([0, Math.PI / 2, 0])
 
     const doorLeftEdge = roomLayout.door.position[0] - 0.18 / 2
     const consoleRightEdge = roomLayout.mediaConsole.position[0] + 4.1 / 2
@@ -50,6 +50,18 @@ describe('immersive room layout', () => {
     expect(roomLayout.door.position[2] + doorHalfWidth).toBeLessThanOrEqual(
       rightReturnEnd,
     )
+  })
+
+  test('faces the right-wall door panels and handle into the room', () => {
+    // Door details protrude along local +Z; on the right wall this must face -X.
+    const faceNormal = new Vector3(0, 0, 1).applyEuler(
+      new Euler(...roomLayout.door.rotation),
+    )
+
+    expect(faceNormal.x).toBeCloseTo(-1)
+    expect(faceNormal.y).toBeCloseTo(0)
+    expect(faceNormal.z).toBeCloseTo(0)
+    expect(roomLayout.door.rotation).toEqual([0, -Math.PI / 2, 0])
   })
 
   test.each([
