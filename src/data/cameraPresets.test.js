@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { SECTION_IDS } from './projects'
+import { roomLayout } from './roomLayout'
 import {
   cameraPresets,
   getCameraPreset,
@@ -37,6 +38,21 @@ describe('camera presets', () => {
         )
         expect(distance).toBeLessThan(13)
       })
+  })
+
+  test('selected targets stay aligned with their room anchors', () => {
+    const anchorBySection = {
+      frontend: 'tv',
+      technical: 'laptop',
+      experience: 'noticeBoard',
+      reports: 'reports',
+    }
+
+    Object.entries(anchorBySection).forEach(([sectionId, anchorId]) => {
+      expect(cameraPresets[sectionId].target).toEqual(
+        roomLayout[anchorId].position,
+      )
+    })
   })
 })
 

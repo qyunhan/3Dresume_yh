@@ -1,5 +1,7 @@
 // Stable transforms shared by the procedural room and its in-room markers.
 // Portfolio copy belongs in projects.js, not in this scene contract.
+import { roomDestinations } from './roomDestinations'
+
 export const roomLayout = {
   room: { width: 14, depth: 11, backWallZ: -5.5 },
 
@@ -9,23 +11,23 @@ export const roomLayout = {
   laptop: {
     position: [-3.65, 2.25, -4.05],
     markerPosition: [-3.65, 3.25, -3.88],
-    sectionId: 'technical',
+    sectionId: roomDestinations.laptop.sectionId,
   },
   noticeBoard: {
     position: [0, 3.55, -5.25],
     markerPosition: [0, 4.75, -5.05],
-    sectionId: 'experience',
+    sectionId: roomDestinations.noticeBoard.sectionId,
   },
   tv: {
     position: [3.55, 3.05, -5.15],
     markerPosition: [3.55, 4.4, -4.95],
-    sectionId: 'frontend',
+    sectionId: roomDestinations.tv.sectionId,
   },
   mediaConsole: { position: [3.55, 1.05, -4.7] },
   reports: {
     position: [3.65, 0.75, -1.55],
     markerPosition: [3.65, 2.25, -1.35],
-    sectionId: 'reports',
+    sectionId: roomDestinations.reports.sectionId,
   },
   rug: { position: [-0.45, 0.04, -1.4] },
   cat: { position: [-2.1, 0.45, -0.65] },
