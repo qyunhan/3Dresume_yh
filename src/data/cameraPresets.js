@@ -10,8 +10,15 @@ export function getCameraPreset(sectionId) {
   return cameraPresets[sectionId] ?? cameraPresets.overview
 }
 
-export function getResponsiveCameraPosition(preset, aspect, hasSelection) {
-  if (aspect >= 0.8) return preset.position
+export function getResponsiveCameraPosition(
+  preset,
+  aspect,
+  hasSelection,
+  viewportWidth = Number.POSITIVE_INFINITY,
+) {
+  const compactSelection = hasSelection && viewportWidth <= 720
+  const portraitOverview = !hasSelection && aspect < 0.8
+  if (!compactSelection && !portraitOverview) return preset.position
 
   const portraitScale = hasSelection ? 1.18 : 1.55
   return preset.position.map(
@@ -21,8 +28,13 @@ export function getResponsiveCameraPosition(preset, aspect, hasSelection) {
   )
 }
 
-export function getResponsiveCameraTarget(preset, aspect, hasSelection) {
-  if (aspect >= 0.8 || !hasSelection) return preset.target
+export function getResponsiveCameraTarget(
+  preset,
+  _aspect,
+  hasSelection,
+  viewportWidth = Number.POSITIVE_INFINITY,
+) {
+  if (!hasSelection || viewportWidth > 720) return preset.target
   return [preset.target[0], preset.target[1] - 1.2, preset.target[2]]
 }
 

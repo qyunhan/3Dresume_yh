@@ -28,8 +28,14 @@ export default function CameraController({ selectedSection }) {
       preset,
       aspect,
       hasSelection,
+      size.width,
     )
-    const target = getResponsiveCameraTarget(preset, aspect, hasSelection)
+    const target = getResponsiveCameraTarget(
+      preset,
+      aspect,
+      hasSelection,
+      size.width,
+    )
     const overviewParallax = hasSelection
       ? [0, 0, 0]
       : [pointer.x * 0.34, pointer.y * 0.16, pointer.x * 0.12]

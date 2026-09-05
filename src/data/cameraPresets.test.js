@@ -43,13 +43,23 @@ test('portrait selection pulls back and shifts the focus below the object', () =
     cameraPresets.frontend,
     0.6,
     true,
+    390,
   )
   ;[8.183, 5.397, 9.18].forEach((coordinate, index) => {
     expect(position[index]).toBeCloseTo(coordinate)
   })
   expect(
-    getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true),
+    getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true, 390),
   ).toEqual([3.05, 2.25, -3.8])
+})
+
+test('selected framing follows the 720px bottom-sheet breakpoint', () => {
+  expect(
+    getResponsiveCameraTarget(cameraPresets.frontend, 1.2, true, 720),
+  ).toEqual([3.05, 2.25, -3.8])
+  expect(
+    getResponsiveCameraTarget(cameraPresets.frontend, 0.8, true, 721),
+  ).toBe(cameraPresets.frontend.target)
 })
 
 test('only authored destination identifiers count as selected camera views', () => {
