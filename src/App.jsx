@@ -30,7 +30,6 @@ export default function App() {
       <Overlay
         catReaction={catReaction}
         onBack={() => setSelectedSection(null)}
-        onSelect={setSelectedSection}
         selectedSection={selectedSection}
       />
     </main>
