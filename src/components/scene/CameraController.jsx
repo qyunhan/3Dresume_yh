@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { MathUtils, Vector3 } from 'three'
-import { getCameraPreset } from '../../data/cameraPresets'
+import {
+  getCameraPreset,
+  getResponsiveCameraPosition,
+} from '../../data/cameraPresets'
 
 export default function CameraController({ selectedSection }) {
   const lookAt = useRef(new Vector3(...getCameraPreset(null).target))
@@ -15,8 +18,13 @@ export default function CameraController({ selectedSection }) {
     return () => media.removeEventListener?.('change', updatePreference)
   }, [])
 
-  useFrame(({ camera, pointer }, delta) => {
+  useFrame(({ camera, pointer, size }, delta) => {
     const preset = getCameraPreset(selectedSection)
+    const position = getResponsiveCameraPosition(
+      preset,
+      size.width / size.height,
+      Boolean(selectedSection),
+    )
     const overviewParallax = selectedSection
       ? [0, 0, 0]
       : [pointer.x * 0.34, pointer.y * 0.16, pointer.x * 0.12]
@@ -24,19 +32,19 @@ export default function CameraController({ selectedSection }) {
 
     camera.position.x = MathUtils.damp(
       camera.position.x,
-      preset.position[0] + overviewParallax[0],
+      position[0] + overviewParallax[0],
       easing,
       delta,
     )
     camera.position.y = MathUtils.damp(
       camera.position.y,
-      preset.position[1] + overviewParallax[1],
+      position[1] + overviewParallax[1],
       easing,
       delta,
     )
     camera.position.z = MathUtils.damp(
       camera.position.z,
-      preset.position[2] + overviewParallax[2],
+      position[2] + overviewParallax[2],
       easing,
       delta,
     )

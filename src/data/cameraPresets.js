@@ -9,3 +9,14 @@ export const cameraPresets = {
 export function getCameraPreset(sectionId) {
   return cameraPresets[sectionId] ?? cameraPresets.overview
 }
+
+export function getResponsiveCameraPosition(preset, aspect, hasSelection) {
+  if (aspect >= 0.8 || hasSelection) return preset.position
+
+  const portraitScale = 1.55
+  return preset.position.map(
+    (coordinate, index) =>
+      preset.target[index] +
+      (coordinate - preset.target[index]) * portraitScale,
+  )
+}

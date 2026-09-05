@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { roomDestinations } from '../../data/roomDestinations'
 import Interactable from './Interactable'
+import { getCatReactionPose } from './catAnimation'
 
 const palette = {
   lavender: '#aaa0bb',
@@ -349,6 +350,7 @@ function Decor() {
 function Cat({ reaction }) {
   const cat = useRef()
   const reactionStart = useRef(-10)
+  const reactionPending = useRef(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
@@ -358,20 +360,22 @@ function Cat({ reaction }) {
   }, [])
 
   useEffect(() => {
-    if (reaction > 0) reactionStart.current = performance.now() / 1000
+    if (reaction > 0) reactionPending.current = true
   }, [reaction])
 
   useFrame(({ clock }) => {
     if (!cat.current) return
-    const elapsed = clock.elapsedTime - reactionStart.current
-    const active = elapsed >= 0 && elapsed < 0.8 && !reduceMotion
-    const falloff = active ? 1 - elapsed / 0.8 : 0
-    cat.current.position.y = active
-      ? Math.abs(Math.sin(elapsed * Math.PI * 3.2)) * 0.32 * falloff
-      : 0
-    cat.current.rotation.z = active
-      ? Math.sin(elapsed * Math.PI * 8) * 0.12 * falloff
-      : 0
+    if (reactionPending.current) {
+      reactionStart.current = clock.elapsedTime
+      reactionPending.current = false
+    }
+    const pose = getCatReactionPose(
+      clock.elapsedTime,
+      reactionStart.current,
+      reduceMotion,
+    )
+    cat.current.position.y = pose.y
+    cat.current.rotation.z = pose.rotationZ
   })
 
   return (
