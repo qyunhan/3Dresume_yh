@@ -9,6 +9,11 @@ import {
 } from './cameraPresets'
 
 describe('camera presets', () => {
+  test('overview uses the immersive room-facing pose', () => {
+    expect(cameraPresets.overview.position).toEqual([8.8, 5.7, 10.4])
+    expect(cameraPresets.overview.target).toEqual([0, 2.45, -1.25])
+  })
+
   test.each(['frontend', 'technical', 'experience', 'reports'])(
     '%s has a complete camera pose',
     (sectionId) => {
@@ -22,6 +27,17 @@ describe('camera presets', () => {
     expect(getCameraPreset('missing')).toBe(cameraPresets.overview)
     expect(getCameraPreset(null)).toBe(cameraPresets.overview)
   })
+
+  test('selected poses retain surrounding context', () => {
+    Object.values(cameraPresets)
+      .filter((preset) => preset !== cameraPresets.overview)
+      .forEach(({ position, target }) => {
+        const distance = Math.hypot(
+          ...position.map((coordinate, index) => coordinate - target[index]),
+        )
+        expect(distance).toBeLessThan(13)
+      })
+  })
 })
 
 test('portrait overview pulls back while desktop keeps the authored pose', () => {
@@ -33,7 +49,7 @@ test('portrait overview pulls back while desktop keeps the authored pose', () =>
     0.6,
     false,
   )
-  ;[16.275, 11.5, 19.375].forEach((coordinate, index) => {
+  ;[13.64, 7.4875, 16.8075].forEach((coordinate, index) => {
     expect(portraitPosition[index]).toBeCloseTo(coordinate)
   })
 })
@@ -45,18 +61,22 @@ test('portrait selection pulls back and shifts the focus below the object', () =
     true,
     390,
   )
-  ;[8.183, 5.397, 9.18].forEach((coordinate, index) => {
+  ;[7.621, 5.941, 7.417].forEach((coordinate, index) => {
     expect(position[index]).toBeCloseTo(coordinate)
   })
-  expect(
-    getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true, 390),
-  ).toEqual([3.05, 2.25, -3.8])
+  ;[3.55, 1.85, -5.15].forEach((coordinate, index) => {
+    expect(
+      getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true, 390)[index],
+    ).toBeCloseTo(coordinate)
+  })
 })
 
 test('selected framing follows the 720px bottom-sheet breakpoint', () => {
-  expect(
-    getResponsiveCameraTarget(cameraPresets.frontend, 1.2, true, 720),
-  ).toEqual([3.05, 2.25, -3.8])
+  ;[3.55, 1.85, -5.15].forEach((coordinate, index) => {
+    expect(
+      getResponsiveCameraTarget(cameraPresets.frontend, 1.2, true, 720)[index],
+    ).toBeCloseTo(coordinate)
+  })
   expect(
     getResponsiveCameraTarget(cameraPresets.frontend, 0.8, true, 721),
   ).toBe(cameraPresets.frontend.target)

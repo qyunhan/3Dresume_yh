@@ -1,9 +1,9 @@
 export const cameraPresets = {
-  overview: { position: [10.5, 8.2, 12.5], target: [0, 2.2, 0] },
-  frontend: { position: [7.4, 5.1, 7.2], target: [3.05, 3.45, -3.8] },
-  technical: { position: [4.6, 4.3, 7.4], target: [-1.7, 2.65, -3.4] },
-  experience: { position: [7.3, 5.3, 6.5], target: [0.5, 3.65, -3.82] },
-  reports: { position: [6.8, 4, 6.7], target: [2.1, 1.7, -2.5] },
+  overview: { position: [8.8, 5.7, 10.4], target: [0, 2.45, -1.25] },
+  frontend: { position: [7, 5.5, 5.5], target: [3.55, 3.05, -5.15] },
+  technical: { position: [2.5, 4.8, 5.2], target: [-3.65, 2.25, -4.05] },
+  experience: { position: [3.8, 5.8, 4.5], target: [0, 3.55, -5.25] },
+  reports: { position: [6.8, 4.5, 4.8], target: [3.65, 0.75, -1.55] },
 }
 
 export function getCameraPreset(sectionId) {
