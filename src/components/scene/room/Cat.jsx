@@ -4,6 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import { getCatWalkPose } from '../catAnimation'
 
 const CAT_MODEL_URL = '/models/fluffy-cat.glb'
+const CAT_SCALE = 0.72
 
 export default function Cat({ reaction }) {
   const cat = useRef()
@@ -37,7 +38,7 @@ export default function Cat({ reaction }) {
 
   return (
     <group ref={cat}>
-      <primitive object={scene} position={[0, -0.375, 0]} rotation={[0, -0.35, 0]} scale={1.16} />
+      <primitive object={scene} position={[0, -0.375, 0]} rotation={[0, -0.35, 0]} scale={CAT_SCALE} />
     </group>
   )
 }
