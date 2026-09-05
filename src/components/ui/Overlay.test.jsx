@@ -50,3 +50,27 @@ test('a cat reaction announces its playful message', () => {
   )
   expect(screen.getByRole('status')).toHaveTextContent('The curator is awake.')
 })
+
+test('offers keyboard-operable navigation to every portfolio section', async () => {
+  const onSelect = vi.fn()
+  render(
+    <Overlay
+      selectedSection={null}
+      onBack={() => {}}
+      onSelect={onSelect}
+      catReaction={0}
+    />,
+  )
+
+  const destinations = [
+    ['Frontend projects on TV', 'frontend'],
+    ['Technical projects on laptop', 'technical'],
+    ['About and experience on notice board', 'experience'],
+    ['Research and reports on books', 'reports'],
+  ]
+
+  for (const [label, sectionId] of destinations) {
+    await userEvent.click(screen.getByRole('button', { name: label }))
+    expect(onSelect).toHaveBeenLastCalledWith(sectionId)
+  }
+})

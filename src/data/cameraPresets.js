@@ -11,12 +11,23 @@ export function getCameraPreset(sectionId) {
 }
 
 export function getResponsiveCameraPosition(preset, aspect, hasSelection) {
-  if (aspect >= 0.8 || hasSelection) return preset.position
+  if (aspect >= 0.8) return preset.position
 
-  const portraitScale = 1.55
+  const portraitScale = hasSelection ? 1.18 : 1.55
   return preset.position.map(
     (coordinate, index) =>
       preset.target[index] +
       (coordinate - preset.target[index]) * portraitScale,
+  )
+}
+
+export function getResponsiveCameraTarget(preset, aspect, hasSelection) {
+  if (aspect >= 0.8 || !hasSelection) return preset.target
+  return [preset.target[0], preset.target[1] - 1.2, preset.target[2]]
+}
+
+export function hasCameraPreset(sectionId) {
+  return Boolean(
+    sectionId && sectionId !== 'overview' && cameraPresets[sectionId],
   )
 }

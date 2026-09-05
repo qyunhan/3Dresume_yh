@@ -4,6 +4,8 @@ import {
   cameraPresets,
   getCameraPreset,
   getResponsiveCameraPosition,
+  getResponsiveCameraTarget,
+  hasCameraPreset,
 } from './cameraPresets'
 
 describe('camera presets', () => {
@@ -34,4 +36,24 @@ test('portrait overview pulls back while desktop keeps the authored pose', () =>
   ;[16.275, 11.5, 19.375].forEach((coordinate, index) => {
     expect(portraitPosition[index]).toBeCloseTo(coordinate)
   })
+})
+
+test('portrait selection pulls back and shifts the focus below the object', () => {
+  const position = getResponsiveCameraPosition(
+    cameraPresets.frontend,
+    0.6,
+    true,
+  )
+  ;[8.183, 5.397, 9.18].forEach((coordinate, index) => {
+    expect(position[index]).toBeCloseTo(coordinate)
+  })
+  expect(
+    getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true),
+  ).toEqual([3.05, 2.25, -3.8])
+})
+
+test('only authored destination identifiers count as selected camera views', () => {
+  expect(hasCameraPreset('frontend')).toBe(true)
+  expect(hasCameraPreset('missing')).toBe(false)
+  expect(hasCameraPreset(null)).toBe(false)
 })

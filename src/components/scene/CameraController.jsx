@@ -4,6 +4,8 @@ import { MathUtils, Vector3 } from 'three'
 import {
   getCameraPreset,
   getResponsiveCameraPosition,
+  getResponsiveCameraTarget,
+  hasCameraPreset,
 } from '../../data/cameraPresets'
 
 export default function CameraController({ selectedSection }) {
@@ -20,12 +22,15 @@ export default function CameraController({ selectedSection }) {
 
   useFrame(({ camera, pointer, size }, delta) => {
     const preset = getCameraPreset(selectedSection)
+    const hasSelection = hasCameraPreset(selectedSection)
+    const aspect = size.width / size.height
     const position = getResponsiveCameraPosition(
       preset,
-      size.width / size.height,
-      Boolean(selectedSection),
+      aspect,
+      hasSelection,
     )
-    const overviewParallax = selectedSection
+    const target = getResponsiveCameraTarget(preset, aspect, hasSelection)
+    const overviewParallax = hasSelection
       ? [0, 0, 0]
       : [pointer.x * 0.34, pointer.y * 0.16, pointer.x * 0.12]
     const easing = reduceMotion ? 18 : 4.5
@@ -51,19 +56,19 @@ export default function CameraController({ selectedSection }) {
 
     lookAt.current.x = MathUtils.damp(
       lookAt.current.x,
-      preset.target[0],
+      target[0],
       easing,
       delta,
     )
     lookAt.current.y = MathUtils.damp(
       lookAt.current.y,
-      preset.target[1],
+      target[1],
       easing,
       delta,
     )
     lookAt.current.z = MathUtils.damp(
       lookAt.current.z,
-      preset.target[2],
+      target[2],
       easing,
       delta,
     )

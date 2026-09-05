@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { sectionContent } from '../../data/projects'
+import { roomDestinations } from '../../data/roomDestinations'
 import ExperiencePanel from './ExperiencePanel'
 import ProjectsPanel from './ProjectsPanel'
 import ReportsPanel from './ReportsPanel'
@@ -17,7 +18,12 @@ function SectionPanel({ sectionId }) {
   return <ProjectsPanel content={content} />
 }
 
-export default function Overlay({ selectedSection, onBack, catReaction }) {
+export default function Overlay({
+  selectedSection,
+  onBack,
+  onSelect = () => {},
+  catReaction,
+}) {
   const [showCatMessage, setShowCatMessage] = useState(false)
   const hasSelection = Boolean(sectionContent[selectedSection])
 
@@ -37,6 +43,20 @@ export default function Overlay({ selectedSection, onBack, catReaction }) {
         <p className="explore-hint">
           <span aria-hidden="true" /> Explore the glowing objects
         </p>
+        {!hasSelection && (
+          <nav aria-label="Portfolio destinations" className="destination-nav">
+            {Object.entries(roomDestinations).map(([objectId, destination]) => (
+              <button
+                aria-label={destination.label}
+                key={objectId}
+                onClick={() => onSelect(destination.sectionId)}
+                type="button"
+              >
+                {objectId === 'noticeBoard' ? 'Board' : objectId}
+              </button>
+            ))}
+          </nav>
+        )}
       </header>
 
       {hasSelection && (

@@ -118,6 +118,35 @@ button:focus-visible {
   box-shadow: 0 0 0 0.32rem rgba(255, 240, 207, 0.28);
 }
 
+.destination-nav {
+  display: flex;
+  margin-top: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  pointer-events: auto;
+}
+
+.destination-nav button {
+  min-height: 1.85rem;
+  padding: 0 0.62rem;
+  border: 1px solid rgba(65, 51, 69, 0.12);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.destination-nav button:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+}
+
 .content-panel {
   position: absolute;
   top: clamp(1.1rem, 3vw, 2.6rem);
@@ -321,6 +350,16 @@ button:focus-visible {
 
   .explore-hint {
     font-size: 0.66rem;
+  }
+
+  .destination-nav {
+    margin-top: 0.6rem;
+  }
+
+  .destination-nav button {
+    min-height: 1.65rem;
+    padding: 0 0.48rem;
+    font-size: 0.53rem;
   }
 
   .content-panel {
