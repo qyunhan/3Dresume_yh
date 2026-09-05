@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function Interactable({ label, onClick, children, ...props }) {
+export default function Interactable({ label, onClick, children, onHoverChange, ...props }) {
   const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
@@ -20,10 +20,12 @@ export default function Interactable({ label, onClick, children, ...props }) {
       onPointerOut={(event) => {
         event.stopPropagation()
         setHovered(false)
+        onHoverChange?.(false)
       }}
       onPointerOver={(event) => {
         event.stopPropagation()
         setHovered(true)
+        onHoverChange?.(true)
       }}
       {...props}
     >

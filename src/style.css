@@ -47,21 +47,23 @@ button:focus-visible {
 .scene-marker {
   display: inline-flex;
   min-height: 2.75rem;
-  padding: 0.28rem 0.62rem 0.28rem 0.42rem;
+  padding: 0.42rem;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
   color: #fff;
-  background: rgba(103, 81, 119, 0.72);
+  background: rgba(103, 81, 119, 0.62);
   box-shadow: 0 0.65rem 1.5rem rgba(58, 40, 67, 0.22);
   cursor: pointer;
   touch-action: manipulation;
   pointer-events: auto;
   backdrop-filter: blur(10px);
-  transition: background 180ms ease, transform 180ms ease;
+  transition: background 180ms ease, transform 180ms ease, padding 180ms ease;
 }
 
-.scene-marker:hover {
+.scene-marker:hover,
+.scene-marker.is-visible {
+  padding: 0.28rem 0.62rem 0.28rem 0.42rem;
   background: rgba(116, 91, 134, 0.88);
   transform: translateY(-2px);
 }
@@ -82,8 +84,10 @@ button:focus-visible {
 .marker-leader {
   width: 0.9rem;
   height: 1px;
-  margin: 0 0.42rem;
+  margin: 0;
   background: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  transition: margin 180ms ease, opacity 180ms ease;
 }
 
 .marker-label {
@@ -92,6 +96,22 @@ button:focus-visible {
   letter-spacing: 0.04em;
   line-height: 1;
   white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 180ms ease, opacity 180ms ease;
+}
+
+.scene-marker.is-visible .marker-leader,
+.scene-marker:hover .marker-leader {
+  margin: 0 0.42rem;
+  opacity: 1;
+}
+
+.scene-marker.is-visible .marker-label,
+.scene-marker:hover .marker-label {
+  max-width: 7rem;
+  opacity: 1;
 }
 
 .app-shell {
@@ -125,18 +145,84 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.brand-card {
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.85rem 1rem;
+.room-controls {
+  position: relative;
+  width: min(13.5rem, calc(100vw - 2rem));
+  padding: 1rem 1.1rem 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 1rem;
-  background: rgba(248, 242, 235, 0.56);
-  box-shadow: 0 0.6rem 2rem rgba(62, 48, 69, 0.08);
+  border-radius: 0 1.35rem 1.35rem 0;
+  color: #fff;
+  background: rgba(99, 82, 122, 0.62);
+  box-shadow: 0 0.8rem 2rem rgba(50, 37, 60, 0.18);
   backdrop-filter: blur(14px);
+  pointer-events: auto;
 }
 
-.brand-kicker,
+.controls-title {
+  margin: 0 0 0.9rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+
+.room-controls ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.room-controls li {
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.room-controls li span {
+  display: inline-grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 0.4rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.74rem;
+}
+
+.controls-dismiss,
+.controls-reveal {
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.controls-dismiss {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.controls-reveal {
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(99, 82, 122, 0.7);
+  box-shadow: 0 0.6rem 1.6rem rgba(50, 37, 60, 0.18);
+  font-size: 1rem;
+}
+
 .eyebrow,
 .report-meta,
 .timeline-period {
@@ -149,36 +235,6 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
-.brand-card h1 {
-  margin: 0.35rem 0 0.6rem;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.5rem, 2vw, 1.9rem);
-  font-weight: 400;
-  letter-spacing: -0.045em;
-  line-height: 1.05;
-}
-
-.brand-kicker {
-  font-size: 0.58rem;
-  letter-spacing: 0.12em;
-}
-
-.explore-hint {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0;
-  color: var(--ink-soft);
-  font-size: 0.7rem;
-}
-
-.explore-hint span {
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 50%;
-  background: #fff0cf;
-  box-shadow: 0 0 0 0.32rem rgba(255, 240, 207, 0.28);
-}
 
 .content-panel {
   position: absolute;
@@ -375,22 +431,18 @@ button:focus-visible {
       max(0.8rem, env(safe-area-inset-bottom));
   }
 
-  .brand-card {
-    padding: 0.7rem 0.85rem;
-    border-radius: 0.85rem;
+  .room-controls {
+    width: min(12.5rem, calc(100vw - 1.6rem));
+    padding: 0.85rem 0.95rem 0.95rem;
+    border-radius: 0 1.15rem 1.15rem 0;
   }
 
-  .brand-card h1 {
-    margin-bottom: 0.45rem;
-    font-size: 1.5rem;
+  .room-controls ul {
+    gap: 0.62rem;
   }
 
-  .brand-kicker {
-    font-size: 0.55rem;
-  }
-
-  .explore-hint {
-    font-size: 0.66rem;
+  .room-controls li {
+    font-size: 0.7rem;
   }
 
   .content-panel {
@@ -465,12 +517,9 @@ button:focus-visible {
 }
 
 @media (max-width: 390px) {
-  .brand-card {
-    padding: 0.65rem 0.75rem;
-  }
-
-  .brand-card h1 {
-    font-size: 1.4rem;
+  .room-controls {
+    width: min(11.75rem, calc(100vw - 1.6rem));
+    padding: 0.75rem 0.85rem 0.85rem;
   }
 }
 

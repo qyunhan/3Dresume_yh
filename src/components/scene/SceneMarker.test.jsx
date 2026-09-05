@@ -25,3 +25,22 @@ test('exposes an anchored destination as a DOM button', async () => {
   expect(screen.getByText('Projects')).toBeInTheDocument()
   expect(onSelect).toHaveBeenCalledOnce()
 })
+
+test('reveals its label while hovered or focused', async () => {
+  const user = userEvent.setup()
+  render(
+    <SceneMarker
+      label="Frontend projects on TV"
+      shortLabel="Projects"
+      position={[1, 2, 3]}
+      onSelect={() => {}}
+    />,
+  )
+
+  const marker = screen.getByRole('button', { name: 'Frontend projects on TV' })
+  expect(marker).not.toHaveClass('is-visible')
+  await user.hover(marker)
+  expect(marker).toHaveClass('is-visible')
+  await user.unhover(marker)
+  expect(marker).not.toHaveClass('is-visible')
+})

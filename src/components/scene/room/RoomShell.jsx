@@ -96,7 +96,6 @@ export default function RoomShell() {
       <Box size={[width + 0.28, height, 0.28]} position={[0, height / 2, backWallZ - 0.14]} color={palette.lavender} />
       <Box size={[0.28, height, depth]} position={[-width / 2 - 0.14, height / 2, centerZ]} color={palette.lavenderShadow} />
       <Box size={[0.28, height, 2.2]} position={[width / 2 + 0.14, height / 2, backWallZ + 1.1]} color={palette.lavender} />
-      <Box size={[width + 0.56, 0.12, depth]} position={[0, height + 0.06, centerZ]} color="#b8afc7" />
       <Box size={[width, 0.22, 0.12]} position={[0, 0.14, backWallZ + 0.06]} color={palette.white} />
       <Box size={[0.12, 0.22, depth]} position={[-width / 2 + 0.06, 0.14, centerZ]} color={palette.white} />
       <Box size={[0.12, 0.22, 2.2]} position={[width / 2 - 0.06, 0.14, backWallZ + 1.1]} color={palette.white} />

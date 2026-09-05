@@ -62,5 +62,18 @@ test('leaves destination navigation to the in-room markers', () => {
 
   expect(screen.queryByRole('navigation', { name: 'Portfolio destinations' }))
     .not.toBeInTheDocument()
-  expect(screen.queryByRole('button')).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Hide room controls' }))
+    .toBeInTheDocument()
+})
+
+test('lets visitors hide and restore the room controls menu', async () => {
+  const user = userEvent.setup()
+  render(<Overlay selectedSection={null} onBack={() => {}} catReaction={0} />)
+
+  expect(screen.getByText('Drag to look around')).toBeInTheDocument()
+  await user.click(screen.getByRole('button', { name: 'Hide room controls' }))
+  expect(screen.queryByText('Drag to look around')).not.toBeInTheDocument()
+
+  await user.click(screen.getByRole('button', { name: 'Show room controls' }))
+  expect(screen.getByText('Scroll to zoom')).toBeInTheDocument()
 })

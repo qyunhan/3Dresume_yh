@@ -33,10 +33,19 @@ export default function Room({ onSelect, onCatClick, catReaction }) {
         const select = () => onSelect(anchor.sectionId)
         return (
           <group key={id}>
-            <Interactable label={roomDestinations[id].label} onClick={select} position={anchor.position}>
+            <Interactable
+              label={roomDestinations[id].label}
+              onClick={select}
+              position={anchor.position}
+            >
               {(hovered) => <Component hovered={hovered} />}
             </Interactable>
-            <SceneMarker label={roomDestinations[id].label} shortLabel={shortLabel} position={anchor.markerPosition} onSelect={select} />
+            <SceneMarker
+              label={roomDestinations[id].label}
+              shortLabel={shortLabel}
+              position={anchor.markerPosition}
+              onSelect={select}
+            />
           </group>
         )
       })}

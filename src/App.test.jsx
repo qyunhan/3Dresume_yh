@@ -21,13 +21,12 @@ vi.mock('./components/scene/Room', () => ({
 vi.mock('./components/scene/CameraController', () => ({ default: () => null }))
 vi.mock('./components/scene/Lighting', () => ({ default: () => null }))
 
-test('renders the room canvas and portfolio heading', () => {
+test('renders the room canvas and hideable room controls', () => {
   render(<App />)
 
   expect(screen.getByTestId('canvas')).toBeInTheDocument()
-  expect(
-    screen.getByRole('heading', { name: /a room full of ideas/i }),
-  ).toBeInTheDocument()
+  expect(screen.getByRole('complementary', { name: 'Room controls' }))
+    .toBeInTheDocument()
 })
 
 test('selects a section from the room and returns with Back', async () => {
