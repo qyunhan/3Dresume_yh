@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { MathUtils, Vector3 } from 'three'
+import { OrbitControls } from '@react-three/drei'
 import {
   getCameraPreset,
   getResponsiveCameraPosition,
@@ -9,7 +10,12 @@ import {
 } from '../../data/cameraPresets'
 
 export default function CameraController({ selectedSection }) {
+  const controls = useRef(null)
   const lookAt = useRef(new Vector3(...getCameraPreset(null).target))
+  const previousSelection = useRef(selectedSection)
+  const returningHome = useRef(false)
+  const dragging = useRef(false)
+  const parallaxOffset = useRef(new Vector3())
   const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
@@ -20,7 +26,30 @@ export default function CameraController({ selectedSection }) {
     return () => media.removeEventListener?.('change', updatePreference)
   }, [])
 
+  useEffect(() => {
+    const orbit = controls.current
+    if (!orbit) return
+    const home = getCameraPreset(null)
+    orbit.target.set(...home.target)
+    orbit.update()
+    orbit.saveState?.()
+  }, [])
+
+  useEffect(() => {
+    const orbit = controls.current
+    if (!orbit) return
+    if (selectedSection) {
+      orbit.enabled = false
+      returningHome.current = false
+    } else if (previousSelection.current) {
+      returningHome.current = true
+      orbit.enabled = false
+    }
+    previousSelection.current = selectedSection
+  }, [selectedSection])
+
   useFrame(({ camera, pointer, size }, delta) => {
+    camera.position.sub(parallaxOffset.current)
     const preset = getCameraPreset(selectedSection)
     const hasSelection = hasCameraPreset(selectedSection)
     const aspect = size.width / size.height
@@ -36,50 +65,80 @@ export default function CameraController({ selectedSection }) {
       hasSelection,
       size.width,
     )
-    const overviewParallax = hasSelection
+    const orbit = controls.current
+    const overviewParallax = hasSelection || dragging.current || returningHome.current
       ? [0, 0, 0]
       : [pointer.x * 0.34, pointer.y * 0.16, pointer.x * 0.12]
     const easing = reduceMotion ? 18 : 4.5
 
-    camera.position.x = MathUtils.damp(
-      camera.position.x,
-      position[0] + overviewParallax[0],
-      easing,
-      delta,
-    )
-    camera.position.y = MathUtils.damp(
-      camera.position.y,
-      position[1] + overviewParallax[1],
-      easing,
-      delta,
-    )
-    camera.position.z = MathUtils.damp(
-      camera.position.z,
-      position[2] + overviewParallax[2],
-      easing,
-      delta,
-    )
+    if (orbit && !hasSelection && !returningHome.current) {
+      orbit.enabled = true
+      orbit.update()
+    }
 
-    lookAt.current.x = MathUtils.damp(
-      lookAt.current.x,
-      target[0],
+    const animatingPreset = hasSelection || returningHome.current
+    if (animatingPreset) {
+      camera.position.x = MathUtils.damp(camera.position.x, position[0], easing, delta)
+      camera.position.y = MathUtils.damp(camera.position.y, position[1], easing, delta)
+      camera.position.z = MathUtils.damp(camera.position.z, position[2], easing, delta)
+    }
+
+    const desiredParallax = new Vector3(...overviewParallax)
+    parallaxOffset.current.x = MathUtils.damp(
+      parallaxOffset.current.x,
+      desiredParallax.x,
       easing,
       delta,
     )
-    lookAt.current.y = MathUtils.damp(
-      lookAt.current.y,
-      target[1],
+    parallaxOffset.current.y = MathUtils.damp(
+      parallaxOffset.current.y,
+      desiredParallax.y,
       easing,
       delta,
     )
-    lookAt.current.z = MathUtils.damp(
-      lookAt.current.z,
-      target[2],
+    parallaxOffset.current.z = MathUtils.damp(
+      parallaxOffset.current.z,
+      desiredParallax.z,
       easing,
       delta,
     )
-    camera.lookAt(lookAt.current)
+    if (!animatingPreset) camera.position.add(parallaxOffset.current)
+
+    if (animatingPreset) {
+      lookAt.current.x = MathUtils.damp(lookAt.current.x, target[0], easing, delta)
+      lookAt.current.y = MathUtils.damp(lookAt.current.y, target[1], easing, delta)
+      lookAt.current.z = MathUtils.damp(lookAt.current.z, target[2], easing, delta)
+      camera.lookAt(lookAt.current)
+    }
+
+    if (returningHome.current) {
+      const home = getCameraPreset(null)
+      const closeEnough = camera.position.distanceTo(new Vector3(...position)) < 0.05
+      if (closeEnough) {
+        returningHome.current = false
+        if (orbit) {
+          orbit.target.set(...getResponsiveCameraTarget(home, aspect, false, size.width))
+          orbit.enabled = true
+          orbit.update()
+        }
+      }
+    }
   })
 
-  return null
+  return (
+    <OrbitControls
+      ref={controls}
+      enableDamping
+      dampingFactor={0.08}
+      enablePan={false}
+      minDistance={6}
+      maxDistance={18}
+      minPolarAngle={0.58}
+      maxPolarAngle={1.42}
+      minAzimuthAngle={-0.65}
+      maxAzimuthAngle={1.75}
+      onStart={() => { dragging.current = true }}
+      onEnd={() => { dragging.current = false }}
+    />
+  )
 }

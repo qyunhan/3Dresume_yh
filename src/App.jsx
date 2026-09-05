@@ -12,7 +12,7 @@ export default function App() {
   return (
     <main className="app-shell">
       <Canvas
-        camera={{ fov: 43, near: 0.1, far: 80, position: [10.5, 8.2, 12.5] }}
+        camera={{ fov: 43, near: 0.1, far: 80, position: [8.8, 5.7, 10.4] }}
         data-testid="canvas"
         dpr={[1, 1.5]}
         gl={{ alpha: false, antialias: true }}
