@@ -18,6 +18,11 @@ export default function ExperiencePanel({ content }) {
               <div>
                 <h3>{item.role}</h3>
                 <p>{item.detail}</p>
+                <ul className="tag-list" aria-label={`${item.role} capabilities`}>
+                  {item.tags.slice(0, 3).map((tag) => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
               </div>
             </article>
           ))

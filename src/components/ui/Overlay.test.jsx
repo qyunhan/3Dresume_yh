@@ -4,10 +4,10 @@ import { expect, test, vi } from 'vitest'
 import Overlay from './Overlay'
 
 test.each([
-  ['frontend', 'Frontend Projects'],
-  ['technical', 'Technical Projects'],
-  ['experience', 'Curious by design'],
-  ['reports', 'Reports & Writing'],
+  ['frontend', 'Data Products'],
+  ['technical', 'Applied Data Science'],
+  ['experience', 'Data, models, and decisions'],
+  ['reports', 'Reports & Research'],
 ])('routes %s to its content panel', (section, heading) => {
   render(
     <Overlay

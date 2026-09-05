@@ -13,19 +13,11 @@ export default function ProjectsPanel({ content }) {
           <p className="empty-state">{EMPTY_MESSAGE}</p>
         ) : (
           content.items.map((item, index) => (
-            <article className="project-card" key={item.title}>
-              <span className="card-number">0{index + 1}</span>
-              <h3>{item.title}</h3>
-              <p>{item.summary}</p>
-              <ul className="tag-list" aria-label={`${item.title} technologies`}>
-                {item.tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
-            </article>
+            <WorkCard index={index + 1} item={item} key={item.title} />
           ))
         )}
       </div>
     </>
   )
 }
+import WorkCard from './WorkCard'

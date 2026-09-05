@@ -13,14 +13,11 @@ export default function ReportsPanel({ content }) {
           <p className="empty-state">{EMPTY_MESSAGE}</p>
         ) : (
           content.items.map((item) => (
-            <article className="report-card" key={item.title}>
-              <p className="report-meta">{item.meta}</p>
-              <h3>{item.title}</h3>
-              <p>{item.summary}</p>
-            </article>
+            <WorkCard item={item} key={item.title} variant="research" />
           ))
         )}
       </div>
     </>
   )
 }
+import WorkCard from './WorkCard'

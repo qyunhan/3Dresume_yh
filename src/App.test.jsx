@@ -34,12 +34,12 @@ test('selects a section from the room and returns with Back', async () => {
 
   await userEvent.click(screen.getByRole('button', { name: 'Open TV' }))
   expect(
-    screen.getByRole('heading', { name: 'Frontend Projects' }),
+    screen.getByRole('heading', { name: 'Data Products' }),
   ).toBeInTheDocument()
 
   await userEvent.click(screen.getByRole('button', { name: /back to room/i }))
   expect(
-    screen.queryByRole('heading', { name: 'Frontend Projects' }),
+    screen.queryByRole('heading', { name: 'Data Products' }),
   ).not.toBeInTheDocument()
 })
 

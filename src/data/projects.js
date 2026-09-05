@@ -3,80 +3,40 @@ export const SECTION_IDS = ['frontend', 'technical', 'experience', 'reports']
 export const sectionContent = {
   frontend: {
     eyebrow: 'Selected work',
-    title: 'Frontend Projects',
-    intro:
-      'Interfaces shaped around clarity, gentle motion, and small human details.',
+    title: 'Data Products',
+    intro: 'Decision-ready tools built from messy questions, data, and models.',
     items: [
-      {
-        title: 'Soft Focus',
-        summary: 'A calm planning interface for creative routines.',
-        tags: ['React', 'Motion'],
-      },
-      {
-        title: 'Field Notes',
-        summary: 'An editorial archive for places and observations.',
-        tags: ['Design systems', 'Accessibility'],
-      },
+      { title: 'HDB Price Prediction Analytics Tool', summary: 'A three-page buyer tool combining market exploration, amenity comparison, and ML-backed valuation.', tags: ['Python', 'Machine Learning', 'Dash'], image: '/previews/hdb-tool-preview.png' },
+      { title: 'Company Intelligence Tool', summary: 'An interactive workspace that clusters companies by financial features and turns model output into readable insight.', tags: ['Python', 'NLP', 'Data Visualisation'], image: '/previews/company-intelligence-preview.png' },
     ],
   },
   technical: {
     eyebrow: 'Under the hood',
-    title: 'Technical Projects',
-    intro:
-      'Systems, prototypes, and experiments built to make complex things feel simple.',
+    title: 'Applied Data Science',
+    intro: 'Predictive modelling, structured analysis, and interactive decision support.',
     items: [
-      {
-        title: 'Signal Garden',
-        summary: 'A live data experiment with a spatial interface.',
-        tags: ['WebGL', 'Data'],
-      },
-      {
-        title: 'Tiny Tools',
-        summary: 'Focused utilities for repetitive creative workflows.',
-        tags: ['TypeScript', 'APIs'],
-      },
+      { title: 'Time Series Weather Forecasting', summary: 'Compared five forecasting models across more than ten years of hourly weather data, with an engineered feature pipeline for robust validation.', tags: ['Time Series', 'Python', 'NumPy'], image: '/previews/weather-forecast-preview.png', demoUrl: 'https://github.com/qyunhan/Weather-Forecast-ML-Modelling' },
+      { title: 'Bank Insights Automation', summary: 'Replaced a multi-hour manual workflow with a data pipeline designed for daily bank insights and financial strategy research.', tags: ['Automation', 'Financial Analysis', 'Python'], image: '/previews/bank-insights-preview.png' },
     ],
   },
   experience: {
     eyebrow: 'About & experience',
-    title: 'Curious by design',
-    intro:
-      'I work where thoughtful interfaces meet reliable engineering, turning early ideas into inviting products.',
+    title: 'Data, models, and decisions',
+    intro: 'I turn analytical work into tools and narratives that stakeholders can use.',
     timeline: [
-      {
-        period: 'Now',
-        role: 'Product Engineer',
-        detail:
-          'Designing and building useful, expressive digital products.',
-      },
-      {
-        period: 'Before',
-        role: 'Creative Technologist',
-        detail: 'Prototyping new interactions across design and code.',
-      },
+      { period: 'Now', role: 'Data Science Intern - UOB AI Innovation Group', detail: 'Automated a manual bank-insights workflow and designed an evaluation framework for bank-specific AI outputs.', tags: ['Python', 'LLM Evaluation', 'Financial Data'] },
+      { period: 'Before', role: 'Finance Analytics Intern - Shopee CFO Office', detail: 'Built models and strategy-ready reporting that translated technical findings into CFO-facing decisions.', tags: ['SQL', 'Excel Modelling', 'Data Storytelling'] },
+      { period: 'Earlier', role: 'Valuation, Modelling & Economics Intern - Ernst & Young', detail: 'Applied segmentation and proxy-model analysis to produce clear, client-facing valuation insight.', tags: ['Analytics', 'Model Selection', 'Stakeholder Communication'] },
     ],
   },
   reports: {
     eyebrow: 'Research archive',
-    title: 'Reports & Writing',
-    intro:
-      'A small shelf of investigations, findings, and documented decisions.',
+    title: 'Reports & Research',
+    intro: 'Financial research and analytical writing that connect evidence to a decision.',
     items: [
-      {
-        title: 'Designing for Calm',
-        summary: 'Patterns that lower interface noise.',
-        meta: 'Field report · 08 min',
-      },
-      {
-        title: 'Rooms as Interfaces',
-        summary: 'Using spatial memory to organize content.',
-        meta: 'Research note · 06 min',
-      },
-      {
-        title: 'Motion with Restraint',
-        summary: 'A practical guide to purposeful transitions.',
-        meta: 'Technical report · 10 min',
-      },
+      { meta: 'Equity research · PDF', title: 'Equity Research Reports', summary: 'Fundamental valuation research using DCF, EV/EBITDA, and P/E frameworks to identify catalysts and investment risks.', tags: ['Valuation', 'Bloomberg', 'Financial Modelling'], image: '/previews/equity-research-cover.png', link: 'https://github.com/qyunhan/Equity-Research-Reports' },
+      { meta: 'CFO strategy · PDF', title: 'Executive Strategy Decks', summary: 'Financial analysis and reporting distilled into clear decision materials for senior stakeholders.', tags: ['SQL', 'Excel', 'Data Storytelling'], image: '/previews/strategy-deck-cover.png' },
+      { meta: 'Technical note · Demo', title: 'Model Evaluation Framework', summary: 'A bank-specific framework for measuring accuracy, business usefulness, and response reliability in AI-assisted workflows.', tags: ['LLM Evaluation', 'Metrics', 'Product Thinking'], image: '/previews/model-evaluation-preview.png' },
     ],
   },
 }
