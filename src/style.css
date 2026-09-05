@@ -1,7 +1,7 @@
 :root {
   --ink: #302a34;
   --ink-soft: #6e6373;
-  --paper-glass: rgba(249, 244, 236, 0.9);
+  --paper-glass: rgba(249, 244, 236, 0.87);
   --lavender: #b8aec8;
   --lavender-deep: #83758f;
   --line: rgba(65, 51, 69, 0.14);
@@ -22,7 +22,7 @@ html,
 body,
 #root {
   width: 100%;
-  min-width: 320px;
+  min-width: 0;
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -46,7 +46,7 @@ button:focus-visible {
 
 .scene-marker {
   display: inline-flex;
-  min-height: 2rem;
+  min-height: 2.75rem;
   padding: 0.28rem 0.62rem 0.28rem 0.42rem;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -55,6 +55,7 @@ button:focus-visible {
   background: rgba(103, 81, 119, 0.72);
   box-shadow: 0 0.65rem 1.5rem rgba(58, 40, 67, 0.22);
   cursor: pointer;
+  touch-action: manipulation;
   pointer-events: auto;
   backdrop-filter: blur(10px);
   transition: background 180ms ease, transform 180ms ease;
@@ -97,8 +98,15 @@ button:focus-visible {
   position: relative;
   width: 100%;
   height: 100dvh;
+  overflow: hidden;
   isolation: isolate;
   background: var(--lavender);
+}
+
+.app-shell > div:first-child {
+  /* Keep Drei's depth-sorted HTML markers beneath the overlay's panels. */
+  z-index: 0;
+  isolation: isolate;
 }
 
 .app-shell > div:first-child,
@@ -113,17 +121,18 @@ button:focus-visible {
   position: absolute;
   z-index: 2;
   inset: 0;
-  padding: clamp(1.1rem, 3vw, 2.6rem);
+  padding: clamp(1rem, 2vw, 2rem);
   pointer-events: none;
 }
 
 .brand-card {
-  width: min(25rem, calc(100vw - 2.2rem));
-  padding: 1.15rem 1.25rem 1.1rem;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.85rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 1.35rem;
-  background: rgba(248, 242, 235, 0.62);
-  box-shadow: 0 1.2rem 3.5rem rgba(62, 48, 69, 0.1);
+  border-radius: 1rem;
+  background: rgba(248, 242, 235, 0.56);
+  box-shadow: 0 0.6rem 2rem rgba(62, 48, 69, 0.08);
   backdrop-filter: blur(14px);
 }
 
@@ -141,13 +150,17 @@ button:focus-visible {
 }
 
 .brand-card h1 {
-  max-width: 10ch;
-  margin: 0.3rem 0 0.65rem;
+  margin: 0.35rem 0 0.6rem;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
   font-weight: 400;
   letter-spacing: -0.045em;
-  line-height: 0.92;
+  line-height: 1.05;
+}
+
+.brand-kicker {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
 }
 
 .explore-hint {
@@ -156,7 +169,7 @@ button:focus-visible {
   gap: 0.55rem;
   margin: 0;
   color: var(--ink-soft);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
 }
 
 .explore-hint span {
@@ -167,44 +180,19 @@ button:focus-visible {
   box-shadow: 0 0 0 0.32rem rgba(255, 240, 207, 0.28);
 }
 
-.destination-nav {
-  display: flex;
-  margin-top: 0.85rem;
-  flex-wrap: wrap;
-  gap: 0.38rem;
-  pointer-events: auto;
-}
-
-.destination-nav button {
-  min-height: 1.85rem;
-  padding: 0 0.62rem;
-  border: 1px solid rgba(65, 51, 69, 0.12);
-  border-radius: 999px;
-  color: var(--ink-soft);
-  background: rgba(255, 255, 255, 0.35);
-  cursor: pointer;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: background 180ms ease, transform 180ms ease;
-}
-
-.destination-nav button:hover {
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-1px);
-}
-
 .content-panel {
   position: absolute;
+  z-index: 1;
   top: clamp(1.1rem, 3vw, 2.6rem);
   right: clamp(1.1rem, 3vw, 2.6rem);
   bottom: clamp(1.1rem, 3vw, 2.6rem);
   display: flex;
   width: min(26rem, calc(100vw - 2.2rem));
   padding: 1.1rem 1.2rem 1.4rem;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 1.5rem;
@@ -215,6 +203,11 @@ button:focus-visible {
   animation: panel-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
   scrollbar-width: thin;
   scrollbar-color: rgba(70, 56, 75, 0.25) transparent;
+}
+
+.content-panel > * {
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .back-button {
@@ -326,7 +319,7 @@ button:focus-visible {
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 4rem 1fr;
+  grid-template-columns: 4rem minmax(0, 1fr);
   gap: 0.7rem;
 }
 
@@ -383,14 +376,13 @@ button:focus-visible {
   }
 
   .brand-card {
-    width: min(17rem, calc(100vw - 1.6rem));
-    padding: 0.85rem 0.95rem;
-    border-radius: 1rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: 0.85rem;
   }
 
   .brand-card h1 {
     margin-bottom: 0.45rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .brand-kicker {
@@ -399,16 +391,6 @@ button:focus-visible {
 
   .explore-hint {
     font-size: 0.66rem;
-  }
-
-  .destination-nav {
-    margin-top: 0.6rem;
-  }
-
-  .destination-nav button {
-    min-height: 1.65rem;
-    padding: 0 0.48rem;
-    font-size: 0.53rem;
   }
 
   .content-panel {
@@ -420,6 +402,7 @@ button:focus-visible {
     max-height: min(55dvh, 31rem);
     padding: 0.9rem 1rem 1rem;
     border-radius: 1.25rem;
+    animation-name: sheet-in;
   }
 
   .panel-header {
@@ -445,6 +428,17 @@ button:focus-visible {
     bottom: max(1rem, env(safe-area-inset-bottom));
     white-space: nowrap;
   }
+
+  .content-panel ~ .cat-toast {
+    bottom: calc(min(55dvh, 31rem) + max(0.8rem, env(safe-area-inset-bottom)) + 0.65rem);
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
 }
 
 @media (max-width: 480px) {
@@ -460,8 +454,23 @@ button:focus-visible {
   }
 
   .scene-marker {
-    min-width: 2rem;
-    padding-right: 0.42rem;
+    min-width: 2.75rem;
+    padding: 0.42rem;
+    justify-content: center;
+  }
+
+  .marker-leader {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand-card {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .brand-card h1 {
+    font-size: 1.4rem;
   }
 }
 
