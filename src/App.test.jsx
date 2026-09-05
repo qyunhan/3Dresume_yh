@@ -20,18 +20,21 @@ vi.mock('./components/scene/Room', () => ({
 }))
 vi.mock('./components/scene/CameraController', () => ({ default: () => null }))
 vi.mock('./components/scene/Lighting', () => ({ default: () => null }))
+vi.mock('./components/ui/DoorEntry', () => ({
+  default: ({ onEnter }) => <button onClick={onEnter} type="button">Enter</button>,
+}))
 
-test('renders the room canvas and hideable room controls', () => {
+test('renders the room canvas behind its entry page', () => {
   render(<App />)
 
   expect(screen.getByTestId('canvas')).toBeInTheDocument()
-  expect(screen.getByRole('complementary', { name: 'Room controls' }))
-    .toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Enter' })).toBeInTheDocument()
 })
 
 test('selects a section from the room and returns with Back', async () => {
   render(<App />)
 
+  await userEvent.click(screen.getByRole('button', { name: 'Enter' }))
   await userEvent.click(screen.getByRole('button', { name: 'Open TV' }))
   expect(
     screen.getByRole('heading', { name: 'Data Products' }),
@@ -46,6 +49,7 @@ test('selects a section from the room and returns with Back', async () => {
 test('cat clicks trigger the playful status without opening a section', async () => {
   render(<App />)
 
+  await userEvent.click(screen.getByRole('button', { name: 'Enter' }))
   await userEvent.click(screen.getByRole('button', { name: 'Pet cat' }))
 
   expect(screen.getByRole('status')).toHaveTextContent('The curator is awake.')

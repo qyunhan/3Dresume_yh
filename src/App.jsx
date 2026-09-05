@@ -4,10 +4,12 @@ import CameraController from './components/scene/CameraController'
 import Lighting from './components/scene/Lighting'
 import Room from './components/scene/Room'
 import Overlay from './components/ui/Overlay'
+import DoorEntry from './components/ui/DoorEntry'
 
 export default function App() {
   const [selectedSection, setSelectedSection] = useState(null)
   const [catReaction, setCatReaction] = useState(0)
+  const [enteredRoom, setEnteredRoom] = useState(false)
 
   return (
     <main className="app-shell">
@@ -27,11 +29,14 @@ export default function App() {
         />
         <CameraController selectedSection={selectedSection} />
       </Canvas>
-      <Overlay
-        catReaction={catReaction}
-        onBack={() => setSelectedSection(null)}
-        selectedSection={selectedSection}
-      />
+      {enteredRoom && (
+        <Overlay
+          catReaction={catReaction}
+          onBack={() => setSelectedSection(null)}
+          selectedSection={selectedSection}
+        />
+      )}
+      {!enteredRoom && <DoorEntry onEnter={() => setEnteredRoom(true)} />}
     </main>
   )
 }
