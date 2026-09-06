@@ -1,22 +1,24 @@
-import { roomDestinations } from '../../data/roomDestinations'
 import { roomLayout } from '../../data/roomLayout'
+import { phase2Layout } from '../../data/phase2Layout'
 import Interactable from './Interactable'
-import SceneMarker from './SceneMarker'
+import ZoneLabel from './ZoneLabel'
+import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
 import RoomShell from './room/RoomShell'
 import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
-import { Laptop, Tv, NoticeBoard, Reports } from './room/PortfolioObjects'
+import { Laptop, NoticeBoard } from './room/PortfolioObjects'
+import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
 import Decor from './room/Decor'
 import Cat from './room/Cat'
 
-const destinationObjects = [
-  { id: 'tv', Component: Tv, shortLabel: 'Projects' },
-  { id: 'laptop', Component: Laptop, shortLabel: 'Technical' },
-  { id: 'noticeBoard', Component: NoticeBoard, shortLabel: 'About' },
-  { id: 'reports', Component: Reports, shortLabel: 'Research' },
-]
+const resumeObjects = {
+  financialDashboard: FinancialDashboard,
+  weatherStation: WeatherStation,
+  hdbBlock: HdbBlock,
+  equityResearchStation: EquityResearchStation,
+}
 
-export default function Room({ onSelect, onCatClick, catReaction }) {
+export default function Room({ onSelectZone, onSelectItem, onCatClick, catReaction }) {
   return (
     <group>
       <RoomShell />
@@ -28,25 +30,23 @@ export default function Room({ onSelect, onCatClick, catReaction }) {
       <OfficeChair {...roomLayout.chair} />
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
-      {destinationObjects.map(({ id, Component, shortLabel }) => {
-        const anchor = roomLayout[id]
-        const select = () => onSelect(anchor.sectionId)
+      <group position={roomLayout.laptop.position}><Laptop /></group>
+      <group position={roomLayout.noticeBoard.position}><NoticeBoard /></group>
+      {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (
+        <ZoneLabel key={zone} zone={zone} position={anchor.position} onSelect={() => onSelectZone(zone)} />
+      ))}
+      {Object.values(phase2Layout.items).map((anchor) => {
+        const Component = resumeObjects[anchor.objectType]
         return (
-          <group key={id}>
-            <Interactable
-              label={roomDestinations[id].label}
-              onClick={select}
-              position={anchor.position}
-            >
-              {(hovered) => <Component hovered={hovered} />}
-            </Interactable>
-            <SceneMarker
-              label={roomDestinations[id].label}
-              shortLabel={shortLabel}
-              position={anchor.markerPosition}
-              onSelect={select}
-            />
-          </group>
+          <PortfolioObject
+            key={anchor.id}
+            item={anchor}
+            position={anchor.position}
+            markerPosition={anchor.markerPosition}
+            onSelect={onSelectItem}
+          >
+            {(hovered) => <Component hovered={hovered} reportOffset={anchor.reportOffset} />}
+          </PortfolioObject>
         )
       })}
       <Interactable label="A very helpful cat" onClick={onCatClick} position={roomLayout.cat.position}>

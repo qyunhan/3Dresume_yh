@@ -7,10 +7,7 @@ import Overlay from './components/ui/Overlay'
 import DoorEntry from './components/ui/DoorEntry'
 import { getPortfolioItem } from './data/portfolio'
 import { hasCameraPreset } from './data/cameraPresets'
-
-// Compatibility mappings until the room and camera adopt zone/item presets.
-const legacyZones = { frontend: 'projects', technical: 'projects', experience: 'experience', reports: 'research' }
-const zoneCameraPresets = { projects: 'technical', research: 'frontend', experience: 'experience', school: 'experience' }
+import { phase2Layout } from './data/phase2Layout'
 
 export default function App() {
   const [selection, setSelection] = useState({ activeZone: null, selectedItem: null })
@@ -22,7 +19,7 @@ export default function App() {
   const itemPreset = getPortfolioItem(selection.activeZone, selection.selectedItem)?.cameraPreset
   const cameraPreset = hasCameraPreset(itemPreset)
     ? itemPreset
-    : zoneCameraPresets[selection.activeZone] ?? null
+    : phase2Layout.zoneLabels[selection.activeZone]?.cameraPreset ?? null
 
   return (
     <main className="app-shell">
@@ -38,7 +35,6 @@ export default function App() {
         <Room
           catReaction={catReaction}
           onCatClick={() => setCatReaction((count) => count + 1)}
-          onSelect={(sectionId) => selectZone(legacyZones[sectionId] ?? null)}
           onSelectZone={selectZone}
           onSelectItem={selectItem}
         />

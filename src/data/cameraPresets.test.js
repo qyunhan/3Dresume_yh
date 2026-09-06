@@ -10,6 +10,15 @@ import {
 } from './cameraPresets'
 
 describe('camera presets', () => {
+  test.each(['projects', 'research', 'school', 'financialAutomation', 'weather', 'hdb', 'equityResearch'])(
+    '%s resolves to an authored selection pose instead of the overview',
+    (id) => {
+      expect(hasCameraPreset(id)).toBe(true)
+      expect(getCameraPreset(id)).not.toBe(cameraPresets.overview)
+      expect(getCameraPreset(id).position).toHaveLength(3)
+      expect(getCameraPreset(id).target).toHaveLength(3)
+    },
+  )
   test('overview uses the immersive room-facing pose', () => {
     expect(cameraPresets.overview.position).toEqual([8.8, 5.7, 10.4])
     expect(cameraPresets.overview.target).toEqual([0, 2.45, -1.25])

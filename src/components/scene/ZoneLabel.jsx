@@ -1,6 +1,10 @@
 import { Html } from '@react-three/drei'
+import { getZone } from '../../data/portfolio'
 
-export default function ZoneLabel({ title, subtitle, position, onSelect }) {
+export default function ZoneLabel({ zone, title, subtitle, position, onSelect }) {
+  const content = getZone(zone)
+  title = content?.title ?? title
+  subtitle = content?.subtitle ?? subtitle
   return (
     <Html center distanceFactor={9} position={position}>
       <button
