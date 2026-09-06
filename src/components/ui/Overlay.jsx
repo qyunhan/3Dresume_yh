@@ -1,34 +1,13 @@
 import { useState } from 'react'
-import { sectionContent } from '../../data/projects'
-import { getPortfolioItem, getZone } from '../../data/portfolio'
-import ExperiencePanel from './ExperiencePanel'
-import ProjectsPanel from './ProjectsPanel'
-import ReportsPanel from './ReportsPanel'
-
-function SectionPanel({ sectionId }) {
-  const content = sectionContent[sectionId]
-  if (!content) return null
-
-  if (sectionId === 'experience') {
-    return <ExperiencePanel content={content} />
-  }
-  if (sectionId === 'reports') {
-    return <ReportsPanel content={content} />
-  }
-  return <ProjectsPanel content={content} />
-}
+import DetailPanel from './DetailPanel'
 
 export default function Overlay({
-  selectedSection,
   activeZone,
   selectedItem,
   onBack,
+  onSelectItem,
 }) {
   const [controlsOpen, setControlsOpen] = useState(true)
-  const zone = getZone(activeZone)
-  const item = getPortfolioItem(activeZone, selectedItem)
-  const content = zone ?? sectionContent[selectedSection]
-  const hasSelection = Boolean(content)
 
   return (
     <div className="overlay">
@@ -60,30 +39,12 @@ export default function Overlay({
         </button>
       )}
 
-      {hasSelection && (
-        <section
-          aria-label={`${content.title} details`}
-          aria-modal="false"
-          className="content-panel"
-          role="dialog"
-        >
-          <button className="back-button" onClick={onBack} type="button">
-            <span aria-hidden="true">←</span> Back to room
-          </button>
-          {zone ? (
-            <ProjectsPanel content={{
-              title: zone.title,
-              eyebrow: zone.subtitle,
-              intro: item?.subtitle,
-              items: (item ? [item] : zone.items).map((entry) => ({
-                title: entry.title,
-                summary: item ? entry.longDescription : entry.shortDescription,
-                tags: entry.skills,
-              })),
-            }} />
-          ) : <SectionPanel sectionId={selectedSection} />}
-        </section>
-      )}
+      <DetailPanel
+        activeZone={activeZone}
+        selectedItem={selectedItem}
+        onBack={onBack}
+        onSelectItem={(itemId) => onSelectItem({ zoneId: activeZone, itemId })}
+      />
     </div>
   )
 }

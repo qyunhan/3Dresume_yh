@@ -4,6 +4,7 @@ export const portfolio = {
   projects: {
     title: 'Projects',
     subtitle: 'What I Build',
+    intro: 'Financial automation, weather forecasting, and tools for exploring Singapore housing prices.',
     items: [
       {
         id: 'financial-automation',
@@ -43,6 +44,7 @@ export const portfolio = {
   research: {
     title: 'Research',
     subtitle: 'How I Think',
+    intro: 'Company fundamentals, valuation, and the questions behind an investment decision.',
     items: [
       {
         id: 'equity-research',
@@ -60,6 +62,7 @@ export const portfolio = {
   experience: {
     title: 'Experience',
     subtitle: "Where I've Worked",
+    intro: 'From valuation at EY to finance analytics at Shopee and AI workflows at UOB.',
     items: [
       {
         id: 'ey',
@@ -99,6 +102,7 @@ export const portfolio = {
   school: {
     title: 'School & Life',
     subtitle: 'Beyond Work',
+    intro: 'Study, community, and exploration at NUS, RC4, Science Club, and UCLA.',
     items: [
       {
         id: 'nus',

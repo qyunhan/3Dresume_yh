@@ -46,9 +46,13 @@ test('selects an item in its zone and restores the room camera with Back', async
   await userEvent.click(screen.getByRole('button', { name: 'Open HDB' }))
   const panel = screen.getByRole('dialog', { name: 'Projects details' })
   expect(within(panel).getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
-  expect(within(panel).getByText('HDB Price Prediction')).toBeInTheDocument()
-  expect(within(panel).queryByText('Time Series Weather Forecasting')).not.toBeInTheDocument()
+  expect(within(panel).getByRole('heading', { name: 'HDB Price Prediction' })).toBeInTheDocument()
+  expect(within(panel).queryByRole('heading', { name: 'Time Series Weather Forecasting' })).not.toBeInTheDocument()
   expect(cameraController.mock.lastCall[0].selectedSection).toBe('technical')
+
+  await userEvent.click(within(panel).getByRole('button', { name: 'Time Series Weather Forecasting' }))
+  expect(screen.getByRole('dialog', { name: 'Projects details' })).toBe(panel)
+  expect(within(panel).getByRole('heading', { name: 'Time Series Weather Forecasting' })).toBeInTheDocument()
 
   await userEvent.click(screen.getByRole('button', { name: /back to room/i }))
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()

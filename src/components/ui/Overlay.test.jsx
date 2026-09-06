@@ -4,14 +4,14 @@ import { expect, test, vi } from 'vitest'
 import Overlay from './Overlay'
 
 test.each([
-  ['frontend', 'Data Products'],
-  ['technical', 'Applied Data Science'],
-  ['experience', 'Data, models, and decisions'],
-  ['reports', 'Reports & Research'],
+  ['projects', 'Projects'],
+  ['research', 'Research'],
+  ['experience', 'Experience'],
+  ['school', 'School & Life'],
 ])('routes %s to its content panel', (section, heading) => {
   render(
     <Overlay
-      selectedSection={section}
+      activeZone={section}
       onBack={() => {}}
       catReaction={0}
     />,
@@ -23,7 +23,7 @@ test('Back requests clearing the section', async () => {
   const onBack = vi.fn()
   render(
     <Overlay
-      selectedSection="frontend"
+      activeZone="projects"
       onBack={onBack}
       catReaction={0}
     />,
@@ -36,7 +36,7 @@ test('Back requests clearing the section', async () => {
 test('an unknown selection renders no panel', () => {
   render(
     <Overlay
-      selectedSection="unknown"
+      activeZone="unknown"
       onBack={() => {}}
       catReaction={0}
     />,
@@ -47,7 +47,7 @@ test('an unknown selection renders no panel', () => {
 test('leaves destination navigation to the in-room markers', () => {
   render(
     <Overlay
-      selectedSection={null}
+      activeZone={null}
       onBack={() => {}}
       catReaction={0}
     />,
@@ -61,7 +61,7 @@ test('leaves destination navigation to the in-room markers', () => {
 
 test('lets visitors hide and restore the room controls menu', async () => {
   const user = userEvent.setup()
-  render(<Overlay selectedSection={null} onBack={() => {}} catReaction={0} />)
+  render(<Overlay activeZone={null} onBack={() => {}} />)
 
   expect(screen.getByText('Drag to look around')).toBeInTheDocument()
   await user.click(screen.getByRole('button', { name: 'Hide room controls' }))
@@ -69,4 +69,11 @@ test('lets visitors hide and restore the room controls menu', async () => {
 
   await user.click(screen.getByRole('button', { name: 'Show room controls' }))
   expect(screen.getByText('Scroll to zoom')).toBeInTheDocument()
+})
+
+test('supplies the active zone when selecting an item through the shared panel', async () => {
+  const onSelectItem = vi.fn()
+  render(<Overlay activeZone="projects" selectedItem="hdb" onBack={() => {}} onSelectItem={onSelectItem} />)
+  await userEvent.click(screen.getByRole('button', { name: 'Time Series Weather Forecasting' }))
+  expect(onSelectItem).toHaveBeenCalledWith({ zoneId: 'projects', itemId: 'weather' })
 })
