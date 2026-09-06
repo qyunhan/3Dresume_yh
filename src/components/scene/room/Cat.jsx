@@ -5,7 +5,16 @@ import { LoopRepeat } from 'three'
 import { getCatWalkPose } from '../catAnimation'
 
 const CAT_MODEL_URL = '/models/fluffy-cat.glb'
-const CAT_SCALE = 0.36
+const CAT_SCALE = 0.5
+
+const creamPalette = {
+  gray: '#e9d8c1',
+  white: '#f5ead9',
+  ears_pink: '#c88f93',
+  nose_pink: '#a96f78',
+  yellow: '#98a08a',
+  eyeblack: '#382f35',
+}
 
 export default function Cat({ reaction }) {
   const cat = useRef()
@@ -15,6 +24,20 @@ export default function Cat({ reaction }) {
   const [reduceMotion, setReduceMotion] = useState(false)
   const { scene, animations } = useGLTF(CAT_MODEL_URL)
   const { actions } = useAnimations(animations, cat)
+
+  useEffect(() => {
+    scene.traverse((node) => {
+      if (!node.isMesh || !node.material) return
+      const material = node.material.userData.creamCat
+        ? node.material
+        : node.material.clone()
+      material.userData.creamCat = true
+      material.color.set(creamPalette[material.name] ?? creamPalette.white)
+      material.roughness = 0.88
+      material.metalness = 0
+      node.material = material
+    })
+  }, [scene])
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
