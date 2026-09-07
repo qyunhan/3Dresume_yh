@@ -1,12 +1,13 @@
 import { Material, palette } from './materials'
 import { DeskLamp, LowPolyPlant } from './LowPolyProps'
 import { Reports, Tv } from './PortfolioObjects'
+import { researchConsole } from '../../../data/roomPolish'
 
-function Box({ size, color, hovered = false, ...props }) {
+function Box({ size, color, hovered = false, screen = false, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <boxGeometry args={size} />
-      <Material color={color} hovered={hovered} />
+      <Material color={color} hovered={hovered} {...(screen && { emissive: color, emissiveIntensity: hovered ? 0.22 : 0.12 })} />
     </mesh>
   )
 }
@@ -26,7 +27,7 @@ export function FinancialDashboard({ hovered }) {
       <Box size={[0.52, 0.05, 0.35]} position={[0, 0.025, 0]} color={palette.lavenderShadow} />
       <Box size={[0.07, 0.23, 0.07]} position={[0, 0.14, -0.03]} color={palette.woodDark} />
       <Box size={[0.9, 0.65, 0.075]} position={[0, 0.55, -0.03]} color={palette.ink} hovered={hovered} />
-      <Box size={[0.81, 0.55, 0.016]} position={[0, 0.55, 0.018]} color="#51485f" hovered={hovered} />
+      <Box size={[0.81, 0.55, 0.016]} position={[0, 0.55, 0.018]} color="#51485f" hovered={hovered} screen />
       {[-0.24, 0.03, 0.27].map((x, index) => (
         <Box key={x} size={[0.18, 0.085, 0.01]} position={[x, 0.73, 0.032]} color={index === 1 ? palette.gold : palette.sage} />
       ))}
@@ -92,14 +93,16 @@ export function EquityResearchStation({ hovered, reportOffset }) {
     <group>
       <Tv hovered={hovered} />
       <Reports hovered={hovered} position={reportOffset} />
-      <DeskLamp position={[-1.36, -0.79, 0.15]} scale={0.62} />
-      <LowPolyPlant position={[1.38, -0.84, 0.16]} scale={0.56} potColor={palette.cream} />
-      <group position={[-0.38, -0.78, 0.2]} rotation={[-Math.PI / 2, 0, -0.08]}>
-        <Box size={[0.62, 0.81, 0.05]} color={palette.woodDark} hovered={hovered} />
-        <Box size={[0.54, 0.71, 0.018]} position={[0, 0, 0.042]} color={palette.cream} hovered={hovered} />
-        {[0.16, 0.27, 0.37].map((height, index) => (
-          <Box key={height} size={[0.1, height, 0.012]} position={[-0.16 + index * 0.16, -0.22 + height / 2, 0.055]} color={palette.sage} />
-        ))}
+      <group position={researchConsole.offsetFromTv}>
+        <DeskLamp name="research-lamp" {...researchConsole.lamp} />
+        <LowPolyPlant name="research-plant" {...researchConsole.plant} potColor={palette.cream} />
+        <group name="research-notebook" {...researchConsole.notebook}>
+          <Box size={[0.62, 0.81, 0.05]} color={palette.woodDark} hovered={hovered} />
+          <Box size={[0.54, 0.71, 0.018]} position={[0, 0, 0.042]} color={palette.cream} hovered={hovered} />
+          {[0.16, 0.27, 0.37].map((height, index) => (
+            <Box key={height} size={[0.1, height, 0.012]} position={[-0.16 + index * 0.16, -0.22 + height / 2, 0.055]} color={palette.sage} />
+          ))}
+        </group>
       </group>
     </group>
   )

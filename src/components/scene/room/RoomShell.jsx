@@ -106,6 +106,10 @@ export default function RoomShell() {
       <Box size={[0.12, 0.22, 2.2]} position={[width / 2 - 0.06, 0.14, backWallZ + 1.1]} color={palette.white} />
       <Window />
       <Door />
+      {/* Opaque warm strips suggest the blind-filtered sun on exposed floor. */}
+      {[0, 1, 2].map((index) => (
+        <Box key={index} name="sun-patch" size={[0.22, 0.006, 2.4]} position={[-5.9 + index * 0.46, 0.033, -1.6]} rotation={[0, -0.65, 0]} color="#bd9065" />
+      ))}
     </group>
   )
 }

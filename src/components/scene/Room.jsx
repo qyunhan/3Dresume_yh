@@ -42,7 +42,7 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
       <DeskLamp position={[-1.88, 2.25, -4.74]} />
-      <FloorPouf position={[-0.15, 0.22, -0.27]} rotation={[0, -0.2, 0]} />
+      <FloorPouf position={[-0.15, roomLayout.rug.position[1] + 0.07 / 2, -0.27]} rotation={[0, -0.2, 0]} />
       <group position={roomLayout.laptop.position}><Laptop /></group>
       <CareerJourney />
       <SchoolLife />

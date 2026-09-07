@@ -1,19 +1,19 @@
 import { Material, palette } from './materials'
 
-function Box({ size, color = palette.white, ...props }) {
+function Box({ size, color = palette.white, metalness, roughness, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <boxGeometry args={size} />
-      <Material color={color} />
+      <Material color={color} {...(metalness !== undefined && { metalness, roughness })} />
     </mesh>
   )
 }
 
-function Cylinder({ args, color = palette.white, ...props }) {
+function Cylinder({ args, color = palette.white, emissive, emissiveIntensity, metalness, roughness, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <cylinderGeometry args={args} />
-      <Material color={color} />
+      <Material color={color} {...(emissive && { emissive, emissiveIntensity })} {...(metalness !== undefined && { metalness, roughness })} />
     </mesh>
   )
 }
@@ -41,11 +41,22 @@ export function StackedBooks({
   )
 }
 
-export function LowPolyPlant({ potColor = palette.blush, leafColor = palette.sage, ...props }) {
+export function LowPolyPlant({ potColor = palette.blush, leafColor = palette.sage, trailing = false, ...props }) {
   return (
     <group {...props}>
       <Cylinder args={[0.25, 0.2, 0.42, 8]} color={potColor} position={[0, 0.21, 0]} />
       <Cylinder args={[0.21, 0.21, 0.02, 8]} color={palette.woodDark} position={[0, 0.425, 0]} />
+      {trailing && [-0.13, 0.1].map((x, strand) => (
+        <group key={x} position={[x, 0, 0.27]}>
+          <Box size={[0.025, 0.33, 0.025]} position={[0, 0.27, -0.09]} rotation={[-0.65, 0, 0]} color={leafColor} />
+          {Array.from({ length: 5 + strand }, (_, index) => (
+            <group key={index} position={[Math.sin(index * 0.8 + strand) * 0.05, 0.15 - index * 0.19, index * 0.012]}>
+              <Box size={[0.025, 0.22, 0.025]} color={leafColor} />
+              <Box size={[0.15, 0.19, 0.045]} position={[index % 2 ? 0.055 : -0.055, -0.025, 0.02]} rotation={[0.1, 0, index % 2 ? -0.45 : 0.45]} color={leafColor} />
+            </group>
+          ))}
+        </group>
+      ))}
       {Array.from({ length: 7 }, (_, index) => {
         const angle = index * Math.PI * 2 / 7
         return (
@@ -86,9 +97,9 @@ export function Trophy({ color = palette.gold, ...props }) {
   return (
     <group {...props}>
       <Cylinder args={[0.28, 0.32, 0.1, 8]} color={palette.woodDark} position={[0, 0.05, 0]} />
-      <Cylinder args={[0.07, 0.07, 0.34, 8]} color={color} position={[0, 0.25, 0]} />
-      <Cylinder args={[0.22, 0.12, 0.32, 8]} color={color} position={[0, 0.57, 0]} />
-      <Box size={[0.42, 0.06, 0.07]} color={color} position={[0, 0.64, 0]} />
+      <Cylinder args={[0.07, 0.07, 0.34, 8]} color={color} metalness={0.3} roughness={0.5} position={[0, 0.25, 0]} />
+      <Cylinder args={[0.22, 0.12, 0.32, 8]} color={color} metalness={0.3} roughness={0.5} position={[0, 0.57, 0]} />
+      <Box size={[0.42, 0.06, 0.07]} color={color} metalness={0.3} roughness={0.5} position={[0, 0.64, 0]} />
     </group>
   )
 }

@@ -10,11 +10,11 @@ function Box({ size, color, hovered = false, ...props }) {
   )
 }
 
-function Cylinder({ size, color, hovered = false, ...props }) {
+function Cylinder({ size, color, hovered = false, metalness, roughness, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <cylinderGeometry args={size} />
-      <Material color={color} hovered={hovered} />
+      <Material color={color} hovered={hovered} {...(metalness !== undefined && { metalness, roughness })} />
     </mesh>
   )
 }
@@ -42,7 +42,7 @@ export function SchoolLife() {
         <Box size={[0.05, 0.52, 0.03]} position={[-0.17, 0.22, 0]} color={palette.gold} />
         <Box size={[0.2, 0.12, 0.03]} position={[0.1, 0.18, 0]} color={palette.cream} />
       </group>
-      <LowPolyPlant position={[-1.9, -0.08, 0.08]} scale={[0.62, 0.62, 0.62]} />
+      <LowPolyPlant trailing position={[-1.9, -0.04, 0.08]} scale={[0.62, 0.62, 0.62]} />
     </group>
   )
 }
@@ -62,8 +62,8 @@ export function Rc4Trophy({ hovered }) {
   return (
     <group>
       <Cylinder size={[0.25, 0.32, 0.1, 10]} position={[0, 0.05, 0]} color={palette.woodDark} />
-      <Cylinder size={[0.06, 0.06, 0.42, 10]} position={[0, 0.3, 0]} color={palette.gold} hovered={hovered} />
-      <Cylinder size={[0.24, 0.13, 0.25, 10]} position={[0, 0.59, 0]} color={palette.gold} hovered={hovered} />
+      <Cylinder size={[0.06, 0.06, 0.42, 10]} position={[0, 0.3, 0]} color={palette.gold} hovered={hovered} metalness={0.3} roughness={0.5} />
+      <Cylinder size={[0.24, 0.13, 0.25, 10]} position={[0, 0.59, 0]} color={palette.gold} hovered={hovered} metalness={0.3} roughness={0.5} />
       <Cylinder size={[0.11, 0.11, 0.06, 10]} position={[0, 0.77, 0]} color={palette.cream} />
     </group>
   )

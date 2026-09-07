@@ -1,10 +1,10 @@
 import { Material, palette } from './materials'
 
-function Box({ size, color, hovered = false, ...props }) {
+function Box({ size, color, hovered = false, screen = false, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <boxGeometry args={size} />
-      <Material color={color} hovered={hovered} />
+      <Material color={color} hovered={hovered} {...(screen && { emissive: color, emissiveIntensity: hovered ? 0.22 : 0.12 })} />
     </mesh>
   )
 }
@@ -25,7 +25,7 @@ export function Laptop({ hovered }) {
       <group position={[0, 0.6, -0.46]} rotation={[-0.1, 0, 0]}>
         <Box size={[1.48, 1.02, 0.085]} color="#d8d3d8" hovered={hovered} />
         <Box size={[1.34, 0.87, 0.025]} position={[0, 0, 0.052]} color={palette.ink} />
-        <Box size={[1.24, 0.75, 0.014]} position={[0, 0, 0.073]} color="#60566d" hovered={hovered} />
+        <Box size={[1.24, 0.75, 0.014]} position={[0, 0, 0.073]} color="#60566d" hovered={hovered} screen />
         {/* Abstract display blocks suggest a workspace without 3D text. */}
         <Box size={[0.26, 0.61, 0.008]} position={[-0.43, 0, 0.086]} color="#847389" />
         {[0.22, 0.07, -0.08].map((y, index) => (
@@ -42,13 +42,13 @@ export function Tv({ hovered }) {
     <group>
       <Box size={[3.35, 1.94, 0.16]} position={[0, 0, -0.05]} color="#514956" />
       <Box size={[3.28, 1.86, 0.13]} position={[0, 0, 0.04]} color={palette.ink} hovered={hovered} />
-      <Box size={[3.03, 1.61, 0.022]} position={[0, 0, 0.119]} color="#50465b" hovered={hovered} />
+      <Box size={[3.03, 1.61, 0.022]} position={[0, 0, 0.119]} color="#50465b" hovered={hovered} screen />
       {[
         [-0.72, 0.38, '#d39d9e'], [0.72, 0.38, '#9aac9d'],
         [-0.72, -0.23, '#c1a3c7'], [0.72, -0.23, '#d0b083'],
       ].map(([x, y, color], index) => (
         <group key={color} position={[x, y, 0.14]}>
-          <Box size={[1.3, 0.5, 0.018]} color={color} hovered={hovered} />
+          <Box size={[1.3, 0.5, 0.018]} color={color} hovered={hovered} screen />
           <Box size={[0.35, 0.31, 0.012]} position={[-0.36, 0, 0.02]} color={index % 2 ? '#6e7d71' : '#8e647f'} />
           {[0.11, 0.2, 0.16, 0.26].map((height, metricIndex) => (
             <Box key={metricIndex} size={[0.06, height, 0.012]} position={[0.03 + metricIndex * 0.1, -0.11 + height / 2, 0.024]} color={metricIndex % 2 ? palette.cream : palette.gold} />
@@ -97,9 +97,9 @@ export function NoticeBoard({ hovered }) {
   )
 }
 
-export function Reports({ hovered }) {
+export function Reports({ hovered, ...props }) {
   return (
-    <group>
+    <group {...props}>
       {/* Low stand keeps this destination separate from the media console. */}
       <Box size={[1.92, 0.12, 1.22]} position={[0, -0.06, 0]} color={palette.white} />
       {[-0.72, 0.72].map((x) => (

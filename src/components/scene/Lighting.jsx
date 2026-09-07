@@ -1,4 +1,5 @@
 import { roomLayout } from '../../data/roomLayout'
+import { researchLightPosition } from '../../data/roomPolish'
 
 export default function Lighting() {
   return (
@@ -38,11 +39,7 @@ export default function Lighting() {
         color="#ffd2a4"
         distance={3.4}
         intensity={0.48}
-        position={[
-          roomLayout.mediaConsole.position[0] - 1.36,
-          roomLayout.mediaConsole.position[1] + 1.2,
-          roomLayout.mediaConsole.position[2] - 0.3,
-        ]}
+        position={researchLightPosition}
       />
     </>
   )
