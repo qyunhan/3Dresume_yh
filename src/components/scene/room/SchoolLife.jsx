@@ -1,11 +1,12 @@
 import { Material, palette } from './materials'
 import PortfolioObject from '../PortfolioObject'
 import { Image } from '@react-three/drei'
+import { roomAsset } from '../../../data/roomAssets'
 
 const schoolObjectVisuals = {
-  'science-club': ({ hovered }) => <MascotCard name="school-science-mascot" url="/room-assets/nus-mascot.png" scale={[0.72, 0.72, 1]} hovered={hovered} />,
-  'rc4-flag': ({ hovered }) => <MascotCard name="school-rc4-mascot" url="/room-assets/rc4-oscar.png" scale={[0.6, 0.69, 1]} hovered={hovered} />,
-  ucla: ({ hovered }) => <MascotCard name="school-ucla-mascot" url="/room-assets/ucla-bruin.png" scale={[0.88, 0.5, 1]} hovered={hovered} />,
+  'science-club': ({ hovered }) => <MascotCard name="school-science-mascot" url={roomAsset('nus-mascot.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
+  'rc4-flag': ({ hovered }) => <MascotCard name="school-rc4-mascot" url={roomAsset('rc4-oscar.png')} scale={[0.6, 0.69, 1]} hovered={hovered} />,
+  ucla: ({ hovered }) => <MascotCard name="school-ucla-mascot" url={roomAsset('ucla-bruin.png')} scale={[0.88, 0.5, 1]} hovered={hovered} />,
 }
 
 const schoolObjectPositions = {

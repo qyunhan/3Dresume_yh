@@ -1,6 +1,7 @@
 import { Material, palette } from './materials'
 import PortfolioObject from '../PortfolioObject'
 import { Image } from '@react-three/drei'
+import { roomAsset } from '../../../data/roomAssets'
 
 function Box({ size, color, hovered = false, ...props }) {
   return (
@@ -12,9 +13,9 @@ function Box({ size, color, hovered = false, ...props }) {
 }
 
 const careerLogos = {
-  ey: { name: 'experience-logo-ey', url: '/room-assets/ey-logo.png' },
-  shopee: { name: 'experience-logo-shopee', url: '/room-assets/shopee-logo.png' },
-  uob: { name: 'experience-logo-uob', url: '/room-assets/uob-logo.png' },
+  ey: { name: 'experience-logo-ey', url: roomAsset('ey-logo.png') },
+  shopee: { name: 'experience-logo-shopee', url: roomAsset('shopee-logo.png') },
+  uob: { name: 'experience-logo-uob', url: roomAsset('uob-logo.png') },
 }
 
 export function CareerJourney({ items = [], onSelect } = {}) {
