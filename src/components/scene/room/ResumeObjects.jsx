@@ -90,9 +90,9 @@ export function HdbBlock({ hovered }) {
 
 export function EquityResearchStation({ hovered, reportOffset }) {
   return (
-    <group>
-      <Tv hovered={hovered} />
-      <Reports hovered={hovered} position={reportOffset} />
+    <group name="research-station">
+      <group name="research-tv"><Tv hovered={hovered} /></group>
+      <group name="research-reports"><Reports hovered={hovered} position={reportOffset} /></group>
       <group position={researchConsole.offsetFromTv}>
         <DeskLamp name="research-lamp" {...researchConsole.lamp} />
       </group>

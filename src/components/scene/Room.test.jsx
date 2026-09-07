@@ -6,14 +6,14 @@ import Room from './Room'
 import ZoneLabel from './ZoneLabel'
 import Interactable from './Interactable'
 import SceneMarker from './SceneMarker'
-import { CareerJourney } from './room/CareerJourney'
 import { EquityResearchStation } from './room/ResumeObjects'
-import { SchoolLife } from './room/SchoolLife'
 
 vi.mock('@react-three/drei', () => ({
   Html: ({ children }) => <div>{children}</div>,
   useGLTF: Object.assign(() => ({ scene: {} }), { preload: () => {} }),
 }))
+
+vi.mock('./room/Cat', () => ({ default: () => <group name="cat" /> }))
 
 // Inspect the composition boundary without creating a WebGL context; render
 // the real DOM markers so keyboard activation exercises their real handlers.
@@ -45,9 +45,7 @@ test('removes visual scene markers and the disconnected About interaction', () =
 
   expect(elements.some((element) => element.type === SceneMarker)).toBe(false)
   expect(elements.some((element) => element.type === Interactable && element.props.label === 'About this room')).toBe(false)
-  expect(objects.map((object) => object.props.item.id)).toEqual([
-    'financial-automation', 'weather', 'hdb', 'equity-research', 'ey', 'shopee', 'uob', 'nus', 'rc4-flag', 'ucla',
-  ])
+  expect(objects.map((object) => object.props.item.id)).toEqual(['financial-automation', 'weather', 'hdb', 'equity-research'])
 })
 
 test('the three project heroes retain their canonical selection payloads', () => {
@@ -68,25 +66,57 @@ test('the three project heroes retain their canonical selection payloads', () =>
   expect(onSelectItem).toHaveBeenCalledTimes(3)
 })
 
-test('composes the reusable desk and lounge props into the room', () => {
+test('keeps the laptop and lounge props without a detached desk lamp', () => {
   const onSelectZone = vi.fn()
   const onSelectItem = vi.fn()
   const tree = descendants(Room({ onSelectZone, onSelectItem, onCatClick: vi.fn(), catReaction: 0 }))
 
   expect(tree.some((node) => node.type?.name === 'FloorPouf')).toBe(true)
-  expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(true)
+  expect(tree.some((node) => node.type?.name === 'Laptop')).toBe(true)
+  expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(false)
 })
 
-test('career, school, and research retain only their intended hero groups', () => {
-  const careerNames = descendants(CareerJourney()).map((node) => node.props?.name)
-  const schoolNames = descendants(SchoolLife()).map((node) => node.props?.name)
+test('research retains only TV, reports, and lamp hero groups', () => {
   const researchNames = descendants(EquityResearchStation({ reportOffset: [0, 0, 0] })).map((node) => node.props?.name)
 
-  expect(careerNames.filter((name) => name === 'experience-card')).toHaveLength(3)
-  expect(careerNames).not.toContain('Career timeline')
-  expect(schoolNames).toEqual(expect.arrayContaining(['school-shelf', 'school-nus', 'school-trophy', 'school-ucla']))
-  expect(researchNames).toContain('research-lamp')
+  expect(researchNames).toEqual(expect.arrayContaining(['research-station', 'research-tv', 'research-reports', 'research-lamp']))
   expect(researchNames).not.toEqual(expect.arrayContaining(['research-plant', 'research-notebook']))
+})
+
+test('renders the canonical hero objects inside their board and shelf groups exactly once', () => {
+  const onSelectItem = vi.fn()
+  const { container } = render(<Room onSelectItem={onSelectItem} onSelectZone={vi.fn()} onCatClick={vi.fn()} catReaction={0} />)
+
+  for (const label of ['Financial dashboard', 'Weather station', 'HDB block', 'Equity report', 'EY', 'Shopee', 'UOB', 'NUS', 'RC4 Flag', 'UCLA Exchange']) {
+    expect(container.querySelectorAll(`group[name="${label}"]`)).toHaveLength(1)
+  }
+  expect(container.querySelectorAll('group[name="Science Club"]')).toHaveLength(0)
+
+  const careerCards = container.querySelectorAll('group[name="experience-card"]')
+  expect(careerCards).toHaveLength(3)
+  ;['EY', 'Shopee', 'UOB'].forEach((label, index) => {
+    expect(careerCards[index].querySelector(`group[name="${label}"]`)).not.toBeNull()
+  })
+
+  const schoolShelf = container.querySelector('group[name="school-shelf"]')
+  expect(schoolShelf?.querySelectorAll('group[name="NUS"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('group[name="school-nus-frame"], group[name="school-trophy"], group[name="school-ucla-frame"]')).toHaveLength(3)
+
+  for (const [label, zoneId, itemId, cameraPreset] of [
+    ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
+    ['Weather station', 'projects', 'weather', 'weather'],
+    ['HDB block', 'projects', 'hdb', 'hdb'],
+    ['Equity report', 'research', 'equity-research', 'equityResearch'],
+    ['EY', 'experience', 'ey', 'ey'],
+    ['Shopee', 'experience', 'shopee', 'shopee'],
+    ['UOB', 'experience', 'uob', 'uob'],
+    ['NUS', 'school', 'nus', 'nus'],
+    ['RC4 Flag', 'school', 'rc4-flag', 'rc4'],
+    ['UCLA Exchange', 'school', 'ucla', 'ucla'],
+  ]) {
+    fireEvent.click(container.querySelector(`group[name="${label}"]`))
+    expect(onSelectItem).toHaveBeenLastCalledWith({ zoneId, itemId, cameraPreset })
+  }
 })
 
 test('cat remains a separate interaction with no portfolio selection', () => {

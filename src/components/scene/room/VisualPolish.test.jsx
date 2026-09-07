@@ -9,7 +9,6 @@ import { MediaConsole } from './Furniture'
 import { DeskLamp, FloorPouf, Trophy } from './LowPolyProps'
 import { Laptop, Reports, Tv } from './PortfolioObjects'
 import { EquityResearchStation, FinancialDashboard } from './ResumeObjects'
-import { SchoolLife, Rc4Trophy } from './SchoolLife'
 import RoomShell from './RoomShell'
 
 // Expand these pure geometry components through their actual mesh/material
@@ -99,7 +98,7 @@ test('lamp emission and restrained trophy metalness reach actual standard materi
   const lamp = descendants(expand(<DeskLamp />))
   expect(lamp.some((node) => node.type === 'meshStandardMaterial' && node.props.emissiveIntensity === 0.35)).toBe(true)
   expect(lamp.filter((node) => node.type === 'mesh').every((node) => node.props.emissive === undefined)).toBe(true)
-  for (const component of [<Trophy />, <Rc4Trophy />]) {
+  for (const component of [<Trophy />]) {
     const metals = descendants(expand(component)).filter((node) => node.type === 'meshStandardMaterial' && node.props.metalness > 0)
     expect(metals.length).toBeGreaterThan(0)
     expect(metals.every((node) => node.props.metalness <= 0.4 && node.props.roughness >= 0.45)).toBe(true)
@@ -114,10 +113,7 @@ test.each([['TV', Tv], ['finance monitor', FinancialDashboard], ['laptop', Lapto
   expect(materials(true).some((node) => node.props.emissiveIntensity >= 0.2)).toBe(true)
 })
 
-test('school shelf keeps only NUS, trophy, and UCLA groups while the pouf rests on the rug', () => {
-  const school = SchoolLife()
-  const schoolGroups = Children.toArray(school.props.children).map((child) => child.props.name)
-  expect(schoolGroups.filter(Boolean)).toEqual(['school-nus', 'school-trophy', 'school-ucla'])
+test('pouf rests on the rug after school shelf interactions move into the room composition', () => {
   const pouf = roomChildren().find((child) => child.type === FloorPouf)
   expect(bounds(pouf).min.y).toBeCloseTo(roomLayout.rug.position[1] + 0.07 / 2)
 })

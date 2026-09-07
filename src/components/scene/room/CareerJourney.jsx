@@ -1,4 +1,5 @@
 import { Material, palette } from './materials'
+import PortfolioObject from '../PortfolioObject'
 
 function Box({ size, color, hovered = false, ...props }) {
   return (
@@ -9,21 +10,44 @@ function Box({ size, color, hovered = false, ...props }) {
   )
 }
 
-export function CareerJourney() {
+function Cylinder({ size, color, hovered = false, ...props }) {
+  return (
+    <mesh castShadow receiveShadow {...props}>
+      <cylinderGeometry args={size} />
+      <Material color={color} hovered={hovered} />
+    </mesh>
+  )
+}
+
+const careerMementos = {
+  ey: EyMemento,
+  shopee: ShopeeMemento,
+  uob: UobMemento,
+}
+
+export function CareerJourney({ items = [], onSelect } = {}) {
   return (
     <group name="experience-board" position={[0, 3.38, -5.28]}>
       <Box size={[3.56, 1.56, 0.08]} color={palette.woodDark} />
       <Box size={[3.36, 1.36, 0.025]} position={[0, 0, 0.055]} color={palette.cream} />
-      {[
-        [-1.08, palette.lavenderShadow], [0, palette.blush], [1.08, palette.sky],
-      ].map(([x, color]) => (
-        <group key={x} name="experience-card" position={[x, 0, 0.08]}>
-          <Box size={[0.82, 1.04, 0.022]} color={color} />
-          <Box size={[0.58, 0.06, 0.012]} position={[0, 0.22, 0.019]} color={palette.cream} />
-          <Box size={[0.43, 0.04, 0.012]} position={[0, 0.05, 0.019]} color={palette.cream} />
-          <Box size={[0.5, 0.04, 0.012]} position={[0, -0.13, 0.019]} color={palette.cream} />
-        </group>
-      ))}
+      {items.map((item, index) => {
+        const Component = careerMementos[item.id]
+        const [x, color] = [
+          [-1.08, palette.lavenderShadow], [0, palette.blush], [1.08, palette.sky],
+        ][index]
+        return (
+          <group key={item.id} name="experience-card" position={[x, 0, 0.08]}>
+            <PortfolioObject item={item} label={item.interactiveLabel} position={[0, 0, 0.03]} onSelect={onSelect}>
+              {(hovered) => (
+                <group>
+                  <Box size={[0.82, 1.04, 0.022]} color={color} hovered={hovered} />
+                  <Component hovered={hovered} />
+                </group>
+              )}
+            </PortfolioObject>
+          </group>
+        )
+      })}
     </group>
   )
 }

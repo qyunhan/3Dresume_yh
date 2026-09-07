@@ -6,11 +6,11 @@ import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
 import RoomShell from './room/RoomShell'
 import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
-import { DeskLamp, FloorPouf } from './room/LowPolyProps'
+import { FloorPouf } from './room/LowPolyProps'
 import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
-import { CareerJourney, EyMemento, ShopeeMemento, UobMemento } from './room/CareerJourney'
-import { NusToken, Rc4Trophy, SchoolLife, UclaMemory } from './room/SchoolLife'
+import { CareerJourney } from './room/CareerJourney'
+import { SchoolLife } from './room/SchoolLife'
 import Decor from './room/Decor'
 import Cat from './room/Cat'
 
@@ -19,17 +19,11 @@ const resumeObjects = {
   weatherStation: WeatherStation,
   hdbBlock: HdbBlock,
   equityResearchStation: EquityResearchStation,
-  eyMemento: EyMemento,
-  shopeeMemento: ShopeeMemento,
-  uobMemento: UobMemento,
-  nusToken: NusToken,
-  rc4Trophy: Rc4Trophy,
-  uclaMemory: UclaMemory,
 }
 
-const visiblePortfolioItemIds = [
-  'financial-automation', 'weather', 'hdb', 'equity-research', 'ey', 'shopee', 'uob', 'nus', 'rc4-flag', 'ucla',
-]
+const standaloneItemIds = ['financial-automation', 'weather', 'hdb', 'equity-research']
+const careerItems = ['ey', 'shopee', 'uob'].map((itemId) => phase2Layout.items[itemId])
+const schoolItems = ['nus', 'rc4-flag', 'ucla'].map((itemId) => phase2Layout.items[itemId])
 
 export default function Room({ onSelectZone, onSelectItem, onCatClick, catReaction }) {
   return (
@@ -43,15 +37,14 @@ export default function Room({ onSelectZone, onSelectItem, onCatClick, catReacti
       <OfficeChair {...roomLayout.chair} />
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
-      <DeskLamp position={[-1.88, 2.25, -4.74]} />
       <FloorPouf position={[-0.15, roomLayout.rug.position[1] + 0.07 / 2, -0.27]} rotation={[0, -0.2, 0]} />
       <group position={roomLayout.laptop.position}><Laptop /></group>
-      <CareerJourney />
-      <SchoolLife />
+      <CareerJourney items={careerItems} onSelect={onSelectItem} />
+      <SchoolLife items={schoolItems} onSelect={onSelectItem} />
       {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (
         <ZoneLabel key={zone} zone={zone} position={anchor.position} onSelect={() => onSelectZone(zone)} />
       ))}
-      {visiblePortfolioItemIds.map((itemId) => {
+      {standaloneItemIds.map((itemId) => {
         const anchor = phase2Layout.items[itemId]
         const Component = resumeObjects[anchor.objectType]
         return (

@@ -1,4 +1,4 @@
-import { Children } from 'react'
+import { Children, isValidElement } from 'react'
 import { expect, test, vi } from 'vitest'
 import * as decor from './Decor'
 import Decor from './Decor'
@@ -19,11 +19,7 @@ test('Decor no longer exports a disconnected About frame', () => {
   expect(decor.AboutFrame).toBeUndefined()
 })
 
-test('keeps one deliberate plant on the research console', () => {
-  const children = Decor().props.children
-  const consoleGroup = children.find((child) => child.props?.position?.[0] === 3.55)
-  const plants = Children.toArray(consoleGroup.props.children).filter((child) => child.type === LowPolyPlant)
-
-  expect(plants).toHaveLength(1)
-  expect(plants[0].props.position).toEqual([-1.85, 0.55, 0.12])
+test('keeps decor off the desk and research console', () => {
+  const descendants = (element) => !isValidElement(element) ? [] : [element, ...Children.toArray(element.props.children).flatMap(descendants)]
+  expect(descendants(Decor()).filter((element) => element.type === LowPolyPlant)).toHaveLength(0)
 })
