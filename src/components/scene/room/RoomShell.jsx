@@ -19,8 +19,11 @@ function Window() {
       <Box size={[3.8, 2.9, 0.16]} color={palette.lavenderShadow} />
       <Box size={[3.6, 2.72, 0.15]} position={[0, 0, 0.08]} color={palette.white} />
       {[-0.81, 0.81].map((x) => (
-        <Box key={x} size={[1.48, 2.32, 0.04]} position={[x, 0, 0.18]} color={palette.sky} />
+        <Box key={x} size={[1.48, 2.32, 0.04]} position={[x, 0, 0.18]} color="#f2ae79" />
       ))}
+      <Box size={[3.02, 0.68, 0.02]} position={[0, 0.74, 0.205]} color="#f8d6a5" />
+      <Box size={[3.02, 0.56, 0.02]} position={[0, 0.13, 0.207]} color="#ed9a7b" />
+      <Box size={[3.02, 0.62, 0.02]} position={[0, -0.62, 0.209]} color="#b7778a" />
       {/* Shallow layers keep the view outside opaque and inexpensive. */}
       {[
         [-1.3, 0.5, '#9dabb7'],
@@ -30,10 +33,10 @@ function Window() {
         [0.53, 0.52, '#a2adb5'],
         [1.05, 0.72, '#8b9eaa'],
       ].map(([x, height, color]) => (
-        <Box key={x} size={[0.4, height, 0.03]} position={[x, -1.13 + height / 2, 0.22]} color={color} />
+        <Box key={x} size={[0.4, height, 0.03]} position={[x, -1.13 + height / 2, 0.24]} color={color} />
       ))}
       {[-1.2, -0.92, 0.92, 1.23].map((x, index) => (
-        <group key={x} position={[x, -0.88, 0.26]}>
+        <group key={x} position={[x, -0.88, 0.28]}>
           <Box size={[0.04, 0.48, 0.025]} color={palette.woodDark} />
           <Box size={[0.36, 0.46, 0.035]} position={[0, 0.2, 0.02]} rotation={[0, 0, index % 2 ? 0.35 : -0.25]} color={palette.sage} />
           <Box size={[0.26, 0.36, 0.035]} position={[0.1, 0.43, 0.025]} rotation={[0, 0, -0.2]} color="#8fa38b" />

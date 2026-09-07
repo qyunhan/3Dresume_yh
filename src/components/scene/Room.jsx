@@ -11,7 +11,7 @@ import { DeskLamp, FloorPouf } from './room/LowPolyProps'
 import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
 import { CareerJourney, EyMemento, ShopeeMemento, UobMemento } from './room/CareerJourney'
-import { NusToken, Rc4Trophy, ScienceClubToken, UclaMemory } from './room/SchoolLife'
+import { NusToken, Rc4Trophy, ScienceClubToken, SchoolLife, UclaMemory } from './room/SchoolLife'
 import Decor, { AboutFrame } from './room/Decor'
 import Cat from './room/Cat'
 
@@ -45,6 +45,7 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
       <FloorPouf position={[-0.15, 0.22, -0.27]} rotation={[0, -0.2, 0]} />
       <group position={roomLayout.laptop.position}><Laptop /></group>
       <CareerJourney />
+      <SchoolLife />
       {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (
         <ZoneLabel key={zone} zone={zone} position={anchor.position} onSelect={() => onSelectZone(zone)} />
       ))}

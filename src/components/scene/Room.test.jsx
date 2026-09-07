@@ -6,6 +6,8 @@ import Room from './Room'
 import ZoneLabel from './ZoneLabel'
 import Interactable from './Interactable'
 import SceneMarker from './SceneMarker'
+import { CareerJourney } from './room/CareerJourney'
+import { SchoolLife } from './room/SchoolLife'
 
 vi.mock('@react-three/drei', () => ({
   Html: ({ children }) => <div>{children}</div>,
@@ -88,6 +90,11 @@ test('composes the reusable desk and lounge props into the room', () => {
 
   expect(tree.some((node) => node.type?.name === 'FloorPouf')).toBe(true)
   expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(true)
+})
+
+test('career and school storytelling compose shared decor kit props', () => {
+  expect(descendants(CareerJourney()).some((node) => node.type?.name === 'WallPlaque')).toBe(true)
+  expect(descendants(SchoolLife()).some((node) => node.type?.name === 'PhotoFrame')).toBe(true)
 })
 
 test('About frame remains a non-zone interaction', () => {
