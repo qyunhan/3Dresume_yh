@@ -3,16 +3,16 @@ import { roomLayout } from '../../data/roomLayout'
 export default function Lighting() {
   return (
     <>
-      <ambientLight intensity={0.38} />
+      <ambientLight color="#fff4e8" intensity={0.42} />
       <hemisphereLight
-        color="#eee6f4"
+        color="#f5e8d8"
         groundColor="#867895"
-        intensity={0.85}
+        intensity={0.72}
       />
       <directionalLight
         castShadow
-        color="#ffe4be"
-        intensity={2.4}
+        color="#ffdfb8"
+        intensity={2.25}
         position={[-8, 7.5, -3.6]}
         shadow-bias={-0.0002}
         shadow-mapSize-height={1024}
@@ -32,6 +32,16 @@ export default function Lighting() {
           roomLayout.desk.position[0] + 1.77,
           roomLayout.desk.position[1] + 1.61,
           roomLayout.desk.position[2] - 0.36,
+        ]}
+      />
+      <pointLight
+        color="#ffd2a4"
+        distance={3.4}
+        intensity={0.48}
+        position={[
+          roomLayout.mediaConsole.position[0] - 1.36,
+          roomLayout.mediaConsole.position[1] + 1.2,
+          roomLayout.mediaConsole.position[2] - 0.3,
         ]}
       />
     </>
