@@ -6,7 +6,7 @@ import { roomAsset } from '../../../data/roomAssets'
 const schoolObjectVisuals = {
   'science-club': ({ hovered }) => <MascotCard name="school-science-mascot" url={roomAsset('nus-mascot.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
   'rc4-flag': ({ hovered }) => <MascotCard name="school-rc4-orca" url={roomAsset('orca-frame.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
-  ucla: ({ hovered }) => <MascotCard name="school-ucla-mascot" url={roomAsset('ucla-bruin.png')} scale={[0.88, 0.5, 1]} hovered={hovered} />,
+  ucla: ({ hovered }) => <MascotCard name="school-ucla-mascot" url={roomAsset('ucla-bruin.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
 }
 
 const schoolObjectPositions = {

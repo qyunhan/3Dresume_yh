@@ -4,11 +4,11 @@ import { researchLightPosition } from '../../data/roomPolish'
 export default function Lighting() {
   return (
     <>
-      <ambientLight color="#fff4e8" intensity={0.42} />
+      <ambientLight color="#fff8f3" intensity={0.95} />
       <hemisphereLight
-        color="#f5e8d8"
-        groundColor="#867895"
-        intensity={0.72}
+        color="#fff8f3"
+        groundColor="#C3ADD3"
+        intensity={1}
       />
       <directionalLight
         castShadow

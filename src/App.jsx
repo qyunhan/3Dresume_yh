@@ -38,7 +38,8 @@ export default function App() {
 
   return (
     <main className="app-shell">
-      <Canvas
+    <Canvas
+      flat
         camera={{
           fov: overviewCamera.fov,
           near: 0.1,
@@ -50,7 +51,7 @@ export default function App() {
         gl={{ alpha: false, antialias: true }}
         shadows="basic"
       >
-        <color attach="background" args={['#b8aec8']} />
+        <color attach="background" args={['#AD93C0']} />
         <Lighting />
         <Room
           catReaction={catReaction}

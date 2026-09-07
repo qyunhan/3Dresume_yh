@@ -2,9 +2,11 @@ import { expect, test } from 'vitest'
 import { palette } from './materials'
 
 test('uses the requested cozy lavender room palette', () => {
-  expect(palette.lavender).toBe('#A98BC3')
-  expect(palette.lightLavender).toBe('#BDA6D3')
-  expect(palette.lavenderShadow).toBe('#8D71A6')
+  expect(palette.wall).toBe('#AD93C0')
+  expect(palette.wallLight).toBe('#C3ADD3')
+  expect(palette.lavender).toBe('#AD93C0')
+  expect(palette.lightLavender).toBe('#C3ADD3')
+  expect(palette.lavenderShadow).toBe('#9E84B1')
   expect(palette.purpleFurniture).toBe('#9673B0')
   expect(palette.cushion).toBe('#A77FC2')
   expect(palette.cream).toBe('#EFE4D7')
