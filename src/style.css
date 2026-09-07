@@ -152,6 +152,26 @@ button:focus-visible {
   opacity: 1;
 }
 
+.scene-marker.is-label-suppressed,
+.scene-marker.is-label-suppressed:hover {
+  padding: 0.3rem;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.scene-marker.is-label-suppressed .marker-leader,
+.scene-marker.is-label-suppressed:hover .marker-leader {
+  margin: 0;
+  opacity: 0;
+}
+
+.scene-marker.is-label-suppressed .marker-label,
+.scene-marker.is-label-suppressed:hover .marker-label {
+  max-width: 0;
+  opacity: 0;
+}
+
 .app-shell {
   position: relative;
   width: 100%;
@@ -877,25 +897,11 @@ button:focus-visible {
 }
 
 @media (max-width: 480px) {
-  .marker-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
   .scene-marker {
     min-width: 2.75rem;
+    min-height: 2.75rem;
     padding: 0.42rem;
     justify-content: center;
-  }
-
-  .marker-leader {
-    display: none;
   }
 }
 

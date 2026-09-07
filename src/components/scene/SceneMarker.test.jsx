@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { expect, test, vi } from 'vitest'
 import SceneMarker from './SceneMarker'
@@ -64,4 +64,24 @@ test('clears its hover label when the object is selected', async () => {
 
   expect(onSelect).toHaveBeenCalledOnce()
   expect(marker).not.toHaveClass('is-visible')
+})
+
+test('renders selection suppression until the pointer leaves the marker', async () => {
+  const user = userEvent.setup()
+  render(
+    <SceneMarker
+      label="HDB Price Prediction"
+      shortLabel="HDB"
+      position={[0, 0, 0]}
+      onSelect={() => {}}
+    />,
+  )
+
+  const marker = screen.getByRole('button', { name: 'HDB Price Prediction' })
+  await user.hover(marker)
+  await user.click(marker)
+
+  expect(marker).toHaveClass('is-label-suppressed')
+  fireEvent.pointerLeave(marker)
+  expect(marker).not.toHaveClass('is-label-suppressed')
 })
