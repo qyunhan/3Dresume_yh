@@ -1,4 +1,6 @@
 import { Material, palette } from './materials'
+import { DeskLamp, LowPolyPlant } from './LowPolyProps'
+import { Reports, Tv } from './PortfolioObjects'
 
 function Box({ size, color, hovered = false, ...props }) {
   return (
@@ -32,6 +34,11 @@ export function FinancialDashboard({ hovered }) {
         <Box key={index} size={[0.075, height, 0.01]} position={[-0.29 + index * 0.115, 0.32 + height / 2, 0.034]} color={index < 3 ? palette.blush : palette.sky} />
       ))}
       <Box size={[0.73, 0.012, 0.01]} position={[0, 0.306, 0.034]} color={palette.cream} />
+      {[
+        [-0.25, 0.45, 0.2], [-0.1, 0.49, -0.12], [0.06, 0.46, 0.18], [0.22, 0.54, -0.16],
+      ].map(([x, y, tilt], index) => (
+        <Box key={index} size={[0.19, 0.018, 0.01]} position={[x, y, 0.04]} rotation={[0, 0, tilt]} color={palette.gold} />
+      ))}
     </group>
   )
 }
@@ -83,47 +90,16 @@ export function HdbBlock({ hovered }) {
 export function EquityResearchStation({ hovered, reportOffset }) {
   return (
     <group>
-      <Box size={[3.35, 1.94, 0.16]} position={[0, 0, -0.05]} color="#514956" />
-      <Box size={[3.28, 1.86, 0.13]} position={[0, 0, 0.04]} color={palette.ink} hovered={hovered} />
-      <Box size={[3.03, 1.61, 0.022]} position={[0, 0, 0.119]} color="#50465b" hovered={hovered} />
-      {[-1.14, -0.57, 0, 0.57, 1.14].map((x, index) => (
-        <Box key={x} size={[0.42, 0.08, 0.015]} position={[x, 0.65, 0.14]} color={index % 2 ? palette.blush : palette.sage} />
-      ))}
-      {[0.25, 0.39, 0.33, 0.57, 0.65, 0.79].map((height, index) => (
-        <Box key={index} size={[0.16, height, 0.018]} position={[-1.16 + index * 0.25, -0.4 + height / 2, 0.15]} color={index < 3 ? palette.sky : palette.sage} />
-      ))}
-      <Box size={[1.61, 0.018, 0.014]} position={[-0.5, -0.43, 0.15]} color={palette.cream} />
-      {[0.3, 0.02, -0.26].map((y, index) => (
-        <group key={y} position={[0.89, y, 0.15]}>
-          <Box size={[0.82, 0.15, 0.012]} color="#71617b" />
-          <Box size={[0.58 - index * 0.12, 0.055, 0.012]} position={[-index * 0.06, 0, 0.016]} color={index === 1 ? palette.blush : palette.gold} />
-        </group>
-      ))}
-      <Box size={[2.7, 0.06, 0.014]} position={[0, -0.65, 0.15]} color={palette.lavenderShadow} />
-      <group position={reportOffset}>
-        <Box size={[1.92, 0.12, 1.22]} position={[0, -0.06, 0]} color={palette.white} />
-        {[-0.72, 0.72].map((x) => (
-          <Box key={x} size={[0.12, 0.605, 0.91]} position={[x, -0.4225, 0]} color={palette.woodDark} />
+      <Tv hovered={hovered} />
+      <Reports hovered={hovered} position={reportOffset} />
+      <DeskLamp position={[-1.36, -0.79, 0.15]} scale={0.62} />
+      <LowPolyPlant position={[1.38, -0.84, 0.16]} scale={0.56} potColor={palette.cream} />
+      <group position={[-0.38, -0.78, 0.2]} rotation={[-Math.PI / 2, 0, -0.08]}>
+        <Box size={[0.62, 0.81, 0.05]} color={palette.woodDark} hovered={hovered} />
+        <Box size={[0.54, 0.71, 0.018]} position={[0, 0, 0.042]} color={palette.cream} hovered={hovered} />
+        {[0.16, 0.27, 0.37].map((height, index) => (
+          <Box key={height} size={[0.1, height, 0.012]} position={[-0.16 + index * 0.16, -0.22 + height / 2, 0.055]} color={palette.sage} />
         ))}
-        {[0, 1, 2].map((index) => (
-          <group key={index} position={[0.43, 0.045 + index * 0.09, 0.08]} rotation={[0, (index - 1) * 0.07, 0]}>
-            <Box size={[0.61, 0.075, 0.72]} color={palette.cream} />
-            <Box size={[0.65, 0.025, 0.76]} position={[0, 0.05, 0]} color={index === 1 ? palette.blush : palette.lavenderShadow} hovered={hovered} />
-          </group>
-        ))}
-        <group position={[-0.44, 0.45, -0.08]} rotation={[-0.2, 0, -0.06]}>
-          <Box size={[0.68, 0.84, 0.07]} color={palette.woodDark} hovered={hovered} />
-          <Box size={[0.59, 0.74, 0.025]} position={[0, 0, 0.05]} color={palette.cream} hovered={hovered} />
-          <Box size={[0.38, 0.06, 0.01]} position={[-0.04, 0.24, 0.07]} color={palette.lavenderShadow} />
-          {[0.13, 0.23, 0.32].map((height, index) => (
-            <Box key={index} size={[0.09, height, 0.012]} position={[-0.15 + index * 0.15, -0.22 + height / 2, 0.07]} color={palette.sage} />
-          ))}
-        </group>
-        <group position={[0.38, 0.355, 0.12]} rotation={[-Math.PI / 2, 0, 0.06]}>
-          <Box size={[0.51, 0.63, 0.035]} color={palette.sky} hovered={hovered} />
-          <Box size={[0.04, 0.63, 0.02]} position={[-0.19, 0, 0.025]} color={palette.woodDark} />
-          <Box size={[0.27, 0.13, 0.01]} position={[0.025, 0.1, 0.025]} color={palette.cream} />
-        </group>
       </group>
     </group>
   )

@@ -50,8 +50,11 @@ export function Tv({ hovered }) {
         <group key={color} position={[x, y, 0.14]}>
           <Box size={[1.3, 0.5, 0.018]} color={color} hovered={hovered} />
           <Box size={[0.35, 0.31, 0.012]} position={[-0.36, 0, 0.02]} color={index % 2 ? '#6e7d71' : '#8e647f'} />
-          <Box size={[0.55, 0.045, 0.012]} position={[0.2, 0.08, 0.02]} color={palette.cream} />
-          <Box size={[0.38, 0.025, 0.012]} position={[0.12, -0.045, 0.02]} color={palette.white} />
+          {[0.11, 0.2, 0.16, 0.26].map((height, metricIndex) => (
+            <Box key={metricIndex} size={[0.06, height, 0.012]} position={[0.03 + metricIndex * 0.1, -0.11 + height / 2, 0.024]} color={metricIndex % 2 ? palette.cream : palette.gold} />
+          ))}
+          <Box size={[0.55, 0.045, 0.012]} position={[0.2, 0.18, 0.02]} color={palette.cream} />
+          <Box size={[0.38, 0.025, 0.012]} position={[0.12, 0.07, 0.02]} color={palette.white} />
         </group>
       ))}
       <Box size={[2.75, 0.055, 0.014]} position={[0, -0.65, 0.145]} color="#7b6d83" />

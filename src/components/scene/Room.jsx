@@ -7,6 +7,7 @@ import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
 import RoomShell from './room/RoomShell'
 import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
+import { DeskLamp, FloorPouf } from './room/LowPolyProps'
 import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
 import { CareerJourney, EyMemento, ShopeeMemento, UobMemento } from './room/CareerJourney'
@@ -40,6 +41,8 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
       <OfficeChair {...roomLayout.chair} />
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
+      <DeskLamp position={[-1.88, 2.25, -4.74]} />
+      <FloorPouf position={[-0.15, 0.22, -0.27]} rotation={[0, -0.2, 0]} />
       <group position={roomLayout.laptop.position}><Laptop /></group>
       <CareerJourney />
       {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (

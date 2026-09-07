@@ -81,6 +81,15 @@ test('maps career and school memorabilia to their direct resume items', () => {
   expect(elements.some((element) => element.props?.label === 'UOB')).toBe(true)
 })
 
+test('composes the reusable desk and lounge props into the room', () => {
+  const onSelectZone = vi.fn()
+  const onSelectItem = vi.fn()
+  const tree = descendants(Room({ onSelectZone, onSelectItem, onCatClick: vi.fn(), catReaction: 0 }))
+
+  expect(tree.some((node) => node.type?.name === 'FloorPouf')).toBe(true)
+  expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(true)
+})
+
 test('About frame remains a non-zone interaction', () => {
   const onAboutClick = vi.fn()
   const onSelectItem = vi.fn()

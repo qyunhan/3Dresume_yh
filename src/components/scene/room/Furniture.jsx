@@ -1,4 +1,5 @@
 import { Material, palette } from './materials'
+import { StackedBooks } from './LowPolyProps'
 
 function Box({ size, color = palette.white, ...props }) {
   return (
@@ -29,6 +30,7 @@ export function Desk(props) {
         </group>
       ))}
       <Box size={[4.48, 0.14, 0.08]} position={[0, 0.94, -0.8]} color="#ded6cd" />
+      <StackedBooks position={[-1.35, 0.9, 0.25]} />
     </group>
   )
 }
