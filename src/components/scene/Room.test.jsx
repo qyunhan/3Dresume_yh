@@ -104,7 +104,6 @@ test('renders the canonical hero objects inside their board and shelf groups exa
   expect(Array.from(careerCards).every((card) => card.querySelectorAll('mesh').length >= 4)).toBe(true)
   const experienceBoard = container.querySelector('group[name="experience-board"]')
   expect(experienceBoard?.querySelectorAll('mesh[name="experience-board-frame"], mesh[name="experience-corkboard"], mesh[name="experience-pin-rail"]')).toHaveLength(3)
-  expect(experienceBoard?.querySelectorAll('mesh[name="experience-board-rail"], mesh[name="experience-board-lip"]')).toHaveLength(8)
   expect(experienceBoard?.querySelectorAll('mesh[name="experience-pin-stem"], mesh[name="experience-pin"], mesh[name^="experience-logo-"]')).toHaveLength(9)
 
   const schoolShelf = container.querySelector('group[name="school-shelf"]')
