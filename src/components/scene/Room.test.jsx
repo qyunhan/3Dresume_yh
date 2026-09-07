@@ -99,19 +99,24 @@ test('renders the canonical hero objects inside their board and shelf groups exa
     expect(careerCards[index].querySelector(`group[name="${label}"]`)).not.toBeNull()
   })
   expect(container.querySelectorAll('mesh[name="experience-logo-ey"], mesh[name="experience-logo-shopee"], mesh[name="experience-logo-uob"]')).toHaveLength(3)
-  expect(Array.from(careerCards).every((card) => card.querySelectorAll('mesh').length === 1)).toBe(true)
+  // Each logo rides a card with real thickness rather than floating on the cork.
+  expect(Array.from(careerCards).every((card) => card.querySelector('mesh[name="experience-card-body"]'))).toBe(true)
+  expect(Array.from(careerCards).every((card) => card.querySelectorAll('mesh').length >= 4)).toBe(true)
   const experienceBoard = container.querySelector('group[name="experience-board"]')
   expect(experienceBoard?.querySelectorAll('mesh[name="experience-board-frame"], mesh[name="experience-corkboard"], mesh[name="experience-pin-rail"]')).toHaveLength(3)
+  expect(experienceBoard?.querySelectorAll('mesh[name="experience-board-rail"], mesh[name="experience-board-lip"]')).toHaveLength(8)
   expect(experienceBoard?.querySelectorAll('mesh[name="experience-pin-stem"], mesh[name="experience-pin"], mesh[name^="experience-logo-"]')).toHaveLength(9)
-  expect(experienceBoard?.querySelectorAll('mesh')).toHaveLength(12)
 
   const schoolShelf = container.querySelector('group[name="school-shelf"]')
   expect(schoolShelf?.querySelectorAll('group[name="NUS"], group[name="RC4 Flag"], group[name="UCLA"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('group[name="school-photo-frame"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-depth"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-top"], mesh[name="school-frame-bottom"], mesh[name="school-frame-left"], mesh[name="school-frame-right"]')).toHaveLength(12)
+  expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-lip"]')).toHaveLength(12)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-science-mascot"], mesh[name="school-rc4-orca"], mesh[name="school-ucla-mascot"]')).toHaveLength(3)
-  expect(schoolShelf?.querySelectorAll('mesh')).toHaveLength(19)
+  // The shelf art is modelled geometry, not three textured planes.
+  expect(schoolShelf?.querySelectorAll('group[name="nus-lion-model"], group[name="rc4-orca-model"], group[name="ucla-royce-model"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('mesh').length).toBeGreaterThan(60)
 
   for (const [label, zoneId, itemId, cameraPreset] of [
     ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
