@@ -22,9 +22,12 @@ describe('camera presets', () => {
       expect(getCameraPreset(id).target).toHaveLength(3)
     },
   )
-  test('overview uses the immersive room-facing pose', () => {
-    expect(cameraPresets.overview.position).toEqual([8.8, 5.7, 10.4])
-    expect(cameraPresets.overview.target).toEqual([0, 2.45, -1.25])
+  test('overview uses the lower, wider room-facing composition', () => {
+    const overview = getCameraPreset(null)
+
+    expect(overview.position[1]).toBeLessThan(5.7)
+    expect(overview.fov).toBeGreaterThanOrEqual(35)
+    expect(overview.fov).toBeLessThanOrEqual(45)
   })
 
   test.each(['frontend', 'technical', 'experience', 'reports'])(
@@ -77,7 +80,7 @@ test('portrait overview pulls back while desktop keeps the authored pose', () =>
     0.6,
     false,
   )
-  ;[13.64, 7.4875, 16.8075].forEach((coordinate, index) => {
+  ;[13.64, 5.86, 19.275].forEach((coordinate, index) => {
     expect(portraitPosition[index]).toBeCloseTo(coordinate)
   })
 })

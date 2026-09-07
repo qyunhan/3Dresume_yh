@@ -79,13 +79,15 @@ function Door() {
 
 export default function RoomShell() {
   const { width, depth, backWallZ } = roomLayout.room
-  const height = 6.5
+  const height = 8
   const centerZ = backWallZ + depth / 2
+  const floorDepth = depth + 5
+  const floorCenterZ = backWallZ + floorDepth / 2
   const boardWidth = width / 14
 
   return (
     <group>
-      <Box size={[width, 0.32, depth]} position={[0, -0.185, centerZ]} color={palette.woodDark} />
+      <Box size={[width, 0.32, floorDepth]} position={[0, -0.185, floorCenterZ]} color={palette.woodDark} />
       {Array.from({ length: 14 }, (_, index) => (
         <group key={index}>
           <Box size={[boardWidth - 0.018, 0.05, depth]} position={[-width / 2 + boardWidth * (index + 0.5), 0, centerZ]} color={['#9a6548', '#a36f50', '#986146', '#aa7655'][index % 4]} />

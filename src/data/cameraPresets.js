@@ -1,5 +1,5 @@
 export const cameraPresets = {
-  overview: { position: [8.8, 5.7, 10.4], target: [0, 2.45, -1.25] },
+  overview: { position: [8.8, 4.65, 11.3], target: [0, 2.45, -3.2], fov: 40 },
   frontend: { position: [7, 5.5, 5.5], target: [3.55, 3.05, -5.15] },
   technical: { position: [2.5, 4.8, 5.2], target: [-3.65, 2.25, -4.05] },
   experience: { position: [3.8, 5.8, 4.5], target: [0, 3.55, -5.25] },
