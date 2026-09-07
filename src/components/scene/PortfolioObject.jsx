@@ -3,16 +3,17 @@ import { getPortfolioItem } from '../../data/portfolio'
 import Interactable from './Interactable'
 import SceneMarker from './SceneMarker'
 
-export default function PortfolioObject({ item, position, markerPosition, onSelect, children }) {
+export default function PortfolioObject({ item, label, position, markerPosition, onSelect, children }) {
   const [meshHovered, setMeshHovered] = useState(false)
   const [markerHovered, setMarkerHovered] = useState(false)
   const content = getPortfolioItem(item.zoneId, item.id)
+  const interactiveLabel = label ?? item.interactiveLabel ?? content.objectName
   const select = () => onSelect({ zoneId: item.zoneId, itemId: item.id, cameraPreset: content.cameraPreset })
 
   return (
     <group>
       <Interactable
-        label={content.objectName}
+        label={interactiveLabel}
         position={position}
         onClick={select}
         onHoverChange={setMeshHovered}
@@ -20,8 +21,8 @@ export default function PortfolioObject({ item, position, markerPosition, onSele
         {(hovered) => children(hovered || markerHovered)}
       </Interactable>
       <SceneMarker
-        label={content.objectName}
-        shortLabel={content.objectName}
+        label={interactiveLabel}
+        shortLabel={interactiveLabel}
         position={markerPosition}
         visible={meshHovered}
         onHoverChange={setMarkerHovered}

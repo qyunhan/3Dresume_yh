@@ -53,14 +53,14 @@ function BookStack(props) {
   )
 }
 
-function Frame(props) {
+export function AboutFrame({ hovered }) {
   return (
-    <group {...props}>
-      <Box size={[0.55, 0.68, 0.08]} position={[0, 0.34, 0]} color={palette.woodDark} />
-      <Box size={[0.44, 0.57, 0.025]} position={[0, 0.34, 0.053]} color={palette.cream} />
-      <Box size={[0.3, 0.35, 0.012]} position={[0, 0.37, 0.074]} color={palette.blush} />
-      <Box size={[0.18, 0.23, 0.012]} position={[0.03, 0.32, 0.085]} rotation={[0, 0, 0.2]} color={palette.lavenderShadow} />
-      <Box size={[0.34, 0.065, 0.3]} position={[0, 0.035, -0.05]} color={palette.woodDark} />
+    <group>
+      <Box size={[0.47, 0.62, 0.08]} position={[0, 0.31, 0]} color={palette.woodDark} />
+      <Box size={[0.37, 0.52, 0.025]} position={[0, 0.31, 0.053]} color={palette.cream} hovered={hovered} />
+      <Box size={[0.25, 0.3, 0.012]} position={[0, 0.35, 0.074]} color={palette.blush} hovered={hovered} />
+      <Box size={[0.14, 0.18, 0.012]} position={[0.025, 0.3, 0.085]} rotation={[0, 0, 0.2]} color={palette.lavenderShadow} />
+      <Box size={[0.29, 0.055, 0.25]} position={[0, 0.028, -0.05]} color={palette.woodDark} />
     </group>
   )
 }
@@ -77,14 +77,7 @@ export default function Decor() {
             ))}
           </group>
         ))}
-        {[palette.blush, palette.sage, palette.gold, palette.lavenderShadow].map((color, index) => (
-          <group key={color} position={[-2.2 + index * 0.18, 0.97 + index % 2 * 0.06, 0]} rotation={[0, 0, index === 3 ? -0.12 : 0]}>
-            <Box size={[0.14, 0.51 + index % 2 * 0.12, 0.32]} color={color} />
-            <Box size={[0.09, 0.05, 0.015]} position={[0, 0.1, 0.166]} color={palette.cream} />
-          </group>
-        ))}
         <Plant position={[-0.84, 0.71, 0.02]} scale={0.62} trailing />
-        <Frame position={[-0.42, 1.31, 0.015]} scale={0.8} />
         <Box size={[0.62, 0.32, 0.4]} position={[0.49, 1.47, 0]} color="#bdafa8" />
         <Box size={[0.67, 0.055, 0.43]} position={[0.49, 1.65, 0]} color={palette.cream} />
       </group>

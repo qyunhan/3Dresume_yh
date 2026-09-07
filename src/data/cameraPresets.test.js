@@ -10,7 +10,10 @@ import {
 } from './cameraPresets'
 
 describe('camera presets', () => {
-  test.each(['projects', 'research', 'school', 'financialAutomation', 'weather', 'hdb', 'equityResearch'])(
+  test.each([
+    'projects', 'research', 'school', 'financialAutomation', 'weather', 'hdb', 'equityResearch',
+    'ey', 'shopee', 'uob', 'nus', 'rc4', 'scienceClub', 'ucla',
+  ])(
     '%s resolves to an authored selection pose instead of the overview',
     (id) => {
       expect(hasCameraPreset(id)).toBe(true)

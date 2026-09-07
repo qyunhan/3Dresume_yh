@@ -14,6 +14,8 @@ test('all four environmental labels resolve to authored zone views', () => {
 test.each([
   ['financial-automation', 'projects'], ['weather', 'projects'],
   ['hdb', 'projects'], ['equity-research', 'research'],
+  ['ey', 'experience'], ['shopee', 'experience'], ['uob', 'experience'],
+  ['nus', 'school'], ['rc4-flag', 'school'], ['science-club', 'school'], ['ucla', 'school'],
 ])('%s resolves to its canonical zone and camera', (id, zoneId) => {
   const anchor = phase2Layout.items[id]
   expect(anchor.zoneId).toBe(zoneId)
@@ -21,5 +23,5 @@ test.each([
   expect(anchor.markerPosition).toHaveLength(3)
   expect(anchor.cameraPreset).toBe(getPortfolioItem(zoneId, id).cameraPreset)
   expect(cameraPresets[anchor.cameraPreset]).toBeDefined()
-  expect(anchor.position[0] < 0).toBe(zoneId === 'projects')
+  if (zoneId === 'projects') expect(anchor.position[0]).toBeLessThan(0)
 })

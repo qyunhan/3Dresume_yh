@@ -2,8 +2,15 @@ import { getPortfolioItem } from './portfolio'
 import { roomLayout } from './roomLayout'
 
 // Scene metadata only. Descriptive content is resolved by the HTML labels.
-function itemAnchor(zoneId, id, transforms) {
-  return { id, zoneId, cameraPreset: getPortfolioItem(zoneId, id).cameraPreset, ...transforms }
+function itemAnchor(zoneId, id, { useTitleLabel = false, ...transforms }) {
+  const item = getPortfolioItem(zoneId, id)
+  return {
+    id,
+    zoneId,
+    cameraPreset: item.cameraPreset,
+    ...(useTitleLabel && { interactiveLabel: item.title }),
+    ...transforms,
+  }
 }
 
 export const phase2Layout = {
@@ -30,6 +37,34 @@ export const phase2Layout = {
       objectType: 'equityResearchStation', position: roomLayout.tv.position,
       markerPosition: [3.65, 1.95, -1.35],
       reportOffset: roomLayout.reports.position.map((value, index) => value - roomLayout.tv.position[index]),
+    }),
+    ey: itemAnchor('experience', 'ey', {
+      objectType: 'eyMemento', position: [-1.45, 3.38, -5.1],
+      markerPosition: [-1.45, 4.15, -4.91], useTitleLabel: true,
+    }),
+    shopee: itemAnchor('experience', 'shopee', {
+      objectType: 'shopeeMemento', position: [0, 3.38, -5.1],
+      markerPosition: [0, 4.15, -4.91], useTitleLabel: true,
+    }),
+    uob: itemAnchor('experience', 'uob', {
+      objectType: 'uobMemento', position: [1.45, 3.38, -5.1],
+      markerPosition: [1.45, 4.15, -4.91], useTitleLabel: true,
+    }),
+    nus: itemAnchor('school', 'nus', {
+      objectType: 'nusToken', position: [-3.0, 5.68, -5.1],
+      markerPosition: [-3.0, 6.36, -4.92], useTitleLabel: true,
+    }),
+    'rc4-flag': itemAnchor('school', 'rc4-flag', {
+      objectType: 'rc4Trophy', position: [-1.7, 5.68, -5.1],
+      markerPosition: [-1.7, 6.48, -4.92], useTitleLabel: true,
+    }),
+    'science-club': itemAnchor('school', 'science-club', {
+      objectType: 'scienceClubToken', position: [-0.95, 5.68, -5.1],
+      markerPosition: [-0.95, 6.26, -4.92], useTitleLabel: true,
+    }),
+    ucla: itemAnchor('school', 'ucla', {
+      objectType: 'uclaMemory', position: [-6.55, 2.58, -3.1],
+      markerPosition: [-6.2, 3.35, -3.1], useTitleLabel: true,
     }),
   },
   about: { position: [-5.67, 2.25, -3.76], markerPosition: [-5.67, 3.05, -3.6] },

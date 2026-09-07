@@ -11,11 +11,25 @@ import { phase2Layout } from './data/phase2Layout'
 
 export default function App() {
   const [selection, setSelection] = useState({ activeZone: null, selectedItem: null })
+  const [aboutOpen, setAboutOpen] = useState(false)
   const [catReaction, setCatReaction] = useState(0)
   const [enteredRoom, setEnteredRoom] = useState(false)
-  const selectZone = (activeZone) => setSelection({ activeZone, selectedItem: null })
-  const selectItem = ({ zoneId, itemId }) => setSelection({ activeZone: zoneId, selectedItem: itemId })
-  const clearSelection = () => setSelection({ activeZone: null, selectedItem: null })
+  const selectZone = (activeZone) => {
+    setAboutOpen(false)
+    setSelection({ activeZone, selectedItem: null })
+  }
+  const selectItem = ({ zoneId, itemId }) => {
+    setAboutOpen(false)
+    setSelection({ activeZone: zoneId, selectedItem: itemId })
+  }
+  const clearSelection = () => {
+    setAboutOpen(false)
+    setSelection({ activeZone: null, selectedItem: null })
+  }
+  const openAbout = () => {
+    setSelection({ activeZone: null, selectedItem: null })
+    setAboutOpen(true)
+  }
   const itemPreset = getPortfolioItem(selection.activeZone, selection.selectedItem)?.cameraPreset
   const cameraPreset = hasCameraPreset(itemPreset)
     ? itemPreset
@@ -34,6 +48,7 @@ export default function App() {
         <Lighting />
         <Room
           catReaction={catReaction}
+          onAboutClick={openAbout}
           onCatClick={() => setCatReaction((count) => count + 1)}
           onSelectZone={selectZone}
           onSelectItem={selectItem}
@@ -43,6 +58,8 @@ export default function App() {
       {enteredRoom && (
         <Overlay
           onBack={clearSelection}
+          aboutOpen={aboutOpen}
+          onCloseAbout={clearSelection}
           activeZone={selection.activeZone}
           selectedItem={selection.selectedItem}
           onSelectItem={selectItem}

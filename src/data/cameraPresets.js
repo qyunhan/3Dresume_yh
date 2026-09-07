@@ -11,6 +11,13 @@ export const cameraPresets = {
   weather: { position: [1.6, 4.3, 2.7], target: [-2.6, 2.7, -4.8] },
   hdb: { position: [2.2, 4.1, 3.3], target: [-1.72, 2.65, -3.73] },
   equityResearch: { position: [7, 4.6, 4.6], target: [3.6, 2.15, -3.4] },
+  ey: { position: [4.4, 5.2, 4.8], target: [-1.45, 3.72, -5.1] },
+  shopee: { position: [4.5, 5.2, 4.8], target: [0, 3.72, -5.1] },
+  uob: { position: [5, 5.2, 4.8], target: [1.45, 3.72, -5.1] },
+  nus: { position: [2.2, 6.4, 4.9], target: [-3, 5.96, -5.1] },
+  rc4: { position: [2.7, 6.6, 4.9], target: [-1.7, 6.08, -5.1] },
+  scienceClub: { position: [3.1, 6.35, 4.9], target: [-0.95, 5.98, -5.1] },
+  ucla: { position: [1.8, 4.4, 5], target: [-6.55, 2.92, -3.1] },
 }
 
 export function getCameraPreset(sectionId) {

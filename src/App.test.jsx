@@ -9,7 +9,7 @@ vi.mock('@react-three/fiber', () => ({
   Canvas: ({ children }) => <div data-testid="canvas">{children}</div>,
 }))
 vi.mock('./components/scene/Room', () => ({
-  default: ({ onSelectZone, onSelectItem, onCatClick }) => (
+  default: ({ onAboutClick, onSelectZone, onSelectItem, onCatClick }) => (
     <>
       <button onClick={() => onSelectZone('projects')} type="button">
         Open Projects
@@ -19,6 +19,9 @@ vi.mock('./components/scene/Room', () => ({
       </button>
       <button onClick={() => onSelectZone('research')} type="button">
         Open Research
+      </button>
+      <button onClick={onAboutClick} type="button">
+        Open About
       </button>
       <button onClick={onCatClick} type="button">
         Pet cat
@@ -82,6 +85,18 @@ test('research zone uses the authored research framing', async () => {
   await userEvent.click(screen.getByRole('button', { name: 'Open Research' }))
   expect(screen.getByRole('dialog', { name: 'Research details' })).toBeInTheDocument()
   expect(cameraController.mock.lastCall[0].selectedSection).toBe('research')
+})
+
+test('opens and closes the non-zone About panel', async () => {
+  render(<App />)
+
+  await userEvent.click(screen.getByRole('button', { name: 'Enter' }))
+  await userEvent.click(screen.getByRole('button', { name: 'Open About' }))
+  expect(screen.getByRole('dialog', { name: 'About this room' })).toBeInTheDocument()
+  expect(cameraController.mock.lastCall[0].selectedSection).toBeNull()
+
+  await userEvent.click(screen.getByRole('button', { name: /back to room/i }))
+  expect(screen.queryByRole('dialog', { name: 'About this room' })).not.toBeInTheDocument()
 })
 
 test('cat clicks do not open a portfolio section', async () => {

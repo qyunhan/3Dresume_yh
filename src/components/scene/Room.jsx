@@ -6,9 +6,11 @@ import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
 import RoomShell from './room/RoomShell'
 import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
-import { Laptop, NoticeBoard } from './room/PortfolioObjects'
+import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
-import Decor from './room/Decor'
+import { CareerJourney, EyMemento, ShopeeMemento, UobMemento } from './room/CareerJourney'
+import { NusToken, Rc4Trophy, ScienceClubToken, UclaMemory } from './room/SchoolLife'
+import Decor, { AboutFrame } from './room/Decor'
 import Cat from './room/Cat'
 
 const resumeObjects = {
@@ -16,9 +18,16 @@ const resumeObjects = {
   weatherStation: WeatherStation,
   hdbBlock: HdbBlock,
   equityResearchStation: EquityResearchStation,
+  eyMemento: EyMemento,
+  shopeeMemento: ShopeeMemento,
+  uobMemento: UobMemento,
+  nusToken: NusToken,
+  rc4Trophy: Rc4Trophy,
+  scienceClubToken: ScienceClubToken,
+  uclaMemory: UclaMemory,
 }
 
-export default function Room({ onSelectZone, onSelectItem, onCatClick, catReaction }) {
+export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatClick, catReaction }) {
   return (
     <group>
       <RoomShell />
@@ -31,7 +40,7 @@ export default function Room({ onSelectZone, onSelectItem, onCatClick, catReacti
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
       <group position={roomLayout.laptop.position}><Laptop /></group>
-      <group position={roomLayout.noticeBoard.position}><NoticeBoard /></group>
+      <CareerJourney />
       {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (
         <ZoneLabel key={zone} zone={zone} position={anchor.position} onSelect={() => onSelectZone(zone)} />
       ))}
@@ -41,6 +50,7 @@ export default function Room({ onSelectZone, onSelectItem, onCatClick, catReacti
           <PortfolioObject
             key={anchor.id}
             item={anchor}
+            label={anchor.interactiveLabel}
             position={anchor.position}
             markerPosition={anchor.markerPosition}
             onSelect={onSelectItem}
@@ -49,6 +59,9 @@ export default function Room({ onSelectZone, onSelectItem, onCatClick, catReacti
           </PortfolioObject>
         )
       })}
+      <Interactable label="About this room" onClick={onAboutClick} position={phase2Layout.about.position}>
+        {(hovered) => <AboutFrame hovered={hovered} />}
+      </Interactable>
       <Interactable label="A very helpful cat" onClick={onCatClick} position={roomLayout.cat.position}>
         {(hovered) => (
           <group scale={hovered ? 1.04 : 1}>

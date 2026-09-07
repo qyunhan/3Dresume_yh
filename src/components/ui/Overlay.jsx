@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import AboutPanel from './AboutPanel'
 import DetailPanel from './DetailPanel'
 
 export default function Overlay({
   activeZone,
+  aboutOpen = false,
+  onCloseAbout,
   selectedItem,
   onBack,
   onSelectItem,
@@ -45,6 +48,7 @@ export default function Overlay({
         onBack={onBack}
         onSelectItem={(itemId) => onSelectItem({ zoneId: activeZone, itemId })}
       />
+      {aboutOpen && <AboutPanel onBack={onCloseAbout} />}
     </div>
   )
 }
