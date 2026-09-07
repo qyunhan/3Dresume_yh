@@ -1,7 +1,6 @@
 import { roomLayout } from '../../data/roomLayout'
 import { phase2Layout } from '../../data/phase2Layout'
 import Interactable from './Interactable'
-import SceneMarker from './SceneMarker'
 import ZoneLabel from './ZoneLabel'
 import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
@@ -11,8 +10,8 @@ import { DeskLamp, FloorPouf } from './room/LowPolyProps'
 import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
 import { CareerJourney, EyMemento, ShopeeMemento, UobMemento } from './room/CareerJourney'
-import { NusToken, Rc4Trophy, ScienceClubToken, SchoolLife, UclaMemory } from './room/SchoolLife'
-import Decor, { AboutFrame } from './room/Decor'
+import { NusToken, Rc4Trophy, SchoolLife, UclaMemory } from './room/SchoolLife'
+import Decor from './room/Decor'
 import Cat from './room/Cat'
 
 const resumeObjects = {
@@ -25,11 +24,14 @@ const resumeObjects = {
   uobMemento: UobMemento,
   nusToken: NusToken,
   rc4Trophy: Rc4Trophy,
-  scienceClubToken: ScienceClubToken,
   uclaMemory: UclaMemory,
 }
 
-export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatClick, catReaction }) {
+const visiblePortfolioItemIds = [
+  'financial-automation', 'weather', 'hdb', 'equity-research', 'ey', 'shopee', 'uob', 'nus', 'rc4-flag', 'ucla',
+]
+
+export default function Room({ onSelectZone, onSelectItem, onCatClick, catReaction }) {
   return (
     <group>
       <RoomShell />
@@ -49,7 +51,8 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
       {Object.entries(phase2Layout.zoneLabels).map(([zone, anchor]) => (
         <ZoneLabel key={zone} zone={zone} position={anchor.position} onSelect={() => onSelectZone(zone)} />
       ))}
-      {Object.values(phase2Layout.items).map((anchor) => {
+      {visiblePortfolioItemIds.map((itemId) => {
+        const anchor = phase2Layout.items[itemId]
         const Component = resumeObjects[anchor.objectType]
         return (
           <PortfolioObject
@@ -57,22 +60,12 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
             item={anchor}
             label={anchor.interactiveLabel}
             position={anchor.position}
-            markerPosition={anchor.markerPosition}
             onSelect={onSelectItem}
           >
             {(hovered) => <Component hovered={hovered} reportOffset={anchor.reportOffset} />}
           </PortfolioObject>
         )
       })}
-      <Interactable label="About this room" onClick={onAboutClick} position={phase2Layout.about.position}>
-        {(hovered) => <AboutFrame hovered={hovered} />}
-      </Interactable>
-      <SceneMarker
-        label="About this room"
-        shortLabel="About"
-        position={phase2Layout.about.markerPosition}
-        onSelect={onAboutClick}
-      />
       <Interactable label="A very helpful cat" onClick={onCatClick} position={roomLayout.cat.position}>
         {(hovered) => (
           <group scale={hovered ? 1.04 : 1}>

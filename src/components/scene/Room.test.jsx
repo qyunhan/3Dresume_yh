@@ -7,6 +7,7 @@ import ZoneLabel from './ZoneLabel'
 import Interactable from './Interactable'
 import SceneMarker from './SceneMarker'
 import { CareerJourney } from './room/CareerJourney'
+import { EquityResearchStation } from './room/ResumeObjects'
 import { SchoolLife } from './room/SchoolLife'
 
 vi.mock('@react-three/drei', () => ({
@@ -38,49 +39,33 @@ test('the four environmental plaques open their zone with keyboard activation', 
   }
 })
 
-test('resume meshes and keyboard markers select their canonical items', async () => {
+test('removes visual scene markers and the disconnected About interaction', () => {
+  const elements = descendants(Room({ onAboutClick: vi.fn(), onSelectItem: vi.fn(), onSelectZone: vi.fn() }))
+  const objects = elements.filter((element) => element.type?.name === 'PortfolioObject')
+
+  expect(elements.some((element) => element.type === SceneMarker)).toBe(false)
+  expect(elements.some((element) => element.type === Interactable && element.props.label === 'About this room')).toBe(false)
+  expect(objects.map((object) => object.props.item.id)).toEqual([
+    'financial-automation', 'weather', 'hdb', 'equity-research', 'ey', 'shopee', 'uob', 'nus', 'rc4-flag', 'ucla',
+  ])
+})
+
+test('the three project heroes retain their canonical selection payloads', () => {
   const onSelectItem = vi.fn()
   const elements = descendants(Room({ onSelectItem }))
-  const objects = elements.filter((element) => element.props.item)
-  expect(objects).toHaveLength(11)
+  const objects = elements.filter((element) => element.type?.name === 'PortfolioObject' && element.props.item.zoneId === 'projects')
+  expect(objects).toHaveLength(3)
   const { container } = render(<>{objects.map((object) => cloneElement(object, { children: () => null }))}</>)
-  const user = userEvent.setup()
   for (const [label, zoneId, itemId, cameraPreset] of [
     ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
     ['Weather station', 'projects', 'weather', 'weather'],
     ['HDB block', 'projects', 'hdb', 'hdb'],
-    ['Equity report', 'research', 'equity-research', 'equityResearch'],
-    ['EY', 'experience', 'ey', 'ey'],
-    ['Shopee', 'experience', 'shopee', 'shopee'],
-    ['UOB', 'experience', 'uob', 'uob'],
-    ['NUS', 'school', 'nus', 'nus'],
-    ['RC4 Flag', 'school', 'rc4-flag', 'rc4'],
-    ['Science Club', 'school', 'science-club', 'scienceClub'],
-    ['UCLA Exchange', 'school', 'ucla', 'ucla'],
   ]) {
-    const marker = screen.getByRole('button', { name: label })
     const mesh = container.querySelector(`group[name="${label}"]`)
-    expect(marker).not.toHaveClass('is-visible')
-    fireEvent.pointerOver(mesh)
-    expect(marker).toHaveClass('is-visible')
-    fireEvent.pointerOut(mesh)
-    expect(marker).not.toHaveClass('is-visible')
-    marker.focus()
-    await user.keyboard('{Enter}')
-    expect(onSelectItem).toHaveBeenLastCalledWith({ zoneId, itemId, cameraPreset })
     fireEvent.click(mesh)
     expect(onSelectItem).toHaveBeenLastCalledWith({ zoneId, itemId, cameraPreset })
-    marker.blur()
   }
-  expect(onSelectItem).toHaveBeenCalledTimes(22)
-})
-
-test('maps career and school memorabilia to their direct resume items', () => {
-  const onSelectZone = vi.fn()
-  const onSelectItem = vi.fn()
-  const elements = descendants(Room({ onSelectZone, onSelectItem, onCatClick: vi.fn(), catReaction: 0 }))
-  expect(elements.some((element) => element.props?.label === 'RC4 Flag')).toBe(true)
-  expect(elements.some((element) => element.props?.label === 'UOB')).toBe(true)
+  expect(onSelectItem).toHaveBeenCalledTimes(3)
 })
 
 test('composes the reusable desk and lounge props into the room', () => {
@@ -92,37 +77,16 @@ test('composes the reusable desk and lounge props into the room', () => {
   expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(true)
 })
 
-test('career and school storytelling compose shared decor kit props', () => {
-  expect(descendants(CareerJourney()).some((node) => node.type?.name === 'WallPlaque')).toBe(true)
-  expect(descendants(SchoolLife()).some((node) => node.type?.name === 'PhotoFrame')).toBe(true)
-})
+test('career, school, and research retain only their intended hero groups', () => {
+  const careerNames = descendants(CareerJourney()).map((node) => node.props?.name)
+  const schoolNames = descendants(SchoolLife()).map((node) => node.props?.name)
+  const researchNames = descendants(EquityResearchStation({ reportOffset: [0, 0, 0] })).map((node) => node.props?.name)
 
-test('About frame remains a non-zone interaction', () => {
-  const onAboutClick = vi.fn()
-  const onSelectItem = vi.fn()
-  const onSelectZone = vi.fn()
-  const elements = descendants(Room({ onAboutClick, onCatClick: vi.fn(), onSelectItem, onSelectZone, catReaction: 0 }))
-  const about = elements.find((element) => element.type === Interactable && element.props.label === 'About this room')
-  about.props.onClick()
-  expect(onAboutClick).toHaveBeenCalledOnce()
-  expect(onSelectItem).not.toHaveBeenCalled()
-  expect(onSelectZone).not.toHaveBeenCalled()
-})
-
-test('About marker routes keyboard and pointer selection to the non-zone callback', async () => {
-  const onAboutClick = vi.fn()
-  const elements = descendants(Room({ onAboutClick, onCatClick: vi.fn(), onSelectItem: vi.fn(), onSelectZone: vi.fn(), catReaction: 0 }))
-  const markers = elements.filter((element) => element.type === SceneMarker && element.props.label === 'About this room')
-  expect(markers).toHaveLength(1)
-  render(<>{markers}</>)
-
-  const marker = screen.getByRole('button', { name: 'About this room' })
-  const user = userEvent.setup()
-  marker.focus()
-  await user.keyboard('{Enter}')
-  await user.click(marker)
-
-  expect(onAboutClick).toHaveBeenCalledTimes(2)
+  expect(careerNames.filter((name) => name === 'experience-card')).toHaveLength(3)
+  expect(careerNames).not.toContain('Career timeline')
+  expect(schoolNames).toEqual(expect.arrayContaining(['school-shelf', 'school-nus', 'school-trophy', 'school-ucla']))
+  expect(researchNames).toContain('research-lamp')
+  expect(researchNames).not.toEqual(expect.arrayContaining(['research-plant', 'research-notebook']))
 })
 
 test('cat remains a separate interaction with no portfolio selection', () => {

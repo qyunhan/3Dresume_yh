@@ -11,18 +11,6 @@ function Box({ size, color = palette.white, hovered = false, ...props }) {
   )
 }
 
-export function AboutFrame({ hovered }) {
-  return (
-    <group>
-      <Box size={[0.47, 0.62, 0.08]} position={[0, 0.31, 0]} color={palette.woodDark} />
-      <Box size={[0.37, 0.52, 0.025]} position={[0, 0.31, 0.053]} color={palette.cream} hovered={hovered} />
-      <Box size={[0.25, 0.3, 0.012]} position={[0, 0.35, 0.074]} color={palette.blush} hovered={hovered} />
-      <Box size={[0.14, 0.18, 0.012]} position={[0.025, 0.3, 0.085]} rotation={[0, 0, 0.2]} color={palette.lavenderShadow} />
-      <Box size={[0.29, 0.055, 0.25]} position={[0, 0.028, -0.05]} color={palette.woodDark} />
-    </group>
-  )
-}
-
 export default function Decor() {
   return (
     <group>

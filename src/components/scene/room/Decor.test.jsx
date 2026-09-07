@@ -1,7 +1,7 @@
 import { Children } from 'react'
-import { render, screen } from '@testing-library/react'
 import { expect, test, vi } from 'vitest'
-import Decor, { AboutFrame } from './Decor'
+import * as decor from './Decor'
+import Decor from './Decor'
 import { LowPolyPlant } from './LowPolyProps'
 
 vi.mock('./materials', () => ({
@@ -15,14 +15,8 @@ vi.mock('./materials', () => ({
   },
 }))
 
-test('About frame forwards hover state to its framed surfaces', () => {
-  render(<AboutFrame hovered />)
-
-  const frameSurfaces = screen.getAllByTestId('material').filter(
-    (material) => ['#eee', '#d9a'].includes(material.dataset.color),
-  )
-  expect(frameSurfaces).toHaveLength(2)
-  expect(frameSurfaces.every((material) => material.dataset.hovered === 'true')).toBe(true)
+test('Decor no longer exports a disconnected About frame', () => {
+  expect(decor.AboutFrame).toBeUndefined()
 })
 
 test('keeps one deliberate plant on the research console', () => {

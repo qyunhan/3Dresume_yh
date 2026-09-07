@@ -6,7 +6,7 @@ import Lighting from '../Lighting'
 import { phase2Layout } from '../../../data/phase2Layout'
 import { roomLayout } from '../../../data/roomLayout'
 import { MediaConsole } from './Furniture'
-import { DeskLamp, FloorPouf, LowPolyPlant, Trophy } from './LowPolyProps'
+import { DeskLamp, FloorPouf, Trophy } from './LowPolyProps'
 import { Laptop, Reports, Tv } from './PortfolioObjects'
 import { EquityResearchStation, FinancialDashboard } from './ResumeObjects'
 import { SchoolLife, Rc4Trophy } from './SchoolLife'
@@ -65,7 +65,7 @@ test('Room routes the report offset through EquityResearchStation into real repo
   expect(transformed.props).toMatchObject({ position: [1, 2, 3], rotation: [0, 0.3, 0], scale: 0.5 })
 })
 
-test('research accessories rest on the console and its practical light sits at the lamp bulb', () => {
+test('research keeps only its lamp on the console and its practical light sits at the lamp bulb', () => {
   const anchor = phase2Layout.items['equity-research']
   const station = expand(<group position={anchor.position}><EquityResearchStation reportOffset={anchor.reportOffset} /></group>)
   const scene = geometryTree(station)
@@ -74,10 +74,10 @@ test('research accessories rest on the console and its practical light sits at t
   const accessories = []
   let bulb
   scene.traverse((object) => {
-    if (['research-lamp', 'research-plant', 'research-notebook'].includes(object.userData.node.props.name)) accessories.push(object)
+    if (object.userData.node.props.name === 'research-lamp') accessories.push(object)
     if (object.userData.node.children.some((child) => child.type === 'meshStandardMaterial' && child.props.emissiveIntensity === 0.35)) bulb = object
   })
-  expect(accessories).toHaveLength(3)
+  expect(accessories).toHaveLength(1)
   for (const accessory of accessories) {
     const box = new Box3().setFromObject(accessory)
     expect(box.min.y).toBeCloseTo(consoleBounds.max.y)
@@ -114,11 +114,10 @@ test.each([['TV', Tv], ['finance monitor', FinancialDashboard], ['laptop', Lapto
   expect(materials(true).some((node) => node.props.emissiveIntensity >= 0.2)).toBe(true)
 })
 
-test('school plant trails below the shelf and the pouf rests on the rug', () => {
+test('school shelf keeps only NUS, trophy, and UCLA groups while the pouf rests on the rug', () => {
   const school = SchoolLife()
-  const plant = Children.toArray(school.props.children).find((child) => child.type === LowPolyPlant)
-  const plantBounds = bounds(plant)
-  expect(plantBounds.min.y).toBeLessThan(-0.3)
+  const schoolGroups = Children.toArray(school.props.children).map((child) => child.props.name)
+  expect(schoolGroups.filter(Boolean)).toEqual(['school-nus', 'school-trophy', 'school-ucla'])
   const pouf = roomChildren().find((child) => child.type === FloorPouf)
   expect(bounds(pouf).min.y).toBeCloseTo(roomLayout.rug.position[1] + 0.07 / 2)
 })

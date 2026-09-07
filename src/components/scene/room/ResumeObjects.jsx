@@ -1,5 +1,5 @@
 import { Material, palette } from './materials'
-import { DeskLamp, LowPolyPlant } from './LowPolyProps'
+import { DeskLamp } from './LowPolyProps'
 import { Reports, Tv } from './PortfolioObjects'
 import { researchConsole } from '../../../data/roomPolish'
 
@@ -95,14 +95,6 @@ export function EquityResearchStation({ hovered, reportOffset }) {
       <Reports hovered={hovered} position={reportOffset} />
       <group position={researchConsole.offsetFromTv}>
         <DeskLamp name="research-lamp" {...researchConsole.lamp} />
-        <LowPolyPlant name="research-plant" {...researchConsole.plant} potColor={palette.cream} />
-        <group name="research-notebook" {...researchConsole.notebook}>
-          <Box size={[0.62, 0.81, 0.05]} color={palette.woodDark} hovered={hovered} />
-          <Box size={[0.54, 0.71, 0.018]} position={[0, 0, 0.042]} color={palette.cream} hovered={hovered} />
-          {[0.16, 0.27, 0.37].map((height, index) => (
-            <Box key={height} size={[0.1, height, 0.012]} position={[-0.16 + index * 0.16, -0.22 + height / 2, 0.055]} color={palette.sage} />
-          ))}
-        </group>
       </group>
     </group>
   )
