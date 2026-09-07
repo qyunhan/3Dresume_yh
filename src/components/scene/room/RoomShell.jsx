@@ -90,12 +90,12 @@ export default function RoomShell() {
 
   return (
     <group>
-      <Box size={[width, 0.32, floorDepth]} position={[0, -0.185, floorCenterZ]} color={palette.woodDark} />
+      <Box size={[width, 0.32, floorDepth]} position={[0, -0.185, floorCenterZ]} color={palette.wood} />
       {Array.from({ length: 14 }, (_, index) => (
         <group key={index}>
-          <Box size={[boardWidth - 0.018, 0.05, depth]} position={[-width / 2 + boardWidth * (index + 0.5), 0, centerZ]} color={['#9a6548', '#a36f50', '#986146', '#aa7655'][index % 4]} />
-          <Box size={[0.018, 0.008, depth - 0.04]} position={[-width / 2 + boardWidth * index, 0.018, centerZ]} color={palette.woodDark} />
-          <Box size={[boardWidth - 0.025, 0.008, 0.016]} position={[-width / 2 + boardWidth * (index + 0.5), 0.024, centerZ + (index % 3 - 1) * 2.65]} color={palette.woodDark} />
+          <Box size={[boardWidth - 0.018, 0.05, depth]} position={[-width / 2 + boardWidth * (index + 0.5), 0, centerZ]} color={palette.wood} />
+          <Box size={[0.018, 0.008, depth - 0.04]} position={[-width / 2 + boardWidth * index, 0.018, centerZ]} color={palette.lavenderShadow} />
+          <Box size={[boardWidth - 0.025, 0.008, 0.016]} position={[-width / 2 + boardWidth * (index + 0.5), 0.024, centerZ + (index % 3 - 1) * 2.65]} color={palette.lavenderShadow} />
         </group>
       ))}
       <Box size={[width + 0.28, height, 0.28]} position={[0, height / 2, backWallZ - 0.14]} color={palette.lavender} />

@@ -16,7 +16,7 @@ function itemAnchor(zoneId, id, { useTitleLabel = false, ...transforms }) {
 export const phase2Layout = {
   zoneLabels: {
     projects: { position: [-4.45, 3.75, -5.05], cameraPreset: 'projects' },
-    research: { position: [3.55, 4.45, -5.02], cameraPreset: 'research' },
+    research: { position: [4.3, 4.45, -5.02], cameraPreset: 'research' },
     experience: { position: [0, 4.63, -5.02], cameraPreset: 'experience' },
     school: { position: [-2.45, 6.02, -5.02], cameraPreset: 'school' },
   },
@@ -50,17 +50,13 @@ export const phase2Layout = {
       objectType: 'uobMemento', position: [1.45, 3.38, -5.1],
       markerPosition: [1.45, 4.15, -4.91], useTitleLabel: true,
     }),
-    nus: itemAnchor('school', 'nus', {
-      objectType: 'nusToken', position: [-3.0, 5.06, -5.1],
-      markerPosition: [-3.0, 5.74, -4.92], useTitleLabel: true,
-    }),
     'rc4-flag': itemAnchor('school', 'rc4-flag', {
       objectType: 'rc4Trophy', position: [-1.7, 5.06, -5.1],
       markerPosition: [-1.7, 5.86, -4.92], useTitleLabel: true,
     }),
     'science-club': itemAnchor('school', 'science-club', {
-      objectType: 'scienceClubToken', position: [-0.95, 5.06, -5.1],
-      markerPosition: [-0.95, 5.64, -4.92], useTitleLabel: true,
+      objectType: 'scienceClubToken', position: [-3.0, 5.06, -5.1],
+      markerPosition: [-3.0, 5.74, -4.92], useTitleLabel: true,
     }),
     ucla: itemAnchor('school', 'ucla', {
       objectType: 'uclaMemory', position: [-0.25, 5.06, -5.1],

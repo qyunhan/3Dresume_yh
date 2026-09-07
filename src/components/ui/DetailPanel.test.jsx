@@ -8,7 +8,7 @@ test.each([
   ['projects', 'Projects', 'Automated Financial Dashboard'],
   ['research', 'Research', 'Equity Research'],
   ['experience', 'Experience', 'EY'],
-  ['school', 'School & Life', 'NUS'],
+  ['school', 'School & Life', 'Science Club'],
 ])('opens the %s overview with item navigation and no selected detail', (zone, title, item) => {
   render(<DetailPanel activeZone={zone} selectedItem={null} onBack={() => {}} onSelectItem={() => {}} />)
   expect(screen.getByRole('dialog', { name: `${title} details` })).toBeInTheDocument()

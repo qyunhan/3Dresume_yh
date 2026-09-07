@@ -6,7 +6,7 @@ import Lighting from '../Lighting'
 import { phase2Layout } from '../../../data/phase2Layout'
 import { roomLayout } from '../../../data/roomLayout'
 import { MediaConsole } from './Furniture'
-import { DeskLamp, FloorPouf, Trophy } from './LowPolyProps'
+import { DeskLamp, Trophy } from './LowPolyProps'
 import { Laptop, Reports, Tv } from './PortfolioObjects'
 import { EquityResearchStation, FinancialDashboard } from './ResumeObjects'
 import RoomShell from './RoomShell'
@@ -113,9 +113,8 @@ test.each([['TV', Tv], ['finance monitor', FinancialDashboard], ['laptop', Lapto
   expect(materials(true).some((node) => node.props.emissiveIntensity >= 0.2)).toBe(true)
 })
 
-test('pouf rests on the rug after school shelf interactions move into the room composition', () => {
-  const pouf = roomChildren().find((child) => child.type === FloorPouf)
-  expect(bounds(pouf).min.y).toBeCloseTo(roomLayout.rug.position[1] + 0.07 / 2)
+test('leaves the TV area clear for future expansion instead of adding a floor pouf', () => {
+  expect(roomChildren().some((child) => child.type?.name === 'FloorPouf')).toBe(false)
 })
 
 test('sun patches use a few opaque diagonal floor meshes', () => {

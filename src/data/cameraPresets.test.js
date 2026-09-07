@@ -12,7 +12,7 @@ import {
 describe('camera presets', () => {
   test.each([
     'projects', 'research', 'school', 'financialAutomation', 'weather', 'hdb', 'equityResearch',
-    'ey', 'shopee', 'uob', 'nus', 'rc4', 'scienceClub', 'ucla',
+    'ey', 'shopee', 'uob', 'rc4', 'scienceClub', 'ucla',
   ])(
     '%s resolves to an authored selection pose instead of the overview',
     (id) => {
@@ -73,7 +73,7 @@ describe('camera presets', () => {
   test('portfolio item presets retain distinct targets', () => {
     const itemPresetIds = [
       'financialAutomation', 'weather', 'hdb', 'equityResearch', 'ey', 'shopee',
-      'uob', 'nus', 'rc4', 'scienceClub', 'ucla',
+      'uob', 'rc4', 'scienceClub', 'ucla',
     ]
     const targets = itemPresetIds.map((presetId) =>
       cameraPresets[presetId].target.join(','),
@@ -104,10 +104,10 @@ test('portrait selection pulls back and shifts the focus below the object', () =
     true,
     390,
   )
-  ;[7.621, 5.941, 7.417].forEach((coordinate, index) => {
+  ;[7.495, 5.941, 7.417].forEach((coordinate, index) => {
     expect(position[index]).toBeCloseTo(coordinate)
   })
-  ;[3.55, 1.85, -5.15].forEach((coordinate, index) => {
+  ;[4.25, 1.85, -5.15].forEach((coordinate, index) => {
     expect(
       getResponsiveCameraTarget(cameraPresets.frontend, 0.6, true, 390)[index],
     ).toBeCloseTo(coordinate)
@@ -115,7 +115,7 @@ test('portrait selection pulls back and shifts the focus below the object', () =
 })
 
 test('selected framing follows the 720px bottom-sheet breakpoint', () => {
-  ;[3.55, 1.85, -5.15].forEach((coordinate, index) => {
+  ;[4.25, 1.85, -5.15].forEach((coordinate, index) => {
     expect(
       getResponsiveCameraTarget(cameraPresets.frontend, 1.2, true, 720)[index],
     ).toBeCloseTo(coordinate)

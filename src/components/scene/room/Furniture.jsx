@@ -13,7 +13,7 @@ export function Desk(props) {
   // The layout anchor is at y=1.35; the finished desktop is at y=2.25.
   return (
     <group {...props}>
-      <Box size={[4.8, 0.24, 1.75]} position={[0, 0.78, 0]} />
+      <Box size={[4.8, 0.24, 1.75]} position={[0, 0.78, 0]} color={palette.purpleFurniture} />
       <Box size={[4.62, 0.09, 1.59]} position={[0, 0.615, 0]} color="#ded6cd" />
       {[-0.65, 0.65].map((z) => (
         <Box key={z} size={[0.14, 1.91, 0.14]} position={[-2.11, -0.335, z]} />
@@ -37,10 +37,10 @@ export function OfficeChair(props) {
   return (
     <group {...props}>
       <group rotation={[0, -0.14, 0]}>
-        <Box size={[1.26, 0.15, 1.13]} position={[0, 0.07, 0]} color={palette.lavenderShadow} />
+        <Box size={[1.26, 0.15, 1.13]} position={[0, 0.07, 0]} color={palette.purpleFurniture} />
         <Box size={[1.18, 0.17, 1.06]} position={[0, 0.22, -0.015]} color={palette.cream} />
         <group position={[0, 0.97, 0.48]} rotation={[-0.08, 0, 0]}>
-          <Box size={[1.22, 1.42, 0.16]} color={palette.lavenderShadow} />
+          <Box size={[1.22, 1.42, 0.16]} color={palette.purpleFurniture} />
           <Box size={[1.1, 1.27, 0.12]} position={[0, 0.015, -0.115]} color={palette.cream} />
           <Box size={[1.02, 0.25, 0.05]} position={[0, -0.38, -0.19]} color="#e0d5c4" />
         </group>
@@ -53,7 +53,7 @@ export function OfficeChair(props) {
         </mesh>
         <mesh castShadow position={[0, -0.72, 0]}>
           <cylinderGeometry args={[0.18, 0.2, 0.25, 10]} />
-          <Material color={palette.lavenderShadow} />
+          <Material color={palette.purpleFurniture} />
         </mesh>
         {Array.from({ length: 5 }, (_, index) => (
           <group key={index} rotation={[0, index * Math.PI * 2 / 5, 0]}>

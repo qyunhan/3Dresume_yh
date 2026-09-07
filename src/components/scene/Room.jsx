@@ -6,7 +6,6 @@ import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
 import RoomShell from './room/RoomShell'
 import { Desk, OfficeChair, MediaConsole } from './room/Furniture'
-import { FloorPouf } from './room/LowPolyProps'
 import { Laptop } from './room/PortfolioObjects'
 import { FinancialDashboard, WeatherStation, HdbBlock, EquityResearchStation } from './room/ResumeObjects'
 import { CareerJourney } from './room/CareerJourney'
@@ -23,7 +22,7 @@ const resumeObjects = {
 
 const standaloneItemIds = ['financial-automation', 'weather', 'hdb', 'equity-research']
 const careerItems = ['ey', 'shopee', 'uob'].map((itemId) => phase2Layout.items[itemId])
-const schoolItems = ['nus', 'rc4-flag', 'ucla'].map((itemId) => phase2Layout.items[itemId])
+const schoolItems = ['science-club', 'rc4-flag', 'ucla'].map((itemId) => phase2Layout.items[itemId])
 
 export default function Room({ onSelectZone, onSelectItem, onCatClick, catReaction }) {
   return (
@@ -37,7 +36,6 @@ export default function Room({ onSelectZone, onSelectItem, onCatClick, catReacti
       <OfficeChair {...roomLayout.chair} />
       <MediaConsole {...roomLayout.mediaConsole} />
       <Decor />
-      <FloorPouf position={[-0.15, roomLayout.rug.position[1] + 0.07 / 2, -0.27]} rotation={[0, -0.2, 0]} />
       <group position={roomLayout.laptop.position}><Laptop /></group>
       <CareerJourney items={careerItems} onSelect={onSelectItem} />
       <SchoolLife items={schoolItems} onSelect={onSelectItem} />

@@ -21,7 +21,7 @@ test.each([
   ['projects', ['financial-automation', 'weather', 'hdb']],
   ['research', ['equity-research']],
   ['experience', ['ey', 'shopee', 'uob']],
-  ['school', ['nus', 'rc4-flag', 'science-club', 'ucla']],
+  ['school', ['science-club', 'rc4-flag', 'ucla']],
 ])('%s supplies complete content for every selectable object', (zoneId, itemIds) => {
   const zone = getZone(zoneId)
   expect(zone.items.map(({ id }) => id)).toEqual(itemIds)

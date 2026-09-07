@@ -10,6 +10,7 @@ import { EquityResearchStation } from './room/ResumeObjects'
 
 vi.mock('@react-three/drei', () => ({
   Html: ({ children }) => <div>{children}</div>,
+  Image: (props) => <mesh {...props} />,
   useGLTF: Object.assign(() => ({ scene: {} }), { preload: () => {} }),
 }))
 
@@ -71,7 +72,7 @@ test('keeps the laptop and lounge props without a detached desk lamp', () => {
   const onSelectItem = vi.fn()
   const tree = descendants(Room({ onSelectZone, onSelectItem, onCatClick: vi.fn(), catReaction: 0 }))
 
-  expect(tree.some((node) => node.type?.name === 'FloorPouf')).toBe(true)
+  expect(tree.some((node) => node.type?.name === 'FloorPouf')).toBe(false)
   expect(tree.some((node) => node.type?.name === 'Laptop')).toBe(true)
   expect(tree.some((node) => node.type?.name === 'DeskLamp')).toBe(false)
 })
@@ -87,20 +88,21 @@ test('renders the canonical hero objects inside their board and shelf groups exa
   const onSelectItem = vi.fn()
   const { container } = render(<Room onSelectItem={onSelectItem} onSelectZone={vi.fn()} onCatClick={vi.fn()} catReaction={0} />)
 
-  for (const label of ['Financial dashboard', 'Weather station', 'HDB block', 'Equity report', 'EY', 'Shopee', 'UOB', 'NUS', 'RC4 Flag', 'UCLA Exchange']) {
+  for (const label of ['Financial dashboard', 'Weather station', 'HDB block', 'Equity report', 'EY', 'Shopee', 'UOB', 'Science Club', 'RC4 Flag', 'UCLA Exchange']) {
     expect(container.querySelectorAll(`group[name="${label}"]`)).toHaveLength(1)
   }
-  expect(container.querySelectorAll('group[name="Science Club"]')).toHaveLength(0)
+  expect(container.querySelectorAll('group[name="NUS"]')).toHaveLength(0)
 
   const careerCards = container.querySelectorAll('group[name="experience-card"]')
   expect(careerCards).toHaveLength(3)
   ;['EY', 'Shopee', 'UOB'].forEach((label, index) => {
     expect(careerCards[index].querySelector(`group[name="${label}"]`)).not.toBeNull()
   })
+  expect(container.querySelectorAll('mesh[name="experience-logo-ey"], mesh[name="experience-logo-shopee"], mesh[name="experience-logo-uob"]')).toHaveLength(3)
 
   const schoolShelf = container.querySelector('group[name="school-shelf"]')
-  expect(schoolShelf?.querySelectorAll('group[name="NUS"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
-  expect(schoolShelf?.querySelectorAll('group[name="school-nus-frame"], group[name="school-trophy"], group[name="school-ucla-frame"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('group[name="Science Club"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('mesh[name="school-science-mascot"], mesh[name="school-rc4-mascot"], mesh[name="school-ucla-mascot"]')).toHaveLength(3)
 
   for (const [label, zoneId, itemId, cameraPreset] of [
     ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
@@ -110,7 +112,7 @@ test('renders the canonical hero objects inside their board and shelf groups exa
     ['EY', 'experience', 'ey', 'ey'],
     ['Shopee', 'experience', 'shopee', 'shopee'],
     ['UOB', 'experience', 'uob', 'uob'],
-    ['NUS', 'school', 'nus', 'nus'],
+    ['Science Club', 'school', 'science-club', 'scienceClub'],
     ['RC4 Flag', 'school', 'rc4-flag', 'rc4'],
     ['UCLA Exchange', 'school', 'ucla', 'ucla'],
   ]) {
