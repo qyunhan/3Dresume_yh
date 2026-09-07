@@ -4,7 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { LoopRepeat } from 'three'
 import { getCatWalkPose } from '../catAnimation'
 
-const CAT_MODEL_URL = '/models/fluffy-cat.glb'
+const CAT_MODEL_URL = `${import.meta.env.BASE_URL}models/fluffy-cat.glb`
 const CAT_SCALE = 0.5
 
 const creamPalette = {
