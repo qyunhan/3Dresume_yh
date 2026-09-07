@@ -52,26 +52,28 @@ export function CareerJourney({ items = [], onSelect } = {}) {
       <Box name="experience-board-lip" size={[4.1, 0.05, 0.05]} position={[0, -0.74, 0.155]} color={boardHighlight} />
       <Box name="experience-board-lip" size={[0.05, 1.62, 0.05]} position={[-1.93, 0, 0.155]} color={boardHighlight} />
       <Box name="experience-board-lip" size={[0.05, 1.62, 0.05]} position={[1.93, 0, 0.155]} color={boardEdge} />
-      <Box name="experience-corkboard" size={[3.9, 1.6, 0.05]} position={[0, 0, 0.035]} color={palette.woodLight} />
-      <Box name="experience-pin-rail" size={[3.5, 0.03, 0.03]} position={[0, -0.62, 0.085]} color={palette.cream} />
+      {/* Cork sits clear of the backing slab's front face at 0.06; matching
+          depths there make the two surfaces fight for pixels as the camera moves. */}
+      <Box name="experience-corkboard" size={[3.9, 1.6, 0.05]} position={[0, 0, 0.1]} color={palette.woodLight} />
+      <Box name="experience-pin-rail" size={[3.5, 0.03, 0.03]} position={[0, -0.62, 0.145]} color={palette.cream} />
       {cardPlacements.map(({ x }) => (
         <group key={x} position={[x, 0, 0]}>
-          <Box name="experience-pin-stem" size={[0.04, 0.3, 0.04]} position={[0, -0.44, 0.07]} color={palette.cream} />
-          <Cylinder name="experience-pin" args={[0.09, 0.09, 0.05, 12]} position={[0, -0.62, 0.13]} rotation={[Math.PI / 2, 0, 0]} color={palette.warmWhite} />
+          <Box name="experience-pin-stem" size={[0.04, 0.3, 0.04]} position={[0, -0.44, 0.145]} color={palette.cream} />
+          <Cylinder name="experience-pin" args={[0.09, 0.09, 0.05, 12]} position={[0, -0.62, 0.19]} rotation={[Math.PI / 2, 0, 0]} color={palette.warmWhite} />
         </group>
       ))}
       {items.map((item, index) => {
         const logo = careerLogos[item.id]
         const { x, tilt, lean } = cardPlacements[index]
         return (
-          <group key={item.id} name="experience-card" position={[x, 0.06, 0.09]} rotation={[lean, 0, tilt]}>
+          <group key={item.id} name="experience-card" position={[x, 0.06, 0.19]} rotation={[lean, 0, tilt]}>
             <PortfolioObject item={item} label={item.interactiveLabel} position={[0, 0, 0]} onSelect={onSelect}>
               {(hovered) => (
                 <group>
                   <Box name="experience-card-body" size={[0.94, 1.0, 0.08]} color={cardEdge} hovered={hovered} />
                   <Box name="experience-card-face" size={[0.88, 0.94, 0.03]} position={[0, 0, 0.035]} color={palette.warmWhite} hovered={hovered} />
                   <Cylinder name="experience-card-pin" args={[0.05, 0.05, 0.06, 10]} position={[0, 0.41, 0.09]} rotation={[Math.PI / 2, 0, 0]} color={palette.gold} />
-                  <Image name={logo.name} url={logo.url} scale={[0.88, 0.88, 1]} position={[0, -0.02, 0.053]} />
+                  <Image name={logo.name} url={logo.url} scale={[0.88, 0.88, 1]} position={[0, -0.02, 0.062]} />
                 </group>
               )}
             </PortfolioObject>

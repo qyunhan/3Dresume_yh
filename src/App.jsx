@@ -49,7 +49,7 @@ export default function App() {
         data-testid="canvas"
         dpr={[1, 1.5]}
         gl={{ alpha: false, antialias: true }}
-        shadows="percentage"
+        shadows="basic"
       >
         <color attach="background" args={['#AD93C0']} />
         <Lighting />

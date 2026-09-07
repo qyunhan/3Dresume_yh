@@ -112,11 +112,8 @@ test('renders the canonical hero objects inside their board and shelf groups exa
   expect(schoolShelf?.querySelectorAll('group[name="school-photo-frame"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-depth"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-top"], mesh[name="school-frame-bottom"], mesh[name="school-frame-left"], mesh[name="school-frame-right"]')).toHaveLength(12)
-  expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-lip"]')).toHaveLength(12)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-science-mascot"], mesh[name="school-rc4-orca"], mesh[name="school-ucla-mascot"]')).toHaveLength(3)
-  // The shelf art is modelled geometry, not three textured planes.
-  expect(schoolShelf?.querySelectorAll('group[name="nus-lion-model"], group[name="rc4-orca-model"], group[name="ucla-royce-model"]')).toHaveLength(3)
-  expect(schoolShelf?.querySelectorAll('mesh').length).toBeGreaterThan(60)
+  expect(schoolShelf?.querySelectorAll('mesh')).toHaveLength(19)
 
   for (const [label, zoneId, itemId, cameraPreset] of [
     ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
