@@ -31,7 +31,7 @@ export default function DetailPanel({ activeZone, selectedItem, onBack, onSelect
             onClick={() => onSelectItem(entry.id)}
             type="button"
           >
-            {entry.title}
+            {entry.tabTitle ?? entry.title}
           </button>
         ))}
       </nav>
@@ -39,11 +39,25 @@ export default function DetailPanel({ activeZone, selectedItem, onBack, onSelect
         <article aria-label={item.title} className="detail-item">
           <h3>{item.title}</h3>
           <p className="detail-item__subtitle">{item.subtitle}</p>
-          <p className="detail-item__summary">{item.shortDescription}</p>
-          <p>{item.longDescription}</p>
+          <p className="detail-item__hook"><strong>{item.hook ?? item.shortDescription}</strong></p>
+          {(item.body ?? [item.longDescription]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {item.coursework && <DetailList label="Relevant coursework" items={item.coursework} />}
+          {item.courses && <DetailList label="Courses" items={item.courses} />}
+          {item.optionalLine && <p className="detail-item__optional">{item.optionalLine}</p>}
           <SkillTags skills={item.skills} />
         </article>
       )}
     </section>
+  )
+}
+
+function DetailList({ label, items }) {
+  return (
+    <div className="detail-list">
+      <p className="detail-list__label">{label}</p>
+      <ul>
+        {items.map((entry) => <li key={entry}>{entry}</li>)}
+      </ul>
+    </div>
   )
 }

@@ -32,7 +32,7 @@ test('the four environmental plaques open their zone with keyboard activation', 
   const user = userEvent.setup()
   for (const [label, zoneId] of [
     ['Projects: What I Build', 'projects'], ['Research: How I Think', 'research'],
-    ["Experience: Where I've Worked", 'experience'], ['School & Life: Beyond Work', 'school'],
+    ["Experience: Where I've Worked", 'experience'], ['School & Beyond: Beyond Work', 'school'],
   ]) {
     screen.getByRole('button', { name: label }).focus()
     await user.keyboard('{Enter}')
@@ -88,10 +88,10 @@ test('renders the canonical hero objects inside their board and shelf groups exa
   const onSelectItem = vi.fn()
   const { container } = render(<Room onSelectItem={onSelectItem} onSelectZone={vi.fn()} onCatClick={vi.fn()} catReaction={0} />)
 
-  for (const label of ['Financial dashboard', 'Weather station', 'HDB block', 'Equity report', 'EY', 'Shopee', 'UOB', 'Science Club', 'RC4 Flag', 'UCLA Exchange']) {
+  for (const label of ['Financial dashboard', 'Weather station', 'HDB block', 'Equity report', 'EY', 'Shopee', 'UOB', 'NUS', 'RC4 Flag', 'UCLA']) {
     expect(container.querySelectorAll(`group[name="${label}"]`)).toHaveLength(1)
   }
-  expect(container.querySelectorAll('group[name="NUS"]')).toHaveLength(0)
+  expect(container.querySelectorAll('group[name="NUS"]')).toHaveLength(1)
 
   const careerCards = container.querySelectorAll('group[name="experience-card"]')
   expect(careerCards).toHaveLength(3)
@@ -106,7 +106,7 @@ test('renders the canonical hero objects inside their board and shelf groups exa
   expect(experienceBoard?.querySelectorAll('mesh')).toHaveLength(12)
 
   const schoolShelf = container.querySelector('group[name="school-shelf"]')
-  expect(schoolShelf?.querySelectorAll('group[name="Science Club"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('group[name="NUS"], group[name="RC4 Flag"], group[name="UCLA"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('group[name="school-photo-frame"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-depth"]')).toHaveLength(3)
   expect(schoolShelf?.querySelectorAll('mesh[name="school-frame-top"], mesh[name="school-frame-bottom"], mesh[name="school-frame-left"], mesh[name="school-frame-right"]')).toHaveLength(12)
@@ -121,9 +121,9 @@ test('renders the canonical hero objects inside their board and shelf groups exa
     ['EY', 'experience', 'ey', 'ey'],
     ['Shopee', 'experience', 'shopee', 'shopee'],
     ['UOB', 'experience', 'uob', 'uob'],
-    ['Science Club', 'school', 'science-club', 'scienceClub'],
+    ['NUS', 'school', 'science-club', 'scienceClub'],
     ['RC4 Flag', 'school', 'rc4-flag', 'rc4'],
-    ['UCLA Exchange', 'school', 'ucla', 'ucla'],
+    ['UCLA', 'school', 'ucla', 'ucla'],
   ]) {
     fireEvent.click(container.querySelector(`group[name="${label}"]`))
     expect(onSelectItem).toHaveBeenLastCalledWith({ zoneId, itemId, cameraPreset })

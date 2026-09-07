@@ -34,8 +34,9 @@ test('keeps exactly the prescribed project, career, and school heroes in one con
   const { container } = render(<Room onCatClick={vi.fn()} onSelectItem={vi.fn()} onSelectZone={vi.fn()} catReaction={0} />)
   expect(container.querySelectorAll('group[name="experience-card"]')).toHaveLength(3)
   const shelf = container.querySelector('group[name="school-shelf"]')
-  expect(shelf?.querySelectorAll('group[name="Science Club"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
-  expect(container.querySelectorAll('group[name="NUS"], group[name="About this room"]')).toHaveLength(0)
+  expect(shelf?.querySelectorAll('group[name="NUS"], group[name="RC4 Flag"], group[name="UCLA"]')).toHaveLength(3)
+  expect(container.querySelectorAll('group[name="NUS"]')).toHaveLength(1)
+  expect(container.querySelectorAll('group[name="About this room"]')).toHaveLength(0)
 })
 
 test('caps the physical research report volumes at three', () => {

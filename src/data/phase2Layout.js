@@ -8,7 +8,7 @@ function itemAnchor(zoneId, id, { useTitleLabel = false, ...transforms }) {
     id,
     zoneId,
     cameraPreset: item.cameraPreset,
-    ...(useTitleLabel && { interactiveLabel: item.title }),
+    ...(useTitleLabel && { interactiveLabel: item.tabTitle ?? item.title }),
     ...transforms,
   }
 }

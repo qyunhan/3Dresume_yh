@@ -7,7 +7,7 @@ test.each([
   ['projects', 'Projects'],
   ['research', 'Research'],
   ['experience', 'Experience'],
-  ['school', 'School & Life'],
+  ['school', 'School & Beyond'],
 ])('routes %s to its content panel', (section, heading) => {
   render(
     <Overlay
@@ -76,6 +76,6 @@ test('lets visitors hide and restore the room controls menu', async () => {
 test('supplies the active zone when selecting an item through the shared panel', async () => {
   const onSelectItem = vi.fn()
   render(<Overlay activeZone="projects" selectedItem="hdb" onBack={() => {}} onSelectItem={onSelectItem} />)
-  await userEvent.click(screen.getByRole('button', { name: 'Time Series Weather Forecasting' }))
+  await userEvent.click(screen.getByRole('button', { name: 'Time-Series Weather Forecasting' }))
   expect(onSelectItem).toHaveBeenCalledWith({ zoneId: 'projects', itemId: 'weather' })
 })

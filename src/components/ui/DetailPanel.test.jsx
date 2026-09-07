@@ -5,10 +5,10 @@ import { expect, test, vi } from 'vitest'
 import DetailPanel from './DetailPanel'
 
 test.each([
-  ['projects', 'Projects', 'Automated Financial Dashboard'],
+  ['projects', 'Projects', 'Company Intelligence Tool'],
   ['research', 'Research', 'Equity Research'],
   ['experience', 'Experience', 'EY'],
-  ['school', 'School & Life', 'Science Club'],
+  ['school', 'School & Beyond', 'NUS'],
 ])('opens the %s overview with item navigation and no selected detail', (zone, title, item) => {
   render(<DetailPanel activeZone={zone} selectedItem={null} onBack={() => {}} onSelectItem={() => {}} />)
   expect(screen.getByRole('dialog', { name: `${title} details` })).toBeInTheDocument()
@@ -25,16 +25,16 @@ test('switches the detail and skills in place while keeping the zone open', asyn
   render(<Panel />)
   expect(screen.getByRole('heading', { name: 'HDB Price Prediction' })).toBeInTheDocument()
   expect(within(screen.getByRole('list', { name: 'Skills' })).getByText('Dash')).toBeInTheDocument()
-  await userEvent.click(screen.getByRole('button', { name: 'Time Series Weather Forecasting' }))
+  await userEvent.click(screen.getByRole('button', { name: 'Time-Series Weather Forecasting' }))
   expect(screen.getByRole('dialog', { name: 'Projects details' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
-  expect(screen.getByRole('heading', { name: 'Time Series Weather Forecasting' })).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: 'Time-Series Weather Forecasting' })).toBeInTheDocument()
   expect(screen.queryByRole('heading', { name: 'HDB Price Prediction' })).not.toBeInTheDocument()
-  expect(screen.getByText('Machine Learning × Time Series')).toBeInTheDocument()
-  expect(screen.getByText('Comparing forecasting models with an engineered weather-data pipeline.')).toBeInTheDocument()
-  expect(screen.getByText(/Compared five forecasting models across more than ten years/)).toBeInTheDocument()
-  expect(within(screen.getByRole('list', { name: 'Skills' })).getByText('Pandas')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: 'Time Series Weather Forecasting' })).toHaveAttribute('aria-pressed', 'true')
+  expect(screen.getByText('Machine Learning · Forecasting')).toBeInTheDocument()
+  expect(screen.getByText('What happens when the thing you\'re predicting is highly cyclical?')).toBeInTheDocument()
+  expect(screen.getByText(/Modelled 10\+ years of hourly weather observations/)).toBeInTheDocument()
+  expect(within(screen.getByRole('list', { name: 'Skills' })).getByText('XGBoost')).toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Time-Series Weather Forecasting' })).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('Back returns control to the room', async () => {
@@ -46,7 +46,7 @@ test('Back returns control to the room', async () => {
 
 test('an item from another zone falls back to the active zone overview', () => {
   render(<DetailPanel activeZone="school" selectedItem="hdb" onBack={() => {}} onSelectItem={() => {}} />)
-  expect(screen.getByRole('dialog', { name: 'School & Life details' })).toBeInTheDocument()
+  expect(screen.getByRole('dialog', { name: 'School & Beyond details' })).toBeInTheDocument()
   expect(screen.queryByRole('article')).not.toBeInTheDocument()
 })
 

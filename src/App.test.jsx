@@ -67,13 +67,13 @@ test('selects an item in its zone and restores the room camera with Back', async
   const panel = screen.getByRole('dialog', { name: 'Projects details' })
   expect(within(panel).getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
   expect(within(panel).getByRole('heading', { name: 'HDB Price Prediction' })).toBeInTheDocument()
-  expect(within(panel).queryByRole('heading', { name: 'Time Series Weather Forecasting' })).not.toBeInTheDocument()
+  expect(within(panel).queryByRole('heading', { name: 'Time-Series Weather Forecasting' })).not.toBeInTheDocument()
   // The canonical selected item wins even if a callback supplies a stale preset.
   expect(cameraController.mock.lastCall[0].selectedSection).toBe('hdb')
 
-  await userEvent.click(within(panel).getByRole('button', { name: 'Time Series Weather Forecasting' }))
+  await userEvent.click(within(panel).getByRole('button', { name: 'Time-Series Weather Forecasting' }))
   expect(screen.getByRole('dialog', { name: 'Projects details' })).toBe(panel)
-  expect(within(panel).getByRole('heading', { name: 'Time Series Weather Forecasting' })).toBeInTheDocument()
+  expect(within(panel).getByRole('heading', { name: 'Time-Series Weather Forecasting' })).toBeInTheDocument()
   expect(cameraController.mock.lastCall[0].selectedSection).toBe('weather')
 
   await userEvent.click(screen.getByRole('button', { name: /back to room/i }))
@@ -90,8 +90,8 @@ test('selecting a zone clears the selected item and shows its overview', async (
 
   const panel = screen.getByRole('dialog', { name: 'Projects details' })
   expect(within(panel).getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
-  expect(within(panel).getByText('Automated Financial Dashboard')).toBeInTheDocument()
-  expect(within(panel).getByText('Time Series Weather Forecasting')).toBeInTheDocument()
+  expect(within(panel).getByText('Company Intelligence Tool')).toBeInTheDocument()
+  expect(within(panel).getByText('Time-Series Weather Forecasting')).toBeInTheDocument()
   expect(within(panel).getByText('HDB Price Prediction')).toBeInTheDocument()
   expect(cameraController.mock.lastCall[0].selectedSection).toBe('projects')
 })
