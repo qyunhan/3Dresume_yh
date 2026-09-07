@@ -22,16 +22,16 @@ export const phase2Layout = {
   },
   items: {
     'financial-automation': itemAnchor('projects', 'financial-automation', {
-      objectType: 'financialDashboard', position: [-4.9, 2.25, -4.82],
-      markerPosition: [-4.9, 3.3, -4.65],
+      objectType: 'financialDashboard', position: [-3.65, 2.25, -4.82],
+      markerPosition: [-3.65, 3.3, -4.65],
     }),
     weather: itemAnchor('projects', 'weather', {
-      objectType: 'weatherStation', position: [-2.6, 2.25, -4.8],
-      markerPosition: [-2.6, 3.4, -4.6],
+      objectType: 'weatherStation', position: [-2.4, 2.25, -4.82],
+      markerPosition: [-2.4, 3.4, -4.65],
     }),
     hdb: itemAnchor('projects', 'hdb', {
-      objectType: 'hdbBlock', position: [-1.72, 2.25, -3.73],
-      markerPosition: [-1.72, 3.18, -3.55],
+      objectType: 'hdbBlock', position: [-4.9, 2.25, -4.82],
+      markerPosition: [-4.9, 3.18, -4.65],
     }),
     'equity-research': itemAnchor('research', 'equity-research', {
       objectType: 'equityResearchStation', position: roomLayout.tv.position,
@@ -59,12 +59,12 @@ export const phase2Layout = {
       markerPosition: [-1.7, 5.86, -4.92], useTitleLabel: true,
     }),
     'science-club': itemAnchor('school', 'science-club', {
-      objectType: 'scienceClubToken', position: [-0.95, 5.68, -5.1],
-      markerPosition: [-0.95, 6.26, -4.92], useTitleLabel: true,
+      objectType: 'scienceClubToken', position: [-0.95, 5.06, -5.1],
+      markerPosition: [-0.95, 5.64, -4.92], useTitleLabel: true,
     }),
     ucla: itemAnchor('school', 'ucla', {
-      objectType: 'uclaMemory', position: [-6.55, 2.58, -3.1],
-      markerPosition: [-6.2, 3.35, -3.1], useTitleLabel: true,
+      objectType: 'uclaMemory', position: [-0.25, 5.06, -5.1],
+      markerPosition: [-0.25, 5.83, -4.92], useTitleLabel: true,
     }),
   },
   about: { position: [-5.67, 2.25, -3.76], markerPosition: [-5.67, 3.05, -3.6] },

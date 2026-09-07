@@ -7,17 +7,17 @@ export const cameraPresets = {
   projects: { position: [1.5, 5.2, 4.7], target: [-3.65, 2.6, -4.25] },
   research: { position: [7, 5.2, 5.2], target: [3.55, 2.5, -3.8] },
   school: { position: [2.8, 6.3, 4.5], target: [-2, 5.35, -5.1] },
-  financialAutomation: { position: [-0.6, 4.3, 2.5], target: [-4.9, 2.7, -4.82] },
-  weather: { position: [1.6, 4.3, 2.7], target: [-2.6, 2.7, -4.8] },
-  hdb: { position: [2.2, 4.1, 3.3], target: [-1.72, 2.65, -3.73] },
+  financialAutomation: { position: [-0.6, 4.3, 2.5], target: [-3.65, 2.7, -4.82] },
+  weather: { position: [1.6, 4.3, 2.7], target: [-2.4, 2.7, -4.82] },
+  hdb: { position: [2.2, 4.1, 3.3], target: [-4.9, 2.65, -4.82] },
   equityResearch: { position: [7, 4.6, 4.6], target: [3.6, 2.15, -3.4] },
   ey: { position: [4.4, 5.2, 4.8], target: [-1.45, 3.72, -5.1] },
   shopee: { position: [4.5, 5.2, 4.8], target: [0, 3.72, -5.1] },
   uob: { position: [5, 5.2, 4.8], target: [1.45, 3.72, -5.1] },
   nus: { position: [2.2, 5.78, 4.9], target: [-3, 5.34, -5.1] },
   rc4: { position: [2.7, 5.98, 4.9], target: [-1.7, 5.46, -5.1] },
-  scienceClub: { position: [3.1, 6.35, 4.9], target: [-0.95, 5.98, -5.1] },
-  ucla: { position: [1.8, 4.4, 5], target: [-6.55, 2.92, -3.1] },
+  scienceClub: { position: [3.1, 6.35, 4.9], target: [-0.95, 5.36, -5.1] },
+  ucla: { position: [1.8, 4.4, 5], target: [-0.25, 5.4, -5.1] },
 }
 
 export function getCameraPreset(sectionId) {

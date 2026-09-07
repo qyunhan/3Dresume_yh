@@ -34,3 +34,27 @@ test('places NUS and RC4 on the left shelf surface', () => {
     expect(phase2Layout.items[itemId].position[1]).toBeCloseTo(leftShelfSurface)
   }
 })
+
+test('orders the project heroes across one level desk display row', () => {
+  const projectPositions = ['hdb', 'financial-automation', 'weather'].map(
+    (itemId) => phase2Layout.items[itemId].position,
+  )
+
+  expect(projectPositions[0][0]).toBeLessThan(projectPositions[1][0])
+  expect(projectPositions[1][0]).toBeLessThan(projectPositions[2][0])
+  expect(new Set(projectPositions.map(([, y]) => y)).size).toBe(1)
+  expect(new Set(projectPositions.map(([, , z]) => z)).size).toBe(1)
+})
+
+test('keeps every school anchor on the shelf arrangement', () => {
+  const shelfSurface = roomLayout.shelves.position[1] + 0.65 + 0.06
+  const shelfFront = roomLayout.shelves.position[2] + 0.1
+
+  for (const itemId of ['nus', 'rc4-flag', 'science-club', 'ucla']) {
+    const position = phase2Layout.items[itemId].position
+    expect(position[1]).toBeCloseTo(shelfSurface)
+    expect(position[2]).toBeCloseTo(shelfFront)
+    expect(position[0]).toBeGreaterThan(roomLayout.shelves.position[0] - 2.25)
+    expect(position[0]).toBeLessThan(roomLayout.shelves.position[0] + 2.25)
+  }
+})

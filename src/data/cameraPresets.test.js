@@ -69,6 +69,18 @@ describe('camera presets', () => {
       )
     })
   })
+
+  test('portfolio item presets retain distinct targets', () => {
+    const itemPresetIds = [
+      'financialAutomation', 'weather', 'hdb', 'equityResearch', 'ey', 'shopee',
+      'uob', 'nus', 'rc4', 'scienceClub', 'ucla',
+    ]
+    const targets = itemPresetIds.map((presetId) =>
+      cameraPresets[presetId].target.join(','),
+    )
+
+    expect(new Set(targets).size).toBe(itemPresetIds.length)
+  })
 })
 
 test('portrait overview pulls back while desktop keeps the authored pose', () => {
