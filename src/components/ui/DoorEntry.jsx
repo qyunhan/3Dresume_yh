@@ -26,9 +26,10 @@ export default function DoorEntry({ onEnter }) {
       data-testid="door-entry"
     >
       <div className="entry-copy">
-        <p className="eyebrow">Welcome in</p>
-        <h1>Welcome to Yunhan&apos;s<br />3D Resume :D</h1>
-        <p>A small space for data, products, and the work behind them.</p>
+        <p className="eyebrow">COME ON IN</p>
+        <h1>Welcome to Yunhan&apos;s<br />little corner :D</h1>
+        <p className="entry-description">A 3D room filled with things I&apos;ve built, questions I&apos;ve chased, and places I&apos;ve learned from.</p>
+        <p className="entry-invitation">Click around!</p>
         <button className="knock-button" onClick={enterRoom} type="button">
           <span aria-hidden="true">☝</span> Knock on the door
         </button>

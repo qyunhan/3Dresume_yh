@@ -221,12 +221,20 @@ button:focus-visible {
   line-height: 0.9;
 }
 
-.entry-copy > p:last-of-type {
+.entry-copy .entry-description {
   max-width: 29rem;
   margin: 0;
   color: var(--ink-soft);
   font-size: clamp(0.9rem, 1.5vw, 1.05rem);
   line-height: 1.55;
+}
+
+.entry-invitation {
+  margin: 0.55rem 0 0;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .knock-button {

@@ -15,3 +15,12 @@ test('starts the entry sequence and hands off to the room', async () => {
   act(() => vi.advanceTimersByTime(900))
   expect(onEnter).toHaveBeenCalledOnce()
 })
+
+test('shows the personal room welcome copy', () => {
+  render(<DoorEntry onEnter={() => {}} />)
+
+  expect(screen.getByText('COME ON IN')).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /Welcome to Yunhan'slittle corner/i })).toBeInTheDocument()
+  expect(screen.getByText("A 3D room filled with things I've built, questions I've chased, and places I've learned from.")).toBeInTheDocument()
+  expect(screen.getByText('Click around!')).toBeInTheDocument()
+})
