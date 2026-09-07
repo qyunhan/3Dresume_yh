@@ -1,12 +1,16 @@
 import { expect, test } from 'vitest'
 import { palette } from './materials'
 
-test('uses the original light pastel lavender as the room wall color', () => {
-  expect(palette.lavender).toBe('#79658A')
-  expect(palette.lavenderShadow).toBe('#65536F')
-  expect(palette.lightLavender).toBe('#A58DB8')
-  expect(palette.purpleFurniture).toBe('#9276A5')
-  expect(palette.cream).toBe('#EDE5DA')
-  expect(palette.white).toBe('#F5EFE8')
-  expect(palette.wood).toBe('#A9653F')
+test('uses the requested cozy lavender room palette', () => {
+  expect(palette.lavender).toBe('#A98BC3')
+  expect(palette.lightLavender).toBe('#BDA6D3')
+  expect(palette.lavenderShadow).toBe('#8D71A6')
+  expect(palette.purpleFurniture).toBe('#9673B0')
+  expect(palette.cushion).toBe('#A77FC2')
+  expect(palette.cream).toBe('#EFE4D7')
+  expect(palette.white).toBe('#F8F1E8')
+  expect(palette.wood).toBe('#A96F4E')
+  expect(palette.woodLight).toBe('#B9815D')
+  expect(palette.sage).toBe('#718363')
+  expect(palette.gold).toBe('#D2A855')
 })

@@ -102,7 +102,7 @@ test('renders the canonical hero objects inside their board and shelf groups exa
 
   const schoolShelf = container.querySelector('group[name="school-shelf"]')
   expect(schoolShelf?.querySelectorAll('group[name="Science Club"], group[name="RC4 Flag"], group[name="UCLA Exchange"]')).toHaveLength(3)
-  expect(schoolShelf?.querySelectorAll('mesh[name="school-science-mascot"], mesh[name="school-rc4-mascot"], mesh[name="school-ucla-mascot"]')).toHaveLength(3)
+  expect(schoolShelf?.querySelectorAll('mesh[name="school-science-mascot"], mesh[name="school-rc4-orca"], mesh[name="school-ucla-mascot"]')).toHaveLength(3)
 
   for (const [label, zoneId, itemId, cameraPreset] of [
     ['Financial dashboard', 'projects', 'financial-automation', 'financialAutomation'],
