@@ -1,6 +1,7 @@
 import { roomLayout } from '../../data/roomLayout'
 import { phase2Layout } from '../../data/phase2Layout'
 import Interactable from './Interactable'
+import SceneMarker from './SceneMarker'
 import ZoneLabel from './ZoneLabel'
 import PortfolioObject from './PortfolioObject'
 import { Material, palette } from './room/materials'
@@ -62,6 +63,12 @@ export default function Room({ onAboutClick, onSelectZone, onSelectItem, onCatCl
       <Interactable label="About this room" onClick={onAboutClick} position={phase2Layout.about.position}>
         {(hovered) => <AboutFrame hovered={hovered} />}
       </Interactable>
+      <SceneMarker
+        label="About this room"
+        shortLabel="About"
+        position={phase2Layout.about.markerPosition}
+        onSelect={onAboutClick}
+      />
       <Interactable label="A very helpful cat" onClick={onCatClick} position={roomLayout.cat.position}>
         {(hovered) => (
           <group scale={hovered ? 1.04 : 1}>

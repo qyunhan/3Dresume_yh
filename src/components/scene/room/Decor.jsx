@@ -1,11 +1,11 @@
 import { roomLayout } from '../../../data/roomLayout'
 import { Material, palette } from './materials'
 
-function Box({ size, color = palette.white, ...props }) {
+function Box({ size, color = palette.white, hovered = false, ...props }) {
   return (
     <mesh castShadow receiveShadow {...props}>
       <boxGeometry args={size} />
-      <Material color={color} />
+      <Material color={color} hovered={hovered} />
     </mesh>
   )
 }

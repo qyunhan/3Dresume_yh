@@ -5,6 +5,7 @@ import { expect, test, vi } from 'vitest'
 import Room from './Room'
 import ZoneLabel from './ZoneLabel'
 import Interactable from './Interactable'
+import SceneMarker from './SceneMarker'
 
 vi.mock('@react-three/drei', () => ({
   Html: ({ children }) => <div>{children}</div>,
@@ -90,6 +91,22 @@ test('About frame remains a non-zone interaction', () => {
   expect(onAboutClick).toHaveBeenCalledOnce()
   expect(onSelectItem).not.toHaveBeenCalled()
   expect(onSelectZone).not.toHaveBeenCalled()
+})
+
+test('About marker routes keyboard and pointer selection to the non-zone callback', async () => {
+  const onAboutClick = vi.fn()
+  const elements = descendants(Room({ onAboutClick, onCatClick: vi.fn(), onSelectItem: vi.fn(), onSelectZone: vi.fn(), catReaction: 0 }))
+  const markers = elements.filter((element) => element.type === SceneMarker && element.props.label === 'About this room')
+  expect(markers).toHaveLength(1)
+  render(<>{markers}</>)
+
+  const marker = screen.getByRole('button', { name: 'About this room' })
+  const user = userEvent.setup()
+  marker.focus()
+  await user.keyboard('{Enter}')
+  await user.click(marker)
+
+  expect(onAboutClick).toHaveBeenCalledTimes(2)
 })
 
 test('cat remains a separate interaction with no portfolio selection', () => {
