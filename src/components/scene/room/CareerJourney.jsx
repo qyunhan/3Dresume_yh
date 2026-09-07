@@ -52,14 +52,14 @@ export function CareerJourney({ items = [], onSelect } = {}) {
       <Box name="experience-board-lip" size={[4.1, 0.05, 0.05]} position={[0, -0.74, 0.155]} color={boardHighlight} />
       <Box name="experience-board-lip" size={[0.05, 1.62, 0.05]} position={[-1.93, 0, 0.155]} color={boardHighlight} />
       <Box name="experience-board-lip" size={[0.05, 1.62, 0.05]} position={[1.93, 0, 0.155]} color={boardEdge} />
-      {/* Cork sits clear of the backing slab's front face at 0.06; matching
-          depths there make the two surfaces fight for pixels as the camera moves. */}
-      <Box name="experience-corkboard" size={[3.9, 1.6, 0.05]} position={[0, 0, 0.1]} color={palette.woodLight} />
-      <Box name="experience-pin-rail" size={[3.5, 0.03, 0.03]} position={[0, -0.62, 0.145]} color={palette.cream} />
+      {/* Cork is inset from the rails on every side and stands clear of the backing
+          slab. Sharing a plane with either one flickers at grazing camera angles. */}
+      <Box name="experience-corkboard" size={[3.7, 1.4, 0.05]} position={[0, 0, 0.1]} color={palette.woodLight} />
+      <Box name="experience-pin-rail" size={[3.3, 0.03, 0.03]} position={[0, -0.55, 0.15]} color={palette.cream} />
       {cardPlacements.map(({ x }) => (
         <group key={x} position={[x, 0, 0]}>
-          <Box name="experience-pin-stem" size={[0.04, 0.3, 0.04]} position={[0, -0.44, 0.145]} color={palette.cream} />
-          <Cylinder name="experience-pin" args={[0.09, 0.09, 0.05, 12]} position={[0, -0.62, 0.19]} rotation={[Math.PI / 2, 0, 0]} color={palette.warmWhite} />
+          <Box name="experience-pin-stem" size={[0.04, 0.28, 0.04]} position={[0, -0.4, 0.155]} color={palette.cream} />
+          <Cylinder name="experience-pin" args={[0.08, 0.08, 0.05, 12]} position={[0, -0.55, 0.195]} rotation={[Math.PI / 2, 0, 0]} color={palette.warmWhite} />
         </group>
       ))}
       {items.map((item, index) => {
