@@ -13,9 +13,9 @@ function Box({ size, color, hovered = false, ...props }) {
 }
 
 const careerLogos = {
-  ey: { name: 'experience-logo-ey', url: roomAsset('ey-logo.png') },
-  shopee: { name: 'experience-logo-shopee', url: roomAsset('shopee-logo.png') },
-  uob: { name: 'experience-logo-uob', url: roomAsset('uob-logo.png') },
+  ey: { name: 'experience-logo-ey', url: roomAsset('ey-logo.png'), scale: [0.5, 0.5, 1] },
+  shopee: { name: 'experience-logo-shopee', url: roomAsset('shopee-logo.png'), scale: [0.43, 0.52, 1] },
+  uob: { name: 'experience-logo-uob', url: roomAsset('uob-logo.png'), scale: [0.68, 0.3, 1] },
 }
 
 export function CareerJourney({ items = [], onSelect } = {}) {
@@ -34,7 +34,7 @@ export function CareerJourney({ items = [], onSelect } = {}) {
               {(hovered) => (
                 <group>
                   <Box size={[0.82, 1.04, 0.022]} color={color} hovered={hovered} />
-                  <Image name={logo.name} url={logo.url} scale={[0.7, 0.66, 1]} position={[0, 0.03, 0.018]} transparent />
+                  <Image name={logo.name} url={logo.url} scale={logo.scale} position={[0, 0.03, 0.018]} transparent />
                 </group>
               )}
             </PortfolioObject>

@@ -27,7 +27,6 @@ function Shelf({ size, color, ...props }) {
 function MascotCard({ name, url, scale, hovered }) {
   return (
     <group>
-      <Shelf size={[1.02, 0.98, 0.05]} position={[0, 0.43, 0]} color={palette.cream} />
       <Image name={name} url={url} scale={scale} position={[0, 0.44, 0.034]} transparent opacity={hovered ? 1 : 0.94} />
     </group>
   )
