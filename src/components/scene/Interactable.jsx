@@ -15,6 +15,8 @@ export default function Interactable({ label, onClick, children, onHoverChange, 
       name={label}
       onClick={(event) => {
         event.stopPropagation()
+        setHovered(false)
+        onHoverChange?.(false)
         onClick()
       }}
       onPointerOut={(event) => {

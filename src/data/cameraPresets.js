@@ -14,8 +14,8 @@ export const cameraPresets = {
   ey: { position: [4.4, 5.2, 4.8], target: [-1.45, 3.72, -5.1] },
   shopee: { position: [4.5, 5.2, 4.8], target: [0, 3.72, -5.1] },
   uob: { position: [5, 5.2, 4.8], target: [1.45, 3.72, -5.1] },
-  nus: { position: [2.2, 6.4, 4.9], target: [-3, 5.96, -5.1] },
-  rc4: { position: [2.7, 6.6, 4.9], target: [-1.7, 6.08, -5.1] },
+  nus: { position: [2.2, 5.78, 4.9], target: [-3, 5.34, -5.1] },
+  rc4: { position: [2.7, 5.98, 4.9], target: [-1.7, 5.46, -5.1] },
   scienceClub: { position: [3.1, 6.35, 4.9], target: [-0.95, 5.98, -5.1] },
   ucla: { position: [1.8, 4.4, 5], target: [-6.55, 2.92, -3.1] },
 }

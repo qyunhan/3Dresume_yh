@@ -15,6 +15,7 @@ export default function SceneMarker({ label, shortLabel, position, onSelect, onH
         className={`scene-marker${active || visible ? ' is-visible' : ''}`}
         onClick={(event) => {
           event.stopPropagation()
+          setMarkerActive(false)
           onSelect()
         }}
         onFocus={() => setMarkerActive(true)}

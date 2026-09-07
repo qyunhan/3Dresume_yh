@@ -44,3 +44,24 @@ test('reveals its label while hovered or focused', async () => {
   await user.unhover(marker)
   expect(marker).not.toHaveClass('is-visible')
 })
+
+test('clears its hover label when the object is selected', async () => {
+  const user = userEvent.setup()
+  const onSelect = vi.fn()
+  render(
+    <SceneMarker
+      label="HDB Price Prediction"
+      shortLabel="HDB"
+      position={[0, 0, 0]}
+      onSelect={onSelect}
+    />,
+  )
+
+  const marker = screen.getByRole('button', { name: 'HDB Price Prediction' })
+  await user.hover(marker)
+  expect(marker).toHaveClass('is-visible')
+  await user.click(marker)
+
+  expect(onSelect).toHaveBeenCalledOnce()
+  expect(marker).not.toHaveClass('is-visible')
+})

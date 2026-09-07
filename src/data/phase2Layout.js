@@ -51,12 +51,12 @@ export const phase2Layout = {
       markerPosition: [1.45, 4.15, -4.91], useTitleLabel: true,
     }),
     nus: itemAnchor('school', 'nus', {
-      objectType: 'nusToken', position: [-3.0, 5.68, -5.1],
-      markerPosition: [-3.0, 6.36, -4.92], useTitleLabel: true,
+      objectType: 'nusToken', position: [-3.0, 5.06, -5.1],
+      markerPosition: [-3.0, 5.74, -4.92], useTitleLabel: true,
     }),
     'rc4-flag': itemAnchor('school', 'rc4-flag', {
-      objectType: 'rc4Trophy', position: [-1.7, 5.68, -5.1],
-      markerPosition: [-1.7, 6.48, -4.92], useTitleLabel: true,
+      objectType: 'rc4Trophy', position: [-1.7, 5.06, -5.1],
+      markerPosition: [-1.7, 5.86, -4.92], useTitleLabel: true,
     }),
     'science-club': itemAnchor('school', 'science-club', {
       objectType: 'scienceClubToken', position: [-0.95, 5.68, -5.1],

@@ -2,6 +2,7 @@ import { expect, test } from 'vitest'
 import { getPortfolioItem, ZONE_IDS } from './portfolio'
 import { phase2Layout } from './phase2Layout'
 import { cameraPresets } from './cameraPresets'
+import { roomLayout } from './roomLayout'
 
 test('all four environmental labels resolve to authored zone views', () => {
   expect(Object.keys(phase2Layout.zoneLabels)).toEqual(ZONE_IDS)
@@ -24,4 +25,12 @@ test.each([
   expect(anchor.cameraPreset).toBe(getPortfolioItem(zoneId, id).cameraPreset)
   expect(cameraPresets[anchor.cameraPreset]).toBeDefined()
   if (zoneId === 'projects') expect(anchor.position[0]).toBeLessThan(0)
+})
+
+test('places NUS and RC4 on the left shelf surface', () => {
+  const leftShelfSurface = roomLayout.shelves.position[1] + 0.65 + 0.06
+
+  for (const itemId of ['nus', 'rc4-flag']) {
+    expect(phase2Layout.items[itemId].position[1]).toBeCloseTo(leftShelfSurface)
+  }
 })

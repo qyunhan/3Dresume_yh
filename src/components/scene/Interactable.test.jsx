@@ -19,6 +19,8 @@ test('reports hover, handles clicks, and restores the cursor', () => {
 
   fireEvent.click(group)
   expect(onClick).toHaveBeenCalledOnce()
+  expect(screen.getByText('cold')).toBeInTheDocument()
+  expect(document.body.style.cursor).toBe('auto')
 
   fireEvent.pointerOut(group)
   expect(screen.getByText('cold')).toBeInTheDocument()

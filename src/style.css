@@ -46,14 +46,14 @@ button:focus-visible {
 
 .zone-label {
   display: grid;
-  min-height: 2.75rem;
-  padding: 0.42rem 0.65rem;
-  gap: 0.18rem;
+  min-height: 2.35rem;
+  padding: 0.32rem 0.5rem;
+  gap: 0.12rem;
   align-content: center;
-  border: 1px solid #c2b6c8;
+  border: 1px solid rgba(113, 96, 121, 0.42);
   border-radius: 3px;
   color: var(--ink);
-  background: #eee6ed;
+  background: rgba(245, 238, 243, 0.9);
   text-align: left;
   white-space: nowrap;
   cursor: pointer;
@@ -67,7 +67,7 @@ button:focus-visible {
 }
 
 .zone-label__title {
-  font-size: 0.63rem;
+  font-size: 0.59rem;
   font-weight: 750;
   letter-spacing: 0.12em;
   line-height: 1.2;
@@ -76,31 +76,33 @@ button:focus-visible {
 
 .zone-label__subtitle {
   color: var(--ink-soft);
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   line-height: 1.25;
 }
 
 .scene-marker {
   display: inline-flex;
-  min-height: 2.75rem;
-  padding: 0.42rem;
+  min-width: 2.2rem;
+  min-height: 2.2rem;
+  padding: 0.3rem;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  justify-content: center;
+  border: 0;
   border-radius: 999px;
   color: #fff;
-  background: rgba(103, 81, 119, 0.62);
-  box-shadow: 0 0.65rem 1.5rem rgba(58, 40, 67, 0.22);
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
   touch-action: manipulation;
   pointer-events: auto;
-  backdrop-filter: blur(10px);
-  transition: background 180ms ease, transform 180ms ease, padding 180ms ease;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease, padding 180ms ease;
 }
 
 .scene-marker:hover,
 .scene-marker.is-visible {
-  padding: 0.28rem 0.62rem 0.28rem 0.42rem;
-  background: rgba(116, 91, 134, 0.88);
+  padding: 0.25rem 0.5rem 0.25rem 0.34rem;
+  background: rgba(77, 61, 83, 0.82);
+  box-shadow: 0 0.28rem 0.75rem rgba(58, 40, 67, 0.18);
   transform: translateY(-2px);
 }
 
@@ -109,12 +111,12 @@ button:focus-visible {
 }
 
 .marker-dot {
-  width: 0.45rem;
-  height: 0.45rem;
+  width: 0.38rem;
+  height: 0.38rem;
   flex: 0 0 auto;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 0 0.38rem 0.16rem rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 0 0.11rem rgba(77, 61, 83, 0.7);
 }
 
 .marker-leader {
@@ -403,12 +405,12 @@ button:focus-visible {
   position: relative;
   width: min(13.5rem, calc(100vw - 2rem));
   padding: 1rem 1.1rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 0 1.35rem 1.35rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 0 0.75rem 0.75rem 0;
   color: #fff;
   background: rgba(99, 82, 122, 0.62);
-  box-shadow: 0 0.8rem 2rem rgba(50, 37, 60, 0.18);
-  backdrop-filter: blur(14px);
+  box-shadow: 0 0.45rem 1.25rem rgba(50, 37, 60, 0.14);
+  backdrop-filter: blur(8px);
   pointer-events: auto;
 }
 

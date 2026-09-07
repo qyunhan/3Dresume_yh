@@ -69,6 +69,8 @@ test('lets visitors hide and restore the room controls menu', async () => {
 
   await user.click(screen.getByRole('button', { name: 'Show room controls' }))
   expect(screen.getByText('Scroll to zoom')).toBeInTheDocument()
+  expect(screen.queryByRole('navigation', { name: 'Portfolio destinations' }))
+    .not.toBeInTheDocument()
 })
 
 test('supplies the active zone when selecting an item through the shared panel', async () => {
