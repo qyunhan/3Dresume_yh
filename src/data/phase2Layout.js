@@ -15,10 +15,10 @@ function itemAnchor(zoneId, id, { useTitleLabel = false, ...transforms }) {
 
 export const phase2Layout = {
   zoneLabels: {
-    projects: { position: [-4.45, 3.75, -5.05], cameraPreset: 'projects' },
-    research: { position: [4.3, 4.45, -5.02], cameraPreset: 'research' },
-    experience: { position: [0, 4.63, -5.02], cameraPreset: 'experience' },
-    school: { position: [-2.45, 6.02, -5.02], cameraPreset: 'school' },
+    projects: { position: [-4.45, 3.55, -5.05], cameraPreset: 'projects' },
+    research: { position: [4.3, 4.25, -5.02], cameraPreset: 'research' },
+    experience: { position: [0, 4.5, -5.02], cameraPreset: 'experience' },
+    school: { position: [-2.45, 6.35, -5.02], cameraPreset: 'school' },
   },
   items: {
     'financial-automation': itemAnchor('projects', 'financial-automation', {

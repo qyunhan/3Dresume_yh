@@ -64,3 +64,10 @@ test('moves the entire research destination right of the experience board with a
   expect(roomLayout.reports.position[0]).toBeCloseTo(4.4)
   expect(phase2Layout.zoneLabels.research.position[0]).toBeCloseTo(4.3)
 })
+
+test('keeps every white zone label just above its visual destination', () => {
+  expect(phase2Layout.zoneLabels.projects.position[1]).toBeCloseTo(3.55)
+  expect(phase2Layout.zoneLabels.research.position[1]).toBeCloseTo(4.25)
+  expect(phase2Layout.zoneLabels.experience.position[1]).toBeCloseTo(4.5)
+  expect(phase2Layout.zoneLabels.school.position[1]).toBeCloseTo(6.35)
+})

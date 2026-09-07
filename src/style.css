@@ -81,20 +81,7 @@ button:focus-visible {
 }
 
 .zone-label--experience {
-  min-width: 13rem;
-  min-height: 3rem;
-  padding: 0.45rem 0.8rem;
-  border-radius: 0.55rem;
-  box-shadow: 0 0.2rem 0.45rem rgba(55, 39, 62, 0.18);
-}
-
-.zone-label--experience .zone-label__title {
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
-}
-
-.zone-label--experience .zone-label__subtitle {
-  font-size: 0.75rem;
+  min-width: 7.2rem;
 }
 
 .scene-marker {
