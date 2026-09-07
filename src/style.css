@@ -657,6 +657,19 @@ button:focus-visible {
   font-size: 0.76rem !important;
 }
 
+.detail-item__link {
+  display: inline-block;
+  margin: 0.1rem 0 0.9rem;
+  color: var(--lavender-deep);
+  font-size: 0.8rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.detail-item__link:hover {
+  text-decoration: underline;
+}
+
 .detail-list {
   margin: 0.9rem 0 1rem;
 }

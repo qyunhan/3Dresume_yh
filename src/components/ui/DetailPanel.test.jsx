@@ -25,6 +25,7 @@ test('switches the detail and skills in place while keeping the zone open', asyn
   render(<Panel />)
   expect(screen.getByRole('heading', { name: 'HDB Price Prediction' })).toBeInTheDocument()
   expect(within(screen.getByRole('list', { name: 'Skills' })).getByText('Dash')).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: /open live hdb product/i })).toHaveAttribute('href', 'https://qyoon-propertymb.hf.space/')
   await userEvent.click(screen.getByRole('button', { name: 'Time-Series Weather Forecasting' }))
   expect(screen.getByRole('dialog', { name: 'Projects details' })).toBeInTheDocument()
   expect(screen.getByRole('heading', { name: 'Projects' })).toBeInTheDocument()
