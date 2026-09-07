@@ -4,9 +4,9 @@ import { Image } from '@react-three/drei'
 import { roomAsset } from '../../../data/roomAssets'
 
 const schoolObjectVisuals = {
-  'science-club': ({ hovered }) => <MascotCard name="school-science-mascot" url={roomAsset('nus-mascot.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
-  'rc4-flag': ({ hovered }) => <MascotCard name="school-rc4-orca" url={roomAsset('orca-frame.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
-  ucla: ({ hovered }) => <MascotCard name="school-ucla-mascot" url={roomAsset('ucla-bruin.png')} scale={[0.72, 0.72, 1]} hovered={hovered} />,
+  'science-club': ({ hovered }) => <FramedSchoolImage name="school-science-mascot" url={roomAsset('nus-mascot.png')} scale={[0.8, 0.8, 1]} hovered={hovered} />,
+  'rc4-flag': ({ hovered }) => <FramedSchoolImage name="school-rc4-orca" url={roomAsset('orca-frame.png')} scale={[0.8, 0.8, 1]} hovered={hovered} />,
+  ucla: ({ hovered }) => <FramedSchoolImage name="school-ucla-mascot" url={roomAsset('ucla-bruin.png')} scale={[0.8, 0.8, 1]} hovered={hovered} />,
 }
 
 const schoolObjectPositions = {
@@ -24,10 +24,14 @@ function Shelf({ size, color, ...props }) {
   )
 }
 
-function MascotCard({ name, url, scale, hovered }) {
+function FramedSchoolImage({ name, url, scale, hovered }) {
   return (
-    <group>
-      <Image name={name} url={url} scale={scale} position={[0, 0.44, 0.034]} transparent opacity={hovered ? 1 : 0.94} />
+    <group name="school-photo-frame">
+      <Shelf name="school-frame-top" size={[0.98, 0.07, 0.06]} position={[0, 0.98, 0.02]} color={palette.woodLight} />
+      <Shelf name="school-frame-bottom" size={[0.98, 0.07, 0.06]} position={[0, -0.02, 0.02]} color={palette.woodLight} />
+      <Shelf name="school-frame-left" size={[0.07, 1.07, 0.06]} position={[-0.455, 0.48, 0.02]} color={palette.woodLight} />
+      <Shelf name="school-frame-right" size={[0.07, 1.07, 0.06]} position={[0.455, 0.48, 0.02]} color={palette.woodLight} />
+      <Image name={name} url={url} scale={scale} position={[0, 0.48, 0.06]} transparent opacity={hovered ? 1 : 0.94} />
     </group>
   )
 }
