@@ -5,7 +5,7 @@ import { expect, test, vi } from 'vitest'
 import DetailPanel from './DetailPanel'
 
 test.each([
-  ['projects', 'Projects', 'Company Intelligence Tool'],
+  ['projects', 'Projects', 'HDB Price Prediction'],
   ['research', 'Research', 'Equity Research'],
   ['experience', 'Experience', 'EY'],
   ['school', 'School & Beyond', 'NUS'],

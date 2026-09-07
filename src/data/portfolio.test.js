@@ -18,7 +18,7 @@ test('resolves an object to its direct detail item within its zone', () => {
 })
 
 test.each([
-  ['projects', ['financial-automation', 'weather', 'hdb']],
+  ['projects', ['hdb', 'weather', 'financial-automation']],
   ['research', ['equity-research', 'portfolio-research']],
   ['experience', ['ey', 'shopee', 'uob']],
   ['school', ['science-club', 'ucla', 'rc4-flag']],

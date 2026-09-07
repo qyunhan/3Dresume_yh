@@ -41,7 +41,7 @@ export default function DetailPanel({ activeZone, selectedItem, onBack, onSelect
           <p className="detail-item__subtitle">{item.subtitle}</p>
           <p className="detail-item__hook"><strong>{item.hook ?? item.shortDescription}</strong></p>
           {(item.body ?? [item.longDescription]).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {item.demoUrl && <a className="detail-item__link" href={item.demoUrl} rel="noreferrer" target="_blank">Open live HDB product ↗</a>}
+          {item.demoUrl && <a className="detail-item__link" href={item.demoUrl} rel="noreferrer" target="_blank">{item.demoLabel ?? 'Open project link ↗'}</a>}
           {item.coursework && <DetailList label="Relevant coursework" items={item.coursework} />}
           {item.courses && <DetailList label="Courses" items={item.courses} />}
           {item.optionalLine && <p className="detail-item__optional">{item.optionalLine}</p>}
