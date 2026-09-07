@@ -9,7 +9,7 @@ export default function ZoneLabel({ zone, title, subtitle, position, onSelect })
     <Html center distanceFactor={9} position={position}>
       <button
         aria-label={`${title}: ${subtitle}`}
-        className="zone-label"
+        className={`zone-label zone-label--${zone}`}
         onPointerDown={(event) => event.stopPropagation()}
         onClick={(event) => {
           event.stopPropagation()
