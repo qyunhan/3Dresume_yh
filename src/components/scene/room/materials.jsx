@@ -1,5 +1,5 @@
 export const palette = {
-  lavender: '#aaa0bb',
+  lavender: '#b8aec8',
   lavenderShadow: '#8e829f',
   wood: '#9a6548',
   woodDark: '#6f4535',

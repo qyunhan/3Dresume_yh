@@ -60,7 +60,6 @@ export default function Decor() {
 
       <group position={roomLayout.mediaConsole.position}>
         <LowPolyPlant position={[-1.85, 0.55, 0.12]} scale={0.58} potColor={palette.cream} />
-        <LowPolyPlant position={[1.85, 0.55, 0.05]} scale={0.6} />
       </group>
       <group position={roomLayout.desk.position}>
         {[0, 1].map((index) => (
