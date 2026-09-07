@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { roomAsset } from '../../data/roomAssets'
 
 export default function DoorEntry({ onEnter }) {
   const [opening, setOpening] = useState(false)
@@ -37,20 +38,10 @@ export default function DoorEntry({ onEnter }) {
       </div>
 
       <div aria-hidden="true" className="entry-door-scene">
-        <div className="entry-plant">
-          <span className="plant-stem" />
-          {[1, 2, 3, 4, 5, 6].map((leaf) => <span className={`plant-leaf leaf-${leaf}`} key={leaf} />)}
-          <span className="plant-pot" />
-        </div>
+        <img alt="" className="entry-plant" src={roomAsset('welcome-plant.png')} />
         <div className="door-frame">
           <div className="door-light" />
-          <div className="entry-door">
-            <span className="door-panel panel-one" />
-            <span className="door-panel panel-two" />
-            <span className="door-panel panel-three" />
-            <span className="door-panel panel-four" />
-            <span className="door-handle" />
-          </div>
+          <img alt="" className="entry-door" src={roomAsset('welcome-door.png')} />
           <span className="door-threshold" />
         </div>
       </div>

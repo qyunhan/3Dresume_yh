@@ -24,3 +24,10 @@ test('shows the personal room welcome copy', () => {
   expect(screen.getByText("A 3D room filled with things I've built, questions I've chased, and places I've learned from.")).toBeInTheDocument()
   expect(screen.getByText('Click around!')).toBeInTheDocument()
 })
+
+test('uses the supplied plant and door artwork', () => {
+  const { container } = render(<DoorEntry onEnter={() => {}} />)
+
+  expect(container.querySelector('img.entry-plant')).toHaveAttribute('src', expect.stringContaining('welcome-plant.png'))
+  expect(container.querySelector('img.entry-door')).toHaveAttribute('src', expect.stringContaining('welcome-door.png'))
+})
