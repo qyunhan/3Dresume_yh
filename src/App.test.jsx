@@ -2,11 +2,18 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { expect, test, vi } from 'vitest'
 import App from './App'
+import { getCameraPreset } from './data/cameraPresets'
 
-const { cameraController } = vi.hoisted(() => ({ cameraController: vi.fn(() => null) }))
+const { canvas, cameraController } = vi.hoisted(() => ({
+  canvas: vi.fn(),
+  cameraController: vi.fn(() => null),
+}))
 
 vi.mock('@react-three/fiber', () => ({
-  Canvas: ({ children }) => <div data-testid="canvas">{children}</div>,
+  Canvas: ({ children, ...props }) => {
+    canvas(props)
+    return <div data-testid="canvas">{children}</div>
+  },
 }))
 vi.mock('./components/scene/Room', () => ({
   default: ({ onAboutClick, onSelectZone, onSelectItem, onCatClick }) => (
@@ -40,6 +47,16 @@ test('renders the room canvas behind its entry page', () => {
 
   expect(screen.getByTestId('canvas')).toBeInTheDocument()
   expect(screen.getByRole('button', { name: 'Enter' })).toBeInTheDocument()
+})
+
+test('initializes the Canvas camera from the authored overview preset', () => {
+  render(<App />)
+
+  const overview = getCameraPreset(null)
+  expect(canvas.mock.lastCall[0].camera).toMatchObject({
+    fov: overview.fov,
+    position: overview.position,
+  })
 })
 
 test('selects an item in its zone and restores the room camera with Back', async () => {

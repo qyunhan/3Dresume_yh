@@ -6,7 +6,7 @@ import Room from './components/scene/Room'
 import Overlay from './components/ui/Overlay'
 import DoorEntry from './components/ui/DoorEntry'
 import { getPortfolioItem } from './data/portfolio'
-import { hasCameraPreset } from './data/cameraPresets'
+import { getCameraPreset, hasCameraPreset } from './data/cameraPresets'
 import { phase2Layout } from './data/phase2Layout'
 
 export default function App() {
@@ -34,11 +34,17 @@ export default function App() {
   const cameraPreset = hasCameraPreset(itemPreset)
     ? itemPreset
     : phase2Layout.zoneLabels[selection.activeZone]?.cameraPreset ?? null
+  const overviewCamera = getCameraPreset(null)
 
   return (
     <main className="app-shell">
       <Canvas
-        camera={{ fov: 43, near: 0.1, far: 80, position: [8.8, 5.7, 10.4] }}
+        camera={{
+          fov: overviewCamera.fov,
+          near: 0.1,
+          far: 80,
+          position: overviewCamera.position,
+        }}
         data-testid="canvas"
         dpr={[1, 1.5]}
         gl={{ alpha: false, antialias: true }}
