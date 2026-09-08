@@ -5,6 +5,7 @@ import Lighting from './components/scene/Lighting'
 import Room from './components/scene/Room'
 import Overlay from './components/ui/Overlay'
 import DoorEntry from './components/ui/DoorEntry'
+import LinkedInBadge from './components/ui/LinkedInBadge'
 import { getPortfolioItem } from './data/portfolio'
 import { getCameraPreset, hasCameraPreset } from './data/cameraPresets'
 import { phase2Layout } from './data/phase2Layout'
@@ -73,6 +74,7 @@ export default function App() {
         />
       )}
       {!enteredRoom && <DoorEntry onEnter={() => setEnteredRoom(true)} />}
+      <LinkedInBadge />
     </main>
   )
 }
